@@ -31,3 +31,34 @@ describe('Testes do requisito 3', () => {
     expect(passwordInput).toHaveValue(passwordTest);
   });
 });
+
+describe('Testes do requisito 4', () => {
+  it('Verifica se o botão de login está desabilitado por padrão', () => {
+    render(<App />);
+    const submitButton = screen.getByTestId(submitTestId);
+    expect(submitButton).toBeDisabled();
+  });
+  it('Verifica se o botão de login está desabilitado quando um email inválido é digitado', () => {
+    render(<App />);
+    const emailTest = 'test@email';
+    fireEvent.change(screen.getByTestId(emailInputTestId), { target: { value: emailTest } });
+    const submitButton = screen.getByTestId(submitTestId);
+    expect(submitButton).toBeDisabled();
+  });
+  it('Verifica se o botão de login está desabilitado quando uma senha de 6 ou menos caracteres é digitada', () => {
+    render(<App />);
+    const passwordTest = '123456';
+    fireEvent.change(screen.getByTestId(passwordInputTestId), { target: { value: passwordTest } });
+    const submitButton = screen.getByTestId(submitTestId);
+    expect(submitButton).toBeDisabled();
+  });
+  it('Verifica se o botão de login está habilitado quando um email válido e uma senha de mais de 6 caracteres são digitados', () => {
+    render(<App />);
+    const emailTest = 'test@email.com';
+    const passwordTest = '123456789';
+    fireEvent.change(screen.getByTestId(emailInputTestId), { target: { value: emailTest } });
+    fireEvent.change(screen.getByTestId(passwordInputTestId), { target: { value: passwordTest } });
+    const submitButton = screen.getByTestId(submitTestId);
+    expect(submitButton).toBeEnabled();
+  });
+});

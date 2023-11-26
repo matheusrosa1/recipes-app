@@ -6,7 +6,7 @@ describe('Testes do Componente Header', () => {
   const tipoId = 'page-title';
   const searchBtn = 'search-top-btn';
   const profileBtn = 'profile-top-btn';
-  test('verifica se renderiza com os butons de profile e search e tipo', () => {
+  test('verifica se renderiza com os butons de profile e search e o titulo', () => {
     render(
       <BrowserRouter>
         <Header tipo="German" />

@@ -3,6 +3,6 @@ function DrinksId() {
     <div>
       <h1>Specific Drink</h1>
     </div>
-  )
+  );
 }
 export default DrinksId;

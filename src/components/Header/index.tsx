@@ -1,14 +1,14 @@
-import { useState } from "react";
-import { useNavigate } from "react-router-dom";
+import { useState } from 'react';
+import { useNavigate } from 'react-router-dom';
 import searchImage from '../../images/searchIcon.svg';
 import profileImage from '../../images/profileIcon.svg';
-import SearchBar from "../SearchBar";
+import SearchBar from '../SearchBar';
 
 type Titulo = {
-  titulo: string,
-}
+  tipo: string,
+};
 
-function Header({ titulo }: Titulo) {
+function Header({ tipo }: Titulo) {
   const [show, setShow] = useState('hide');
   const navigate = useNavigate();
   const handleNavigate = () => {
@@ -16,22 +16,22 @@ function Header({ titulo }: Titulo) {
   };
   const searchShow = () => {
     if (show === 'show') {
-      setShow('hide')
+      setShow('hide');
     } else {
       setShow('show');
     }
-  }
-  if (titulo === 'Profile' || titulo === 'Done Recipes' || titulo === 'Favorite Recipes') {
+  };
+  if (tipo === 'Profile' || tipo === 'Done Recipes' || tipo === 'Favorite Recipes') {
     return (
       <header>
         <button onClick={ handleNavigate }>
           <img
-          src={ profileImage }
-          alt="profile"
-          data-testid="profile-top-btn"
+            src={ profileImage }
+            alt="profile"
+            data-testid="profile-top-btn"
           />
         </button>
-        <p data-testid="page-title">{titulo}</p>
+        <p data-testid="page-title">{ tipo }</p>
       </header>
     );
   }
@@ -39,23 +39,23 @@ function Header({ titulo }: Titulo) {
     <header>
       <button onClick={ handleNavigate }>
         <img
-        src={ profileImage }
-        alt="profile"
-        data-testid="profile-top-btn"
+          src={ profileImage }
+          alt="profile"
+          data-testid="profile-top-btn"
         />
       </button>
       {show === 'show' && (
         <SearchBar />
-      )};
+      )}
       <button onClick={ searchShow }>
         <img
-        src={ searchImage }
-        alt="search"
-        data-testid="search-top-btn"
+          src={ searchImage }
+          alt="search"
+          data-testid="search-top-btn"
         />
       </button>
-      <p data-testid="page-title">{titulo}</p>
+      <p data-testid="page-title">{ tipo }</p>
     </header>
-  )
+  );
 }
 export default Header;

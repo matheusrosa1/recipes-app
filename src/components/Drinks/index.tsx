@@ -1,11 +1,11 @@
-import Header from "../Header";
+import Header from '../Header';
 
 function Drinks() {
   return (
     <div>
-      <Header titulo="Drinks" />
+      <Header tipo="Drinks" />
       <h1>Drinks</h1>
     </div>
-  )
+  );
 }
 export default Drinks;

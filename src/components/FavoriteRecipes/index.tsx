@@ -1,11 +1,11 @@
-import Header from "../Header";
+import Header from '../Header';
 
 function FavoriteRecipes() {
   return (
     <div>
-      <Header titulo="Favorite Recipes" />
+      <Header tipo="Favorite Recipes" />
       <h1>Meals</h1>
     </div>
-  )
+  );
 }
 export default FavoriteRecipes;

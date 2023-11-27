@@ -9,3 +9,11 @@ export const getDrinksAPI = async () => {
   const data = await response.json();
   return data.drinks;
 };
+
+export const getRecipes = (location: any) => {
+  if (location.pathname === '/meals') {
+    return getMealsAPI();
+  } else {
+    return getDrinksAPI();  
+  }
+}

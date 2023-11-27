@@ -4,25 +4,15 @@ import { getDrinksAPI, getMealsAPI } from '../../services/fetchAPI';
 
 function Recipes() {
   const location = useLocation();
-  console.log(location.pathname);
-  const [meals, setMeals] = useState([]);
-  const [drinks, setDrinks] = useState([]);
+  const [recipes, setRecipes] = useState([]);
 
   useEffect(() => {
     const getData = async () => {
       try {
-        if (location.pathname === '/meals') {
-          const mealsData = await getMealsAPI();
-          const mealsDataSplice = mealsData.splice(0, 12);
-          const { id } = mealsDataSplice.idMeal;
-          setMeals(mealsDataSplice);
-          console.log(meals);
-        } else if (location.pathname === '/drinks') {
-          const drinksData = await getDrinksAPI();
-          const drinksDataSplice = drinksData.splice(0, 12);
-          const { id } = drinksDataSplice.idDrink;
-          setDrinks(drinksDataSplice);
-        }
+        const recipesData = location.pathname === '/meals'
+          ? await getMealsAPI() : await getDrinksAPI();
+        const recipesDataSplice = recipesData.splice(0, 12);
+        setRecipes(recipesDataSplice);
       } catch (error) {
         console.log('Erro ao buscar os dados na API', error);
       }
@@ -30,24 +20,29 @@ function Recipes() {
     getData();
   }, []);
 
-  const { id }: string | undefined = meals.idMeal;
+  const id = location.pathname === '/meals' ? 'idMeal' : 'idDrink';
+  const img = location.pathname === '/meals' ? 'strMealThumb' : 'strDrinkThumb';
+  const name = location.pathname === '/meals' ? 'strMeal' : 'strDrink';
 
   return (
     <div>
-      {meals && meals.map((meal, index) => (
+      {recipes && recipes.map((meal, index) => (
+        
         <div
-          key={ id }
+          key={ meal[id] }
           data-testid={ `${index}-recipe-card` }
         >
           <img
-            src={ meal.strMealThumb }
-            alt={ meal.name }
+            src={ meal[img] }
+            alt={ meal[name] }
             data-testid={ `${index}-card-img` }
+            width={'100px'}
           />
-          <p>{meal.name}</p>
+          <p
+            data-testid={ `${index}-card-name` }
+          >{meal[name]}</p>
         </div>
       ))}
-      {/*       {data} */}
     </div>
   );
 }

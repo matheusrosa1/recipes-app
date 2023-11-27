@@ -20,6 +20,10 @@ function SearchBar() {
 
   const handleClick = (event: any) => {
     event.preventDefault();
+    if (!apiEndpoints[path]) {
+      console.error(`Invalid path: ${path}`);
+      return;
+    }
     const endpoint = apiEndpoints[path][inputValue];
     if (inputValue === 'firstLetterSearch' && searchInput.length > 1) {
       alert('Your search must have only 1 (one) character');

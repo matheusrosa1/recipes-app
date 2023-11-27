@@ -1,13 +1,53 @@
+import { useState } from 'react';
+
 function SearchBar() {
+  const [searchInput, setSearchInput] = useState('');
+  const [inputValue, setInputValue] = useState('ingredientSearch');
+  const path = window.location.pathname;
+
+  const apiEndpoints: any = {
+    '/meals': {
+      ingredientSearch: 'https://www.themealdb.com/api/json/v1/1/filter.php?i=',
+      nameSearch: 'https://www.themealdb.com/api/json/v1/1/search.php?s=',
+      firstLetterSearch: 'https://www.themealdb.com/api/json/v1/1/search.php?f=',
+    },
+    '/drinks': {
+      ingredientSearch: 'https://www.thecocktaildb.com/api/json/v1/1/filter.php?i=',
+      nameSearch: 'https://www.thecocktaildb.com/api/json/v1/1/search.php?s=',
+      firstLetterSearch: 'https://www.thecocktaildb.com/api/json/v1/1/search.php?f=',
+    },
+  };
+
+  const handleClick = (event: any) => {
+    event.preventDefault();
+    const endpoint = apiEndpoints[path][inputValue];
+    if (inputValue === 'firstLetterSearch' && searchInput.length > 1) {
+      alert('Your search must have only 1 (one) character');
+      return;
+    }
+
+    fetch(`${endpoint}${searchInput}`)
+      .then((response) => response.json())
+      .then((data) => console.log(data));
+  };
+
   return (
     <form>
-      <input type="text" data-testid="search-input" />
+      <input
+        type="text"
+        data-testid="search-input"
+        placeholder="Search recipe"
+        value={ searchInput }
+        onChange={ ({ target }) => setSearchInput(target.value) }
+      />
       <input
         data-testid="ingredient-search-radio"
         type="radio"
         id="ingredientSearchOption"
         name="searchOption"
         value="ingredientSearch"
+        checked={ inputValue === 'ingredientSearch' }
+        onChange={ ({ target }) => setInputValue(target.value) }
       />
       <label htmlFor="ingredientSearchOption">Ingredient</label>
 
@@ -17,6 +57,7 @@ function SearchBar() {
         id="nameSearchOption"
         name="searchOption"
         value="nameSearch"
+        onChange={ ({ target }) => setInputValue(target.value) }
       />
       <label htmlFor="nameSearchOption">Name</label>
 
@@ -26,12 +67,14 @@ function SearchBar() {
         id="firstLetterSearchOption"
         name="searchOption"
         value="firstLetterSearch"
+        onChange={ ({ target }) => setInputValue(target.value) }
       />
       <label htmlFor="firstLetterSearchOption">First letter</label>
 
       <button
         type="submit"
         data-testid="exec-search-btn"
+        onClick={ handleClick }
       >
         Search
 

@@ -28,9 +28,19 @@ function SearchBar() {
 
     fetch(`${endpoint}${searchInput}`)
       .then((response) => response.json())
-      .then((data) => console.log(data));
+      .then((data) => {
+        console.log(data);
+        if (data.meals && data.meals.length === 1) {
+          window.location.href = `/meals/${data.meals[0].idMeal}`;
+        }
+        if (data.drinks && data.drinks.length === 1) {
+          window.location.href = `/drinks/${data.drinks[0].idDrink}`;
+        }
+        if (data.meals === null || data.drinks === null) {
+          alert("Sorry, we haven't found any recipes for these filters");
+        }
+      });
   };
-
   return (
     <form>
       <input

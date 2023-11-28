@@ -2,19 +2,16 @@ import { useEffect, useState } from 'react';
 import { useLocation, useParams } from 'react-router-dom';
 import { getRecipesById } from '../../services/fetchAPI';
 
-function MealsId() {
-  const { id } = useParams<{ id: string }>();
+function RecipeDetails() {
+  const { id } = useParams();
   const location = useLocation();
   const [recipe, setRecipe] = useState([]);
-  /*   const [, category, id] = location.pathname.split('/'); */
 
-  /*   const getRecipes = async() = {
-    getReciesById(location.pathname, id as string)
-  } */
   useEffect(() => {
     const getRecipes = async () => {
       try {
         const recipeById = await getRecipesById(location.pathname, id as string);
+        console.log(recipeById);
         setRecipe(recipeById);
       } catch (error) {
         console.log(error);
@@ -23,16 +20,19 @@ function MealsId() {
     getRecipes();
   }, [location.pathname, id]);
 
-  /*   console.log(location.pathname); */
+  const recipeId = location.pathname === '/meals' ? 'idMeal' : 'idDrink';
+  const img = location.pathname === '/meals' ? 'strMealThumb' : 'strDrinkThumb';
+  const name = location.pathname === '/meals' ? 'strMeal' : 'strDrink';
+
   return (
     <div>
-      <h1>Specific Meal</h1>
-      <p>{id}</p>
       {/*       {recipe.map((recipeDetail) => (
-        <li
-      ))}
- */}
+        <li key={recipeDetail.recipeId}>
+
+        </li>
+      ))} */}
     </div>
   );
 }
-export default MealsId;
+
+export default RecipeDetails;

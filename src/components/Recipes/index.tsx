@@ -12,33 +12,33 @@ function Recipes() {
 
   const getData = async () => {
     try {
-      const recipesData = await fetchRecipes(location.pathname);                                                  
+      const recipesData = await fetchRecipes(location.pathname);
       const recipesDataSplice = [...recipesData].splice(0, 12);
       setRecipes(recipesDataSplice as RecipeType[]);
     } catch (error) {
-      console.log('Erro ao buscar os dados na API', error);
+      console.log(error);
     }
   };
-  
+
   const getCategories = async () => {
     try {
       const categoriesData = await fetchCategoties(location.pathname);
       const categoriesDataSplice = [...categoriesData].splice(0, 5);
       setCategories(categoriesDataSplice);
     } catch (error) {
-      console.log('Erro ao buscar os dados na API', error);
+      console.log(error);
     }
   };
-  
+
   const getRecipesByCategory = async (category: string) => {
     try {
       const recipesData = await fetchByCategory(location.pathname, category);
       const recipesDataSplice = [...recipesData].splice(0, 12);
       setRecipes(recipesDataSplice as RecipeType[]);
     } catch (error) {
-      console.log('Erro ao buscar os dados na API', error);
+      console.log(error);
     }
-  }
+  };
 
   useEffect(() => {
     getData();
@@ -86,6 +86,13 @@ function Recipes() {
             key={ recipe[id] }
             data-testid={ `${index}-recipe-card` }
             onClick={ () => navigate(`${location.pathname}/${recipe[id]}`) }
+            onKeyDown={ (e) => {
+              if (e.key === 'Enter' || e.key === ' ') {
+                navigate(`${location.pathname}/${recipe[id]}`);
+              }
+            } }
+            role="button"
+            tabIndex={ 0 }
           >
             <img
               src={ recipe[img] }

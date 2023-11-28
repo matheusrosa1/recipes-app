@@ -1,4 +1,4 @@
-import { useParams } from "react-router-dom";
+import { useParams } from 'react-router-dom';
 
 function MealsId() {
   const { id } = useParams<{ id: string }>();

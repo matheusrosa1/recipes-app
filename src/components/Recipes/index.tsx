@@ -1,11 +1,6 @@
 import { useEffect, useState } from 'react';
 import { useLocation, useNavigate } from 'react-router-dom';
-import { 
-  getCategoties, 
-  getDrinksAPI, 
-  getMealsAPI, 
-  getByCategory 
-} from '../../services/fetchAPI';
+import { fetchCategoties, fetchByCategory, fetchRecipes } from '../../services/fetchAPI';
 import { CategoriesType, RecipeType } from '../types';
 
 function Recipes() {
@@ -17,24 +12,33 @@ function Recipes() {
 
   const getData = async () => {
     try {
-      const recipesData = location.pathname === '/meals'
-        ? await getMealsAPI() : await getDrinksAPI();
+      const recipesData = await fetchRecipes(location.pathname);                                                  
       const recipesDataSplice = [...recipesData].splice(0, 12);
       setRecipes(recipesDataSplice as RecipeType[]);
     } catch (error) {
       console.log('Erro ao buscar os dados na API', error);
     }
   };
-
+  
   const getCategories = async () => {
     try {
-      const categoriesData = await getCategoties(location.pathname);
+      const categoriesData = await fetchCategoties(location.pathname);
       const categoriesDataSplice = [...categoriesData].splice(0, 5);
       setCategories(categoriesDataSplice);
     } catch (error) {
       console.log('Erro ao buscar os dados na API', error);
     }
   };
+  
+  const getRecipesByCategory = async (category: string) => {
+    try {
+      const recipesData = await fetchByCategory(location.pathname, category);
+      const recipesDataSplice = [...recipesData].splice(0, 12);
+      setRecipes(recipesDataSplice as RecipeType[]);
+    } catch (error) {
+      console.log('Erro ao buscar os dados na API', error);
+    }
+  }
 
   useEffect(() => {
     getData();
@@ -47,9 +51,7 @@ function Recipes() {
       getData();
       return;
     }
-    const recipesData = await getByCategory(location.pathname, category);
-    const recipesDataSplice = [...recipesData].splice(0, 12);
-    setRecipes(recipesDataSplice as RecipeType[]);
+    getRecipesByCategory(category);
   };
 
   const id = location.pathname === '/meals' ? 'idMeal' : 'idDrink';

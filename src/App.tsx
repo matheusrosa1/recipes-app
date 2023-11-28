@@ -21,10 +21,10 @@ function App() {
       <Route path="/" element={ <Login /> } />
       <Route path="/meals" element={ <Meals /> } />
       <Route path="/drinks" element={ <Drinks /> } />
-      <Route path="/meals:id" element={ <MealsId /> } />
-      <Route path="/drinks:id" element={ <DrinksId /> } />
-      <Route path="/meals:id/in-progress" element={ <MealsInProgress /> } />
-      <Route path="/drinks:id/in-progress" element={ <DrinksInProgress /> } />
+      <Route path="/meals/:id" element={ <MealsId /> } />
+      <Route path="/drinks/:id" element={ <DrinksId /> } />
+      <Route path="/meals/:id/in-progress" element={ <MealsInProgress /> } />
+      <Route path="/drinks/:id/in-progress" element={ <DrinksInProgress /> } />
       <Route path="/profile" element={ <Profile /> } />
       <Route path="/done-recipes" element={ <DoneRecipes /> } />
       <Route path="/favorite-recipes" element={ <FavoriteRecipes /> } />

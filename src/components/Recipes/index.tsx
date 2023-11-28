@@ -1,12 +1,19 @@
 import { useEffect, useState } from 'react';
-import { useLocation } from 'react-router-dom';
-import { getCategoties, getDrinksAPI, getMealsAPI } from '../../services/fetchAPI';
+import { useLocation, useNavigate } from 'react-router-dom';
+import { 
+  getCategoties, 
+  getDrinksAPI, 
+  getMealsAPI, 
+  getByCategory 
+} from '../../services/fetchAPI';
 import { CategoriesType, RecipeType } from '../types';
 
 function Recipes() {
+  const navigate = useNavigate();
   const location = useLocation();
   const [recipes, setRecipes] = useState<RecipeType[]>([]);
   const [categories, setCategories] = useState<CategoriesType[]>([]);
+  const [toggle, setToggle] = useState<boolean>(false);
 
   const getData = async () => {
     try {
@@ -27,12 +34,23 @@ function Recipes() {
     } catch (error) {
       console.log('Erro ao buscar os dados na API', error);
     }
-  }
-  
+  };
+
   useEffect(() => {
     getData();
     getCategories();
-  }, []);  
+  }, []);
+
+  const handleFilterByCategory = async (category: string) => {
+    setToggle(!toggle);
+    if (toggle) {
+      getData();
+      return;
+    }
+    const recipesData = await getByCategory(location.pathname, category);
+    const recipesDataSplice = [...recipesData].splice(0, 12);
+    setRecipes(recipesDataSplice as RecipeType[]);
+  };
 
   const id = location.pathname === '/meals' ? 'idMeal' : 'idDrink';
   const img = location.pathname === '/meals' ? 'strMealThumb' : 'strDrinkThumb';
@@ -40,36 +58,48 @@ function Recipes() {
 
   return (
     <>
-    <div>
-      {categories && categories.map(({strCategory}: CategoriesType, index) => (
+      <div>
+        {categories && categories.map(({ strCategory }: CategoriesType, index) => (
+          <button
+            key={ index }
+            data-testid={ `${strCategory}-category-filter` }
+            onClick={ () => handleFilterByCategory(strCategory) }
+          >
+            {strCategory}
+          </button>
+        ))}
+      </div>
+      <div>
         <button
-          key={ index }
-          data-testid={ `${strCategory}-category-filter` }
+          data-testid="All-category-filter"
+          onClick={ () => getData() }
         >
-          {strCategory}
+          All
         </button>
-      ))}
-    </div>
-    <div>
-      {recipes && recipes.map((recipe: RecipeType, index) => (
-        
-        <div
-          key={ recipe[id] }
-          data-testid={ `${index}-recipe-card` }
-        >
-          <img
-            src={ recipe[img] }
-            alt={ recipe[name] }
-            data-testid={ `${index}-card-img` }
-            width={'100px'}
-          />
-          <p
-            data-testid={ `${index}-card-name` }
-          >{recipe[name]}</p>
-        </div>
-      ))}
-    </div>
-  </>
+      </div>
+      <div>
+        {recipes && recipes.map((recipe: RecipeType, index) => (
+
+          <div
+            key={ recipe[id] }
+            data-testid={ `${index}-recipe-card` }
+            onClick={ () => navigate(`${location.pathname}/${recipe[id]}`) }
+          >
+            <img
+              src={ recipe[img] }
+              alt={ recipe[name] }
+              data-testid={ `${index}-card-img` }
+              width="100px"
+            />
+            <p
+              data-testid={ `${index}-card-name` }
+            >
+              {recipe[name]}
+            </p>
+          </div>
+        ))}
+      </div>
+    </>
   );
 }
 

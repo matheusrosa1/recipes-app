@@ -21,4 +21,4 @@ export type MealType = {
 
 export type CategoriesType = {
   strCategory: string;
-}
+};

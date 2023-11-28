@@ -12,9 +12,11 @@ import DrinksInProgress from './components/DrinksInProgress';
 import Profile from './components/Profile';
 import DoneRecipes from './components/DoneRecipes';
 import FavoriteRecipes from './components/FavoriteRecipes';
+import RecipesProvider from './context/RecipesProviders';
 
 function App() {
   return (
+  /*     <RecipesProvider> */
     <Routes>
       <Route path="/" element={ <Login /> } />
       <Route path="/meals" element={ <Meals /> } />
@@ -27,6 +29,7 @@ function App() {
       <Route path="/done-recipes" element={ <DoneRecipes /> } />
       <Route path="/favorite-recipes" element={ <FavoriteRecipes /> } />
     </Routes>
+  /*     </RecipesProvider> */
   );
 }
 

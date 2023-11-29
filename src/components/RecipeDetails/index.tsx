@@ -106,19 +106,22 @@ function RecipeDetails() {
             />
           )}
           <h3>Recomendadas:</h3>
-          <div>
+          <div style={ { display: 'flex', overflowX: 'auto', width: '400px' } }>
             {recommendations.slice(0, 6).map((recommendation: any, index2) => (
-              <div key={ recommendation[recipeId] }>
+              <div
+                key={ recommendation[recipeId] }
+                style={ { flex: '0 0 auto', width: '200px', marginRight: '10px' } }
+              >
                 <img
-                  data-testid={ `${index2}-recomendation-card` }
-                  src={ recommendation[img] }
-                  alt={ recommendation[name] }
+                  data-testid={ `${index2}-recommendation-card` }
+                  src={ recommendation.strDrinkThumb || recommendation.strMealThumb }
+                  alt={ recommendation.strDrink || recommendation.strMeal }
                   width="150px"
                 />
                 <p
-                  data-testid={ `${index2}-recomendation-title` }
+                  data-testid={ `${index2}-recommendation-title` }
                 >
-                  {recommendation[name]}
+                  {recommendation.strDrink || recommendation.strMeal}
                 </p>
               </div>
             ))}

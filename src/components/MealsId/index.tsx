@@ -15,7 +15,6 @@ function MealsId() {
     const getRecipes = async () => {
       try {
         const recipeById = await getRecipesById(location.pathname, id as string);
-        setRecipe(recipeById);
       } catch (error) {
         console.log(error);
       }

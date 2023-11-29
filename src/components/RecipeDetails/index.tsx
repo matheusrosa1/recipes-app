@@ -36,7 +36,7 @@ function RecipeDetails() {
 
   return (
     <div>
-      {recipe.map((recipeDetail: RecipeType, index) => (
+      {recipe.map((recipeDetail: any, index) => (
         <div key={ recipeDetail[recipeId] }>
           <img
             data-testid="recipe-photo"
@@ -50,11 +50,15 @@ function RecipeDetails() {
             {recipeDetail[name]}
 
           </h2>
-          <h4
-            data-testid="recipe-category"
-          >
-            {recipeDetail.strCategory}
-          </h4>
+          {location.pathname === `/meals/${id}` ? (
+            <p data-testid="recipe-category">
+              {recipeDetail.strCategory}
+            </p>
+          ) : (
+            <p data-testid="recipe-category">
+              {recipeDetail.strAlcoholic}
+            </p>
+          ) }
           <p
             data-testid="instructions"
           >
@@ -67,6 +71,18 @@ function RecipeDetails() {
           >
             {renderIngredients(recipeDetail)}
           </ul>
+          {location.pathname === `/meals/${id}` && (
+            <iframe
+              data-testid="video"
+              width="560"
+              height="315"
+              src={ recipeDetail.strYoutube }
+              title="YouTube video player"
+              allow="accelerometer;
+              autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
+              allowFullScreen
+            />
+          )}
         </div>
       ))}
     </div>

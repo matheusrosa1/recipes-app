@@ -25,13 +25,19 @@ function RecipeDetails() {
   const img = location.pathname === `/meals/${id}` ? 'strMealThumb' : 'strDrinkThumb';
   const name = location.pathname === `/meals/${id}` ? 'strMeal' : 'strDrink';
 
-  const renderIngredients = (recipeDetail: RecipeType) => {
-    return Object.entries(recipeDetail)
-      .filter(([key, value]) => key
-        .includes('strIngredient') && value !== null && value !== '')
-      .map(([key, value]) => (
-        <li key={ key }>{value}</li>
-      ));
+  const renderIngredientsAndMeasures = (recipeDetail: RecipeType) => {
+    const ingredients = Object.keys(recipeDetail)
+      .filter((key) => key.includes('strIngredient') && recipeDetail[key]);
+    const measures = Object.keys(recipeDetail)
+      .filter((key) => key.includes('strMeasure') && recipeDetail[key]);
+    return ingredients.map((ingredient, index) => (
+      <li
+        key={ index }
+        data-testid={ `${index}-ingredient-name-and-measure` }
+      >
+        {`${recipeDetail[ingredient]} - ${recipeDetail[measures[index]]}`}
+      </li>
+    ));
   };
 
   return (
@@ -69,7 +75,7 @@ function RecipeDetails() {
           <ul
             data-testid={ `${index}-ingredient-name-and-measure` }
           >
-            {renderIngredients(recipeDetail)}
+            {renderIngredientsAndMeasures(recipeDetail)}
           </ul>
           {location.pathname === `/meals/${id}` && (
             <iframe

@@ -107,16 +107,16 @@ function RecipeDetails() {
           )}
           <h3>Recomendadas:</h3>
           <div>
-            {recommendations.slice(0, 6).map((recommendation: any, index) => (
+            {recommendations.slice(0, 6).map((recommendation: any, index2) => (
               <div key={ recommendation[recipeId] }>
                 <img
-                  data-testid={ `${index}-recomendation-card` }
+                  data-testid={ `${index2}-recomendation-card` }
                   src={ recommendation[img] }
                   alt={ recommendation[name] }
                   width="150px"
                 />
                 <p
-                  data-testid={ `${index}-recomendation-title` }
+                  data-testid={ `${index2}-recomendation-title` }
                 >
                   {recommendation[name]}
                 </p>

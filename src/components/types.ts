@@ -5,6 +5,7 @@ export type RecipeType = {
   strMealThumb?: string;
   strDrink?: string;
   strMeal?: string;
+  [key: string]: string | undefined;
 };
 
 export type DrinkType = {

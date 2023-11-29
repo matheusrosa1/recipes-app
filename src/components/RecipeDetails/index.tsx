@@ -1,12 +1,28 @@
 import { useEffect, useState } from 'react';
 import { useLocation, useParams } from 'react-router-dom';
-import { getRecipesById } from '../../services/fetchAPI';
+import { fetchRecipes, getRecipesById } from '../../services/fetchAPI';
 import { RecipeType } from '../types';
 
 function RecipeDetails() {
   const { id } = useParams();
   const location = useLocation();
   const [recipe, setRecipe] = useState([]);
+  const [recommendations, setRecommendations] = useState([]);
+
+  useEffect(() => {
+    const fetchRecommendations = async () => {
+      try {
+        // Se a receita atual é uma refeição, busque bebidas. Caso contrário, busque refeições.
+        const type = location.pathname === `/meals/${id}`
+          ? '/drinks' : '/meals';
+        const newRecommendations = await fetchRecipes(type);
+        setRecommendations(newRecommendations);
+      } catch (error) {
+        console.log(error);
+      }
+    };
+    fetchRecommendations();
+  }, [location.pathname, id]);
 
   useEffect(() => {
     const getRecipes = async () => {
@@ -89,6 +105,24 @@ function RecipeDetails() {
               allowFullScreen
             />
           )}
+          <h3>Recomendadas:</h3>
+          <div>
+            {recommendations.slice(0, 6).map((recommendation: any, index) => (
+              <div key={ recommendation[recipeId] }>
+                <img
+                  data-testid={ `${index}-recomendation-card` }
+                  src={ recommendation[img] }
+                  alt={ recommendation[name] }
+                  width="150px"
+                />
+                <p
+                  data-testid={ `${index}-recomendation-title` }
+                >
+                  {recommendation[name]}
+                </p>
+              </div>
+            ))}
+          </div>
         </div>
       ))}
     </div>

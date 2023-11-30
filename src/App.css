@@ -1,13 +1,74 @@
+* {
+  background-color: rgb(56, 56, 56);
+  color: aliceblue;
+}
+
 .meals {
-  align-items: center;
-  background: #0fa36b;
-  color: #464646;
+  background-color: rgb(56, 56, 56);
+  color: aliceblue;
+}
+
+.title {
+  font-family: Montserrat , sans-serif;
+  font-size: 3.5em;
+  font-weight: 900;
+  text-align: center;  
+}
+
+.btn-category {
+  background-color: chocolate;
+  width: 220px;
+  border-radius: 5px;
+  color: aliceblue;
+  cursor: pointer;
+  font-family: Montserrat , sans-serif;
+  font-size: 1.5em;
+  margin: 5px;
+  padding: 5px;
+  text-align: center;
+  text-decoration: none;
+  transition: background-color 0.3s;
+}
+
+.btn-category:hover {
+  background-color: darkorange;
+}
+
+.carrossel-container {
   display: flex;
-  flex-direction: column;
-  font-family: sans-serif;
-  height: 100vh;
+  flex-direction: row;
+  overflow-x: auto;
+  max-width: 320px;
+}
+
+.carrossel-container img {
+  margin: 5px;
+}
+
+.btn-start-recipe {
+  position: fixed;
+  bottom: 0;
+  right: 0;
+}
+
+.recipes-container {
+  margin: auto;
+  display: flex;
+  justify-content: space-around;
+  align-items: center;
+  flex-direction: row;
+  flex-wrap: wrap;
   justify-content: center;
-  width: 100%;
+  max-width: 80%;
+}
+
+
+.recipes-item {
+  margin: 20px;
+  background-color: rgb(99, 99, 99);
+  max-width: 250px;
+  padding: 10px;
+  text-align: center;
 }
 
 .rocksGlass {

@@ -2,6 +2,7 @@ import { useEffect, useState } from 'react';
 import { useLocation, useNavigate, useParams } from 'react-router-dom';
 import { fetchRecipes, getRecipesById } from '../../services/fetchAPI';
 import { RecipeType } from '../types';
+import { Buttom } from '../Forms/Button';
 
 // const MOCK_RECIPE =
 //   [{
@@ -77,16 +78,16 @@ function RecipeDetails() {
   useEffect(() => {
     getRecommendations();
     getRecipes();
-    
+
     const inProgressRecipes = JSON.parse(localStorage.getItem('inProgressRecipes')!);
     // const validId = Object.keys(inProgressRecipes.meals).includes(id as string);
 
     if (inProgressRecipes && Object.keys(
-      inProgressRecipes[mealOrDrink]).includes(id as string)
+      inProgressRecipes[mealOrDrink],
+    ).includes(id as string)
     ) {
       setBtnTitle('Continue Recipe');
     }
-
   }, [location.pathname, id]);
 
   const renderIngredientsAndMeasures = (recipeDetail: RecipeType) => {
@@ -153,7 +154,7 @@ function RecipeDetails() {
               src={ recipeDetail.strYoutube }
               title="YouTube video player"
               allow="accelerometer;
-              autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
+              clipboard-write; encrypted-media; gyroscope; picture-in-picture"
               allowFullScreen
             />
           )}
@@ -188,6 +189,16 @@ function RecipeDetails() {
       >
         {btnTitle}
       </button>
+      <Buttom
+        dataTestId="share-btn"
+        buttonLabel="Compartilhar"
+        onClick={ () => console.log('testando botão compartilhar') }
+      />
+      <Buttom
+        dataTestId="favorite-btn"
+        buttonLabel="Favoritar"
+        onClick={ () => console.log('testando botão de favoritar') }
+      />
     </div>
   );
 }

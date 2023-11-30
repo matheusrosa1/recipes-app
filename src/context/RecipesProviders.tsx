@@ -1,5 +1,5 @@
 import { useState } from 'react';
-import { RecipeType } from '../components/types';
+import { FavoriteRecipeType, RecipeType } from '../components/types';
 import RecipesContext from './RecipesContext';
 
 type RecipesProviderProps = {
@@ -9,9 +9,13 @@ type RecipesProviderProps = {
 function RecipesProvider({ children }: RecipesProviderProps) {
   const [favoritesRecipes, setFavoritesRecipes] = useState<RecipeType[]>([]);
 
+  const addFavoriteRecipe = (recipe: FavoriteRecipeType) => {
+    setFavoritesRecipes([...favoritesRecipes, recipe]);
+  };
+
   const value = {
     favoritesRecipes,
-    setFavoritesRecipes,
+    addFavoriteRecipe,
   };
 
   return (

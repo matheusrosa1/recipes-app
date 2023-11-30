@@ -1,9 +1,9 @@
 import { createContext } from 'react';
-import { RecipeType } from '../components/types';
+import { FavoriteRecipeType, RecipeType } from '../components/types';
 
 export type RecipesContextType = {
   favoritesRecipes: RecipeType[],
-  setFavoritesRecipes: (data: RecipeType[]) => void,
+  addFavoriteRecipe: (recipe: FavoriteRecipeType) => void,
 };
 
 const RecipesContext = createContext({} as RecipesContextType);

@@ -75,15 +75,18 @@ function RecipeDetails() {
   };
 
   useEffect(() => {
+    getRecommendations();
+    getRecipes();
+    
     const inProgressRecipes = JSON.parse(localStorage.getItem('inProgressRecipes')!);
-    const validId = Object.keys(inProgressRecipes[mealOrDrink]).includes(id as string);
+    // const validId = Object.keys(inProgressRecipes.meals).includes(id as string);
 
-    if (inProgressRecipes && validId) {
+    if (inProgressRecipes && Object.keys(
+      inProgressRecipes[mealOrDrink]).includes(id as string)
+    ) {
       setBtnTitle('Continue Recipe');
     }
 
-    getRecommendations();
-    getRecipes();
   }, [location.pathname, id]);
 
   const renderIngredientsAndMeasures = (recipeDetail: RecipeType) => {

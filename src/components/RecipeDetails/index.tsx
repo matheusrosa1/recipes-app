@@ -1,7 +1,7 @@
 import { useContext, useEffect, useState } from 'react';
 import { useLocation, useNavigate, useParams } from 'react-router-dom';
 import { fetchRecipes, getRecipesById } from '../../services/fetchAPI';
-import { ExtendedRecipeType, RecipeType } from '../types';
+import { FavoriteRecipeType, RecipeType } from '../types';
 import { Buttom } from '../Forms/Button';
 import RecipesContext from '../../context/RecipesContext';
 
@@ -13,7 +13,7 @@ function RecipeDetails() {
   const [recommendations, setRecommendations] = useState([]);
   const [btnTitle, setBtnTitle] = useState('Start Recipe');
   const [copyMessage, setCopyMessage] = useState(false);
-  const { favoritesRecipes, setFavoritesRecipes } = useContext(RecipesContext);
+  const { favoritesRecipes, addFavoriteRecipe } = useContext(RecipesContext);
 
   const getRecipes = async () => {
     try {
@@ -86,7 +86,7 @@ function RecipeDetails() {
   };
 
   const handleClickFavorite = () => {
-    const favoriteRecipeObject: ExtendedRecipeType = {
+    const favoriteRecipeObject: FavoriteRecipeType = {
       id,
       type,
       nationality: recipe[0][nationality] === undefined ? '' : recipe[0][nationality],
@@ -96,7 +96,7 @@ function RecipeDetails() {
       name: recipe[0][name],
       image: recipe[0][img],
     };
-    setFavoritesRecipes([...favoritesRecipes, favoriteRecipeObject]);
+    addFavoriteRecipe(favoriteRecipeObject);
   };
 
   useEffect(() => {
@@ -105,7 +105,7 @@ function RecipeDetails() {
 
   return (
     <div>
-      {recipe.map((recipeDetail: any, index) => (
+      {recipe.map((recipeDetail: RecipeType, index) => (
         <div key={ recipeDetail[recipeId] }>
           <img
             data-testid="recipe-photo"

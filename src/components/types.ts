@@ -25,7 +25,7 @@ export type CategoriesType = {
   strCategory: string;
 };
 
-export type ExtendedRecipeType = {
+export type FavoriteRecipeType = {
   id: string | undefined,
   type: string | undefined,
   nationality: string | undefined;

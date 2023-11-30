@@ -6,6 +6,7 @@ export type RecipeType = {
   strDrink?: string;
   strMeal?: string;
   [key: string]: string | undefined;
+  strCategory?: string,
 };
 
 export type DrinkType = {
@@ -22,4 +23,14 @@ export type MealType = {
 
 export type CategoriesType = {
   strCategory: string;
+};
+
+export type ExtendedRecipeType = {
+  id: string | undefined,
+  type: string | undefined,
+  nationality: string | undefined;
+  category: string | undefined,
+  alcoholicOrNot: string | undefined;
+  name: string | undefined,
+  image: string | undefined,
 };

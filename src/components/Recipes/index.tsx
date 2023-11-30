@@ -2,6 +2,7 @@ import { useEffect, useState } from 'react';
 import { useLocation, useNavigate } from 'react-router-dom';
 import { fetchCategoties, fetchByCategory, fetchRecipes } from '../../services/fetchAPI';
 import { CategoriesType, RecipeType } from '../types';
+import { Buttom } from '../Forms/Button';
 
 function Recipes() {
   const navigate = useNavigate();
@@ -62,49 +63,50 @@ function Recipes() {
     <>
       <div>
         {categories && categories.map(({ strCategory }: CategoriesType, index) => (
-          <button
-            key={ index }
-            data-testid={ `${strCategory}-category-filter` }
-            onClick={ () => handleFilterByCategory(strCategory) }
-          >
-            {strCategory}
-          </button>
+          <div key={ index }>
+            <Buttom
+              dataTestId={ `${strCategory}-category-filter` }
+              onClick={ () => handleFilterByCategory(strCategory) }
+              buttonLabel={ strCategory }
+            />
+          </div>
         ))}
       </div>
-      <div>
-        <button
-          data-testid="All-category-filter"
-          onClick={ () => getData() }
-        >
-          All
-        </button>
-      </div>
-      <div>
+      <Buttom
+        dataTestId="All-category-filter"
+        onClick={ () => getData() }
+        buttonLabel="All"
+      />
+      <div className="recipes-container">
         {recipes && recipes.map((recipe: RecipeType, index) => (
-
           <div
+            className="recipes-item"
             key={ recipe[id] }
-            data-testid={ `${index}-recipe-card` }
-            onClick={ () => navigate(`${location.pathname}/${recipe[id]}`) }
-            onKeyDown={ (e) => {
-              if (e.key === 'Enter' || e.key === ' ') {
-                navigate(`${location.pathname}/${recipe[id]}`);
-              }
-            } }
-            role="button"
-            tabIndex={ 0 }
           >
-            <img
-              src={ recipe[img] }
-              alt={ recipe[name] }
-              data-testid={ `${index}-card-img` }
-              width="100px"
-            />
-            <p
-              data-testid={ `${index}-card-name` }
+
+            <div
+              data-testid={ `${index}-recipe-card` }
+              onClick={ () => navigate(`${location.pathname}/${recipe[id]}`) }
+              onKeyDown={ (e) => {
+                if (e.key === 'Enter' || e.key === ' ') {
+                  navigate(`${location.pathname}/${recipe[id]}`);
+                }
+              } }
+              role="button"
+              tabIndex={ 0 }
             >
-              {recipe[name]}
-            </p>
+              <img
+                src={ recipe[img] }
+                alt={ recipe[name] }
+                data-testid={ `${index}-card-img` }
+                width="100px"
+              />
+              <p
+                data-testid={ `${index}-card-name` }
+              >
+                {recipe[name]}
+              </p>
+            </div>
           </div>
         ))}
       </div>

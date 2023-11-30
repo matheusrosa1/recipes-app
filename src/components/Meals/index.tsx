@@ -4,9 +4,9 @@ import Recipes from '../Recipes';
 
 function Meals() {
   return (
-    <div>
+    <div className="meals">
       <Header tipo="Meals" />
-      <h1>Meals</h1>
+      <h1 className="title">Meals</h1>
       <Recipes />
       <Footer />
     </div>

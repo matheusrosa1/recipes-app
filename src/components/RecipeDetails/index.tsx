@@ -1,51 +1,19 @@
-import { useEffect, useState } from 'react';
+import { useContext, useEffect, useState } from 'react';
 import { useLocation, useNavigate, useParams } from 'react-router-dom';
 import { fetchRecipes, getRecipesById } from '../../services/fetchAPI';
-import { RecipeType } from '../types';
+import { ExtendedRecipeType, RecipeType } from '../types';
 import { Buttom } from '../Forms/Button';
-
-// const MOCK_RECIPE =
-//   [{
-//     id: id-da-receita,
-//     type: meal-ou-drink,
-//     nationality: nacionalidade-da-receita-ou-texto-vazio,
-//     category: categoria-da-receita-ou-texto-vazio,
-//     alcoholicOrNot: alcoholic-ou-non-alcoholic-ou-texto-vazio,
-//     name: nome-da-receita,
-//     image: imagem-da-receita,
-//     doneDate: quando-a-receita-foi-concluida,
-//     tags: array-de-tags-da-receita-ou-array-vazio
-// }]
-
-// useEffect(() => {
-//   if (teste[0].id === id) {
-//     console.log('entrou');
-//     const btn = document.getElementById('btn-start-recipe');
-//     btn?.style.setProperty('display', 'none');
-//   }
-// }, [])
-
-// localStorage.setItem('inProgressRecipes', JSON.stringify(
-//   {
-//     drinks: {
-//       53050: [],
-//     },
-//     meals: {
-//       53050: [],
-//     }
-// }
-// ));
-
-// const lsDoneRecipes = JSON.parse(localStorage.getItem('doneRecipes')!)
+import RecipesContext from '../../context/RecipesContext';
 
 function RecipeDetails() {
   const { id } = useParams();
   const location = useLocation();
   const navigate = useNavigate();
-  const [recipe, setRecipe] = useState([]);
+  const [recipe, setRecipe] = useState<RecipeType[]>([]);
   const [recommendations, setRecommendations] = useState([]);
   const [btnTitle, setBtnTitle] = useState('Start Recipe');
   const [copyMessage, setCopyMessage] = useState(false);
+  const { favoritesRecipes, setFavoritesRecipes } = useContext(RecipesContext);
 
   const getRecipes = async () => {
     try {
@@ -58,7 +26,6 @@ function RecipeDetails() {
 
   const getRecommendations = async () => {
     try {
-      // Se a receita atual é uma refeição, busque bebidas. Caso contrário, busque refeições.
       const type = location.pathname === `/meals/${id}`
         ? '/drinks' : '/meals';
       const newRecommendations = await fetchRecipes(type);
@@ -68,7 +35,6 @@ function RecipeDetails() {
     }
   };
 
-  // Pega apenas o texto "meal" ou "drink" do useLocation
   const mealOrDrink = location.pathname.split('/')[1];
 
   // Função que inclui o recipe no localStorage como concluído [EM DESENVOLVIMENTO]
@@ -81,8 +47,6 @@ function RecipeDetails() {
     getRecipes();
 
     const inProgressRecipes = JSON.parse(localStorage.getItem('inProgressRecipes')!);
-    // const validId = Object.keys(inProgressRecipes.meals).includes(id as string);
-
     if (inProgressRecipes && Object.keys(
       inProgressRecipes[mealOrDrink],
     ).includes(id as string)
@@ -109,14 +73,35 @@ function RecipeDetails() {
   const recipeId = location.pathname === `/meals/${id}` ? 'idMeal' : 'idDrink';
   const img = location.pathname === `/meals/${id}` ? 'strMealThumb' : 'strDrinkThumb';
   const name = location.pathname === `/meals/${id}` ? 'strMeal' : 'strDrink';
+  const alcoholicOrNot = location.pathname === `/meals/${id}` ? '' : 'strAlcoholic';
+  const nationality = location.pathname === `/meals/${id}` ? 'strArea' : '';
+  const type = location.pathname === `/meals/${id}` ? 'meal' : 'drink';
 
-  const copyRecipeDetails = () => {
+  const copyLinkDetail = () => {
     window.navigator.clipboard.writeText(window.location.href);
     setCopyMessage(true);
     setTimeout(() => {
       setCopyMessage(false);
     }, 2000);
   };
+
+  const handleClickFavorite = () => {
+    const favoriteRecipeObject: ExtendedRecipeType = {
+      id,
+      type,
+      nationality: recipe[0][nationality] === undefined ? '' : recipe[0][nationality],
+      category: recipe[0].strCategory,
+      alcoholicOrNot: recipe[0][alcoholicOrNot] === undefined
+        ? '' : recipe[0][alcoholicOrNot],
+      name: recipe[0][name],
+      image: recipe[0][img],
+    };
+    setFavoritesRecipes([...favoritesRecipes, favoriteRecipeObject]);
+  };
+
+  useEffect(() => {
+    localStorage.setItem('favoriteRecipes', JSON.stringify(favoritesRecipes));
+  }, [favoritesRecipes]);
 
   return (
     <div>
@@ -202,12 +187,12 @@ function RecipeDetails() {
       <Buttom
         dataTestId="share-btn"
         buttonLabel="Compartilhar"
-        onClick={ () => copyRecipeDetails() }
+        onClick={ () => copyLinkDetail() }
       />
       <Buttom
         dataTestId="favorite-btn"
         buttonLabel="Favoritar"
-        onClick={ () => console.log('testando botão de favoritar') }
+        onClick={ () => handleClickFavorite() }
       />
       {copyMessage && (
         <p>Link copied!</p>

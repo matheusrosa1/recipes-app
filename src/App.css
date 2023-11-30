@@ -12,12 +12,11 @@
   font-family: Montserrat , sans-serif;
   font-size: 3.5em;
   font-weight: 900;
-  text-align: center;  
+  text-align: center;
 }
 
 .btn-category {
   background-color: chocolate;
-  width: 220px;
   border-radius: 5px;
   color: aliceblue;
   cursor: pointer;
@@ -28,6 +27,7 @@
   text-align: center;
   text-decoration: none;
   transition: background-color 0.3s;
+  width: 220px;
 }
 
 .btn-category:hover {
@@ -37,8 +37,8 @@
 .carrossel-container {
   display: flex;
   flex-direction: row;
-  overflow-x: auto;
   max-width: 320px;
+  overflow-x: auto;
 }
 
 .carrossel-container img {
@@ -46,26 +46,24 @@
 }
 
 .btn-start-recipe {
-  position: fixed;
   bottom: 0;
+  position: fixed;
   right: 0;
 }
 
 .recipes-container {
-  margin: auto;
-  display: flex;
-  justify-content: space-around;
   align-items: center;
-  flex-direction: row;
-  flex-wrap: wrap;
+  display: flex;
+  flex-flow: row wrap;
   justify-content: center;
+  margin: auto;
   max-width: 80%;
 }
 
 
 .recipes-item {
-  margin: 20px;
   background-color: rgb(99, 99, 99);
+  margin: 20px;
   max-width: 250px;
   padding: 10px;
   text-align: center;

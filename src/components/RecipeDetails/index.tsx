@@ -45,6 +45,7 @@ function RecipeDetails() {
   const [recipe, setRecipe] = useState([]);
   const [recommendations, setRecommendations] = useState([]);
   const [btnTitle, setBtnTitle] = useState('Start Recipe');
+  const [copyMessage, setCopyMessage] = useState(false);
 
   const getRecipes = async () => {
     try {
@@ -109,6 +110,14 @@ function RecipeDetails() {
   const img = location.pathname === `/meals/${id}` ? 'strMealThumb' : 'strDrinkThumb';
   const name = location.pathname === `/meals/${id}` ? 'strMeal' : 'strDrink';
 
+  const copyRecipeDetails = () => {
+    window.navigator.clipboard.writeText(window.location.href);
+    setCopyMessage(true);
+    setTimeout(() => {
+      setCopyMessage(false);
+    }, 2000);
+  };
+
   return (
     <div>
       {recipe.map((recipeDetail: any, index) => (
@@ -158,6 +167,7 @@ function RecipeDetails() {
               allowFullScreen
             />
           )}
+
         </div>
       ))}
       <h3>Recommendations:</h3>
@@ -192,13 +202,16 @@ function RecipeDetails() {
       <Buttom
         dataTestId="share-btn"
         buttonLabel="Compartilhar"
-        onClick={ () => console.log('testando botão compartilhar') }
+        onClick={ () => copyRecipeDetails() }
       />
       <Buttom
         dataTestId="favorite-btn"
         buttonLabel="Favoritar"
         onClick={ () => console.log('testando botão de favoritar') }
       />
+      {copyMessage && (
+        <p>Link copied!</p>
+      )}
     </div>
   );
 }

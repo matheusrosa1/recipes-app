@@ -56,7 +56,7 @@ function SearchBar() {
         id="ingredientSearchOption"
         name="searchOption"
         value="ingredientSearch"
-        checked={ inputValue === 'ingredientSearch' }
+        // checked={ inputValue === 'ingredientSearch' }
         onChange={ ({ target }) => setInputValue(target.value) }
       />
       <label htmlFor="ingredientSearchOption">Ingredient</label>

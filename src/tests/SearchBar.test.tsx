@@ -5,7 +5,7 @@ import { BrowserRouter as Router } from 'react-router-dom';
 import { renderWithRouter } from '../utils/renderWithRouter';
 import SearchBar from '../components/SearchBar';
 import App from '../App';
-import { MOCK_RECIPES_MEALS } from './mocks';
+import { MOCK_RECIPES_MEALS, oneDrink, oneMeal } from './mocks';
 
 const searchTopBtnTestId = 'search-top-btn';
 const searchInputTestId = 'search-input';
@@ -93,23 +93,41 @@ describe('Testes do Componente SearchBar', () => {
     await waitFor(() => expect(alertSpy).toHaveBeenCalledWith('Your search must have only 1 (one) character'));
     alertSpy.mockRestore();
   });
-  // it('Redirecione para a tela de detalhes da receita caso apenas uma receita seja encontrada, com o ID da mesma na URL', async () => {
-  //   const fetchResolvedValue = {
-  //     json: async () => MOCK_RECIPES_MEALS,
-  //   } as Response;
-  //   const mockFetch = vi.spyOn(global, 'fetch').mockResolvedValue(fetchResolvedValue);
-  //   renderWithRouter(<App />, { route: '/meals' });
-  //   const searchTopButton = screen.getByTestId(searchTopBtnTestId);
-  //   fireEvent.click(searchTopButton);
-  //   const searchInput = screen.getByTestId(searchInputTestId);
-  //   fireEvent.change(searchInput, { target: { value: 'Beef and Mustard Pie' } });
-  //   const nameSearchRadio = screen.getByTestId(nameSearchRadioTestId);
-  //   fireEvent.click(nameSearchRadio);
-  //   const execSearchBtn = screen.getByTestId(execSearchBtnTestId);
-  //   fireEvent.click(execSearchBtn);
-  //   await waitFor(() => expect(mockFetch).toHaveBeenCalledWith('https://www.themealdb.com/api/json/v1/1/search.php?s=Beef and Mustard Pie'));
-  //   await waitFor(() => expect(window.location.pathname).toBe('/meals/52878'));
-  // });
+
+  it('testa se pegando pegando uma bebida faz o fetch corretamente', async () => {
+    const fetchResolvedValue = {
+      json: async () => oneDrink,
+    } as Response;
+    const mockFetch = vi.spyOn(global, 'fetch').mockResolvedValue(fetchResolvedValue);
+    renderWithRouter(<App />, { route: '/drinks' });
+    const searchTopButton = screen.getByTestId(searchTopBtnTestId);
+    fireEvent.click(searchTopButton);
+    const searchInput = screen.getByTestId(searchInputTestId);
+    fireEvent.change(searchInput, { target: { value: 'Aquamarine' } });
+    const nameSearchRadio = screen.getByTestId(nameSearchRadioTestId);
+    fireEvent.click(nameSearchRadio);
+    const execSearchBtn = screen.getByTestId(execSearchBtnTestId);
+    fireEvent.click(execSearchBtn);
+    await waitFor(() => expect(mockFetch).toHaveBeenCalledWith('https://www.thecocktaildb.com/api/json/v1/1/search.php?s=Aquamarine'));
+  });
+
+  it('testa se pegando pegando uma comida apenas faz o fetch corretamente', async () => {
+    const fetchResolvedValue = {
+      json: async () => oneMeal,
+    } as Response;
+    const mockFetch = vi.spyOn(global, 'fetch').mockResolvedValue(fetchResolvedValue);
+    renderWithRouter(<App />, { route: '/meals' });
+    const searchTopButton = screen.getByTestId(searchTopBtnTestId);
+    fireEvent.click(searchTopButton);
+    const searchInput = screen.getByTestId(searchInputTestId);
+    fireEvent.change(searchInput, { target: { value: 'Arrabiata' } });
+    const nameSearchRadio = screen.getByTestId(nameSearchRadioTestId);
+    fireEvent.click(nameSearchRadio);
+    const execSearchBtn = screen.getByTestId(execSearchBtnTestId);
+    fireEvent.click(execSearchBtn);
+    await waitFor(() => expect(mockFetch).toHaveBeenCalledWith('https://www.themealdb.com/api/json/v1/1/search.php?s=Arrabiata'));
+  });
+
   it('Se a busca não retornar nada, deve-se exibir um alert', async () => {
     const alertSpy = vi.spyOn(window, 'alert').mockImplementation(() => {});
     const fetchResolvedValue = {

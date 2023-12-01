@@ -9,6 +9,9 @@ function RecipeInProgress() {
   const location = useLocation();
   const navigate = useNavigate();
   const [recipe, setRecipe] = useState<RecipeType[]>([]);
+  const [
+    checkedIngredients,
+    setCheckedIngredients] = useState<{ [key: string]: boolean }>({});
 
   const recipeId = location.pathname === `/meals/${id}/in-progress`
     ? 'idMeal' : 'idDrink';
@@ -27,6 +30,12 @@ function RecipeInProgress() {
     }
   };
 
+  const handleCheckboxChange = (index: number) => {
+    setCheckedIngredients((prevCheckedIngredients) => ({
+      ...prevCheckedIngredients,
+      [index]: !prevCheckedIngredients[index],
+    }));
+  };
   const renderIngredientsAndMeasures = () => {
     if (!recipe[0]) return null;
     const ingredients = Object.keys(recipe[0]).filter(
@@ -37,8 +46,18 @@ function RecipeInProgress() {
     );
 
     return ingredients.map((ingredient, index) => (
-      <label key={ index } data-testid={ `${index}-ingredient-step` }>
-        <input type="checkbox" />
+      <label
+        key={ index }
+        data-testid={ `${index}-ingredient-step` }
+        style={ {
+          textDecoration: checkedIngredients[index] ? 'line-through' : 'none',
+        } }
+      >
+        <input
+          type="checkbox"
+          checked={ checkedIngredients[index] || false }
+          onChange={ () => handleCheckboxChange(index) }
+        />
         {`${recipe[0][ingredient]} - ${[recipe[0][measures[index]]]}`}
       </label>
     ));

@@ -5,8 +5,7 @@ import 'bootstrap/dist/css/bootstrap.min.css';
 import Login from './components/Login';
 import Meals from './components/Meals';
 import Drinks from './components/Drinks';
-import MealsInProgress from './components/MealsInProgress';
-import DrinksInProgress from './components/DrinksInProgress';
+import RecipeInProgress from './components/RecipeInProgress';
 import Profile from './components/Profile';
 import DoneRecipes from './components/DoneRecipes';
 import FavoriteRecipes from './components/FavoriteRecipes';
@@ -22,8 +21,8 @@ function App() {
         <Route path="/drinks" element={ <Drinks /> } />
         <Route path="/meals/:id" element={ <RecipeDetails /> } />
         <Route path="/drinks/:id" element={ <RecipeDetails /> } />
-        <Route path="/meals/:id/in-progress" element={ <MealsInProgress /> } />
-        <Route path="/drinks/:id/in-progress" element={ <DrinksInProgress /> } />
+        <Route path="/meals/:id/in-progress" element={ <RecipeInProgress /> } />
+        <Route path="/drinks/:id/in-progress" element={ <RecipeInProgress /> } />
         <Route path="/profile" element={ <Profile /> } />
         <Route path="/done-recipes" element={ <DoneRecipes /> } />
         <Route path="/favorite-recipes" element={ <FavoriteRecipes /> } />

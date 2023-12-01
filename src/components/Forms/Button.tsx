@@ -4,7 +4,7 @@ export type ButtonProps = {
   buttonLabel: string;
 };
 
-export function Buttom(props: ButtonProps) {
+export function Button(props: ButtonProps) {
   const { dataTestId, onClick, buttonLabel } = props;
   return (
     <button

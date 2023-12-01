@@ -7,15 +7,23 @@ type RecipesProviderProps = {
 };
 
 function RecipesProvider({ children }: RecipesProviderProps) {
-  const [favoritesRecipes, setFavoritesRecipes] = useState<RecipeType[]>([]);
+  const [favoritesRecipes, setFavoritesRecipes] = useState<RecipeType[]>(
+    localStorage.getItem('favoriteRecipes')
+      ? JSON.parse(localStorage.getItem('favoriteRecipes')!)
+      : [],
+  );
+  const [isFavorite, setIsFavorite] = useState(false);
 
   const addFavoriteRecipe = (recipe: FavoriteRecipeType) => {
+    setIsFavorite((prevState) => !prevState);
     setFavoritesRecipes([...favoritesRecipes, recipe]);
   };
 
   const value = {
     favoritesRecipes,
     addFavoriteRecipe,
+    isFavorite,
+    setIsFavorite,
   };
 
   return (

@@ -2,7 +2,7 @@ import { useEffect, useState } from 'react';
 import { useLocation, useNavigate } from 'react-router-dom';
 import { fetchCategoties, fetchByCategory, fetchRecipes } from '../../services/fetchAPI';
 import { CategoriesType, RecipeType } from '../types';
-import { Buttom } from '../Forms/Button';
+import { Button } from '../Forms/Button';
 
 function Recipes() {
   const navigate = useNavigate();
@@ -64,7 +64,7 @@ function Recipes() {
       <div>
         {categories && categories.map(({ strCategory }: CategoriesType, index) => (
           <div key={ index }>
-            <Buttom
+            <Button
               dataTestId={ `${strCategory}-category-filter` }
               onClick={ () => handleFilterByCategory(strCategory) }
               buttonLabel={ strCategory }
@@ -72,7 +72,7 @@ function Recipes() {
           </div>
         ))}
       </div>
-      <Buttom
+      <Button
         dataTestId="All-category-filter"
         onClick={ () => getData() }
         buttonLabel="All"

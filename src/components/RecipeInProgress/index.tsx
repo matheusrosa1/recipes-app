@@ -1,5 +1,5 @@
 import { useEffect, useState } from 'react';
-import { useLocation, useNavigate, useParams } from 'react-router-dom';
+import { useLocation, useParams } from 'react-router-dom';
 import { Button } from '../Forms/Button';
 import { RecipeType } from '../types';
 import { getRecipesById } from '../../services/fetchAPI';
@@ -7,7 +7,7 @@ import { getRecipesById } from '../../services/fetchAPI';
 function RecipeInProgress() {
   const { id } = useParams();
   const location = useLocation();
-  const navigate = useNavigate();
+  // const navigate = useNavigate();
   const [recipe, setRecipe] = useState<RecipeType[]>([]);
   const [checkedIngredients, setCheckedIngredients] = useState<{
     [key: string]: boolean;

@@ -13,8 +13,8 @@ function RecipeInProgress() {
     [key: string]: boolean;
   }>({});
 
-  const recipeId = location.pathname === `/meals/${id}/in-progress`
-    ? 'idMeal' : 'idDrink';
+  // const recipeId = location.pathname === `/meals/${id}/in-progress`
+  //   ? 'idMeal' : 'idDrink';
 
   const pathId = location.pathname === `/meals/${id}/in-progress`
     ? `/meals/${id}`

@@ -9,9 +9,9 @@ function RecipeInProgress() {
   const location = useLocation();
   const navigate = useNavigate();
   const [recipe, setRecipe] = useState<RecipeType[]>([]);
-  const [
-    checkedIngredients,
-    setCheckedIngredients] = useState<{ [key: string]: boolean }>({});
+  const [checkedIngredients, setCheckedIngredients] = useState<{
+    [key: string]: boolean;
+  }>({});
 
   const recipeId = location.pathname === `/meals/${id}/in-progress`
     ? 'idMeal' : 'idDrink';
@@ -50,7 +50,9 @@ function RecipeInProgress() {
         key={ index }
         data-testid={ `${index}-ingredient-step` }
         style={ {
-          textDecoration: checkedIngredients[index] ? 'line-through' : 'none',
+          textDecoration: checkedIngredients[index]
+            ? 'line-through solid rgb(0, 0, 0)'
+            : 'none',
         } }
       >
         <input

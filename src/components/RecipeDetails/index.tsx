@@ -2,8 +2,10 @@ import { useContext, useEffect, useState } from 'react';
 import { useLocation, useNavigate, useParams } from 'react-router-dom';
 import { fetchRecipes, getRecipesById } from '../../services/fetchAPI';
 import { FavoriteRecipeType, RecipeType } from '../types';
-import { Buttom } from '../Forms/Button';
+import { Button } from '../Forms/Button';
 import RecipesContext from '../../context/RecipesContext';
+import isFavoriteImage from '../../images/blackHeartIcon.svg';
+import notFavoriteImage from '../../images/whiteHeartIcon.svg';
 
 function RecipeDetails() {
   const { id } = useParams();
@@ -13,7 +15,12 @@ function RecipeDetails() {
   const [recommendations, setRecommendations] = useState([]);
   const [btnTitle, setBtnTitle] = useState('Start Recipe');
   const [copyMessage, setCopyMessage] = useState(false);
-  const { favoritesRecipes, addFavoriteRecipe } = useContext(RecipesContext);
+  const {
+    favoritesRecipes,
+    addFavoriteRecipe,
+    isFavorite,
+    setIsFavorite,
+  } = useContext(RecipesContext);
 
   const getRecipes = async () => {
     try {
@@ -43,6 +50,15 @@ function RecipeDetails() {
   };
 
   useEffect(() => {
+    const getFavoriteRecipes = JSON.parse(localStorage.getItem('favoriteRecipes')!);
+    if (getFavoriteRecipes) {
+      const favoriteRecipesIds = getFavoriteRecipes.map(
+        (recipeMap: FavoriteRecipeType) => recipeMap.id,
+      );
+      if (favoriteRecipesIds.includes(id as string)) {
+        setIsFavorite(true);
+      }
+    }
     getRecommendations();
     getRecipes();
 
@@ -175,6 +191,20 @@ function RecipeDetails() {
           </div>
         ))}
       </div>
+      <input
+        type="image"
+        src={ isFavorite ? isFavoriteImage : notFavoriteImage }
+        className="btn-category"
+        alt="blackHeartIcon"
+        data-testid="favorite-btn"
+        onClick={ () => handleClickFavorite() }
+        style={ { maxWidth: '100%', maxHeight: '100%' } }
+      />
+      <Button
+        dataTestId="share-btn"
+        buttonLabel="Compartilhar"
+        onClick={ () => copyLinkDetail() }
+      />
       <button
         type="button"
         id="btn-start-recipe"
@@ -184,16 +214,6 @@ function RecipeDetails() {
       >
         {btnTitle}
       </button>
-      <Buttom
-        dataTestId="share-btn"
-        buttonLabel="Compartilhar"
-        onClick={ () => copyLinkDetail() }
-      />
-      <Buttom
-        dataTestId="favorite-btn"
-        buttonLabel="Favoritar"
-        onClick={ () => handleClickFavorite() }
-      />
       {copyMessage && (
         <p>Link copied!</p>
       )}

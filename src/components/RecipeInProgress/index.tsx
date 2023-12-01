@@ -20,22 +20,46 @@ function RecipeInProgress() {
     ? `/meals/${id}`
     : `/drinks/${id}`;
 
+  const localStorageKey: string = 'inProgressRecipes';
+
   const getRecipes = async () => {
     try {
       const recipeById = await getRecipesById(pathId, id as string);
       setRecipe(recipeById);
-      console.log(recipe);
+      const storedInProgressRecipes: {
+        [key: string]: { [key: string]: boolean } } = JSON.parse(localStorage
+        .getItem(localStorageKey) || '{}');
+      if (id) {
+        setCheckedIngredients(storedInProgressRecipes[id] || {});
+      }
     } catch (error) {
       console.log(error);
     }
   };
 
   const handleCheckboxChange = (index: number) => {
-    setCheckedIngredients((prevCheckedIngredients) => ({
-      ...prevCheckedIngredients,
-      [index]: !prevCheckedIngredients[index],
-    }));
+    setCheckedIngredients((prevCheckedIngredients) => {
+      const updatedIngredients = {
+        ...prevCheckedIngredients,
+        [index]: !prevCheckedIngredients[index],
+      };
+      // Save to localStorage
+      const storedInProgressRecipes = JSON
+        .parse(localStorage.getItem(localStorageKey) || '{}');
+      if (id) {
+        localStorage.setItem(
+          localStorageKey,
+          JSON.stringify({
+            ...storedInProgressRecipes,
+            [id]: updatedIngredients,
+          }),
+        );
+      }
+
+      return updatedIngredients;
+    });
   };
+
   const renderIngredientsAndMeasures = () => {
     if (!recipe[0]) return null;
     const ingredients = Object.keys(recipe[0]).filter(

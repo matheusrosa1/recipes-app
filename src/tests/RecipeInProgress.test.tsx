@@ -1,55 +1,59 @@
-import { render, screen, fireEvent, waitFor } from '@testing-library/react';
-import { MemoryRouter, Route } from 'react-router-dom';
-import RecipeInProgress from '../components/RecipeInProgress';
+import { fireEvent, screen, within } from '@testing-library/react';
+import { renderWithRouter } from '../utils/renderWithRouter';
+import App from '../App';
 
-jest.mock('../../services/fetchAPI', () => ({
-  getRecipesById: jest.fn().mockResolvedValue([
-    {
-      strIngredient1: 'Ingredient 1',
-      strMeasure1: 'Measure 1',
-      // ... Add more ingredients and measures as needed
-    },
-  ]),
-}));
+const path = '/meals/52977/in-progress';
 
-describe('RecipeInProgress', () => {
-  it('renders the component with ingredients and checkboxes', async () => {
-    render(
-      <MemoryRouter initialEntries={ ['/meals/123/in-progress'] }>
-        <Route path="/meals/:id/in-progress">
-          <RecipeInProgress />
-        </Route>
-      </MemoryRouter>,
-    );
-
-    // Wait for the component to render with the mocked data
-    await waitFor(() => {
-      expect(screen.getByTestId('recipe-title')).toBeInTheDocument();
-      expect(screen.getAllByTestId(/ingredient-step/)).toHaveLength(1);
+describe('Testes do Componente SearchBar', () => {
+  it('Verifica se estão corretos os data-testids em meals', () => {
+    renderWithRouter(<App />, { route: path });
+    const recipePhoto = screen.getByTestId('recipe-photo');
+    const recipeTitle = screen.getByTestId('recipe-title');
+    const shareBtn = screen.getByTestId('share-btn');
+    const favoriteBtn = screen.getByTestId('favorite-btn');
+    const recipeCategory = screen.getByTestId('recipe-category');
+    const instructions = screen.getByTestId('instructions');
+    const finishRecipeBtn = screen.getByTestId('finish-recipe-btn');
+    expect(recipePhoto).toBeInTheDocument();
+    expect(recipeTitle).toBeInTheDocument();
+    expect(shareBtn).toBeInTheDocument();
+    expect(favoriteBtn).toBeInTheDocument();
+    expect(recipeCategory).toBeInTheDocument();
+    expect(instructions).toBeInTheDocument();
+    expect(finishRecipeBtn).toBeInTheDocument();
+  });
+  it('Verifica se estão corretos os data-testids em drinks', () => {
+    renderWithRouter(<App />, { route: '/drinks/17222/in-progress' });
+    const recipePhoto = screen.getByTestId('recipe-photo');
+    const recipeTitle = screen.getByTestId('recipe-title');
+    const shareBtn = screen.getByTestId('share-btn');
+    const favoriteBtn = screen.getByTestId('favorite-btn');
+    const recipeCategory = screen.getByTestId('recipe-category');
+    const instructions = screen.getByTestId('instructions');
+    const finishRecipeBtn = screen.getByTestId('finish-recipe-btn');
+    expect(recipePhoto).toBeInTheDocument();
+    expect(recipeTitle).toBeInTheDocument();
+    expect(shareBtn).toBeInTheDocument();
+    expect(favoriteBtn).toBeInTheDocument();
+    expect(recipeCategory).toBeInTheDocument();
+    expect(instructions).toBeInTheDocument();
+    expect(finishRecipeBtn).toBeInTheDocument();
+  });
+  it('Todos os elementos possuem uma checkbox', async () => {
+    renderWithRouter(<App />, { route: path });
+    const firstIngredient = await screen.findByTestId('0-ingredient-step');
+    expect(firstIngredient).toBeInTheDocument();
+    const ingredientSteps = screen.getAllByTestId(/\d+-ingredient-step/);
+    ingredientSteps.forEach((ingredient) => {
+      const checkbox = within(ingredient).getByRole('checkbox');
+      expect(checkbox).toBeInTheDocument();
     });
   });
-
-  it('crosses out ingredient when checkbox is clicked', async () => {
-    render(
-      <MemoryRouter initialEntries={ ['/meals/123/in-progress'] }>
-        <Route path="/meals/:id/in-progress">
-          <RecipeInProgress />
-        </Route>
-      </MemoryRouter>,
-    );
-
-    // Wait for the component to render with the mocked data
-    await waitFor(() => {
-      expect(screen.getAllByTestId(/ingredient-step/)).toHaveLength(1);
-    });
-
-    // Click the checkbox
-    const checkbox = screen.getByTestId('0-ingredient-step').querySelector('input');
+  it('ao clicar no checkbox de um ingrediente, o nome dele deve ser "riscado" da lista', async () => {
+    renderWithRouter(<App />, { route: path });
+    const firstIngredient = await screen.findByTestId('0-ingredient-step');
+    const checkbox = within(firstIngredient).getByRole('checkbox');
     fireEvent.click(checkbox);
-
-    // Verify that the ingredient is crossed out
-    await waitFor(() => {
-      expect(checkbox).toHaveStyle('text-decoration: line-through solid rgb(0, 0, 0)');
-    });
+    expect(firstIngredient).toHaveStyle('text-decoration: line-through solid rgb(0, 0, 0)');
   });
 });

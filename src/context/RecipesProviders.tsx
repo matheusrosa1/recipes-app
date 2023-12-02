@@ -14,9 +14,21 @@ function RecipesProvider({ children }: RecipesProviderProps) {
   );
   const [isFavorite, setIsFavorite] = useState(false);
 
-  const addFavoriteRecipe = (recipe: FavoriteRecipeType) => {
+  const [recipe, setRecipe] = useState<RecipeType[]>([]);
+
+  const [copyMessage, setCopyMessage] = useState(false);
+
+  const copyLinkDetail = () => {
+    window.navigator.clipboard.writeText(window.location.href);
+    setCopyMessage(true);
+    setTimeout(() => {
+      setCopyMessage(false);
+    }, 2000);
+  };
+
+  const addFavoriteRecipe = (recipeProp: FavoriteRecipeType) => {
     setIsFavorite((prevState) => !prevState);
-    setFavoritesRecipes([...favoritesRecipes, recipe]);
+    setFavoritesRecipes([...favoritesRecipes, recipeProp]);
   };
 
   const value = {
@@ -24,6 +36,10 @@ function RecipesProvider({ children }: RecipesProviderProps) {
     addFavoriteRecipe,
     isFavorite,
     setIsFavorite,
+    recipe,
+    setRecipe,
+    copyMessage,
+    copyLinkDetail,
   };
 
   return (

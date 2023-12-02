@@ -11,15 +11,20 @@ function RecipeDetails() {
   const { id } = useParams();
   const location = useLocation();
   const navigate = useNavigate();
-  const [recipe, setRecipe] = useState<RecipeType[]>([]);
+  /*   const [recipe, setRecipe] = useState<RecipeType[]>([]); */
   const [recommendations, setRecommendations] = useState([]);
   const [btnTitle, setBtnTitle] = useState('Start Recipe');
-  const [copyMessage, setCopyMessage] = useState(false);
+  /*   const [copyMessage, setCopyMessage] = useState(false); */
+
   const {
     favoritesRecipes,
     addFavoriteRecipe,
     isFavorite,
     setIsFavorite,
+    recipe,
+    setRecipe,
+    copyMessage,
+    copyLinkDetail,
   } = useContext(RecipesContext);
 
   const getRecipes = async () => {
@@ -93,13 +98,13 @@ function RecipeDetails() {
   const nationality = location.pathname === `/meals/${id}` ? 'strArea' : '';
   const type = location.pathname === `/meals/${id}` ? 'meal' : 'drink';
 
-  const copyLinkDetail = () => {
+  /*   const copyLinkDetail = () => {
     window.navigator.clipboard.writeText(window.location.href);
     setCopyMessage(true);
     setTimeout(() => {
       setCopyMessage(false);
     }, 2000);
-  };
+  }; */
 
   const handleClickFavorite = () => {
     const favoriteRecipeObject: FavoriteRecipeType = {

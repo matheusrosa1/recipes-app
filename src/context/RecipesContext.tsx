@@ -6,6 +6,8 @@ export type RecipesContextType = {
   addFavoriteRecipe: (recipe: FavoriteRecipeType) => void,
   isFavorite: boolean,
   setIsFavorite: (value: boolean) => void,
+  recipe: RecipeType[],
+  setRecipe: (data: RecipeType[]) => void,
 };
 
 const RecipesContext = createContext({} as RecipesContextType);

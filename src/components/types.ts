@@ -44,3 +44,15 @@ export type CheckedIngredientsType = {
     [key: string]: [string];
   },
 };
+
+export type DoneRecipeType = {
+  id: string | undefined,
+  type: string | undefined,
+  nationality: string | undefined,
+  category: string | undefined,
+  alcoholicOrNot: string | undefined,
+  name: string | undefined,
+  image: string | undefined,
+  doneDate: string | undefined,
+  tags: string[] | undefined | string,
+};

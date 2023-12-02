@@ -31,7 +31,7 @@ function RecipeDetails() {
     try {
       const recipeById = await getRecipesById(mealsOrDrinks, id as string);
       setRecipe(recipeById);
-      
+
       localStorage.setItem('recipe', JSON.stringify(recipeById));
     } catch (error) {
       console.log(error);
@@ -39,7 +39,6 @@ function RecipeDetails() {
   };
 
   console.log(recipe);
-  
 
   const getRecommendations = async () => {
     try {

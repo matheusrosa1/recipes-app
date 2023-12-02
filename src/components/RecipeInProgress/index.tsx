@@ -11,12 +11,19 @@ function RecipeInProgress() {
   const { id } = useParams<string>();
   const location = useLocation();
   const [ingredientsWithMeasures, setIngredientsWithMeasures] = useState<string[]>([]);
-  const [checkedIngredients, setCheckedIngredients] = useState<CheckedIngredientsType>({
-    meals: {},
-    drinks: {},
-  });
+  const [checkedIngredients, setCheckedIngredients] = useState<CheckedIngredientsType>(
+    localStorage.getItem('inProgressRecipes') 
+    ? JSON.parse(localStorage.getItem('inProgressRecipes')!) 
+    : {
+      meals: {},
+      drinks: {},
+    });
   const [recipe, setRecipe] = useState<RecipeType[]>([]);
-  const [list, setList] = useState<string[]>([]);
+  const [list, setList] = useState<string[]>(
+    localStorage.getItem('list') 
+    ? JSON.parse(localStorage.getItem('list')!) 
+    : []
+  );
 
   const {
     // recipe,
@@ -35,7 +42,7 @@ function RecipeInProgress() {
   // Variáveis para acessar os dados da receita
   const imgPath = mealsOrDrinks === 'meals' ? 'strMealThumb' : 'strDrinkThumb';
   const namePath = mealsOrDrinks === 'meals' ? 'strMeal' : 'strDrink';
-  const categoryPath = mealsOrDrinks === 'meals' ? 'strCategory' : 'strAlcoholic';
+  const categoryPath = 'strCategory';
   const instructionsPath = mealsOrDrinks === 'meals' ? 'strInstructions' : 'strInstructions';
   const alcoholicOrNotPath = mealsOrDrinks === 'meals' ? '' : 'strAlcoholic';
   const nationalityPath = mealsOrDrinks === 'meals' ? 'strArea' : '';
@@ -59,6 +66,15 @@ function RecipeInProgress() {
   }
 
   useEffect(() => {
+    const getFavoriteRecipes = JSON.parse(localStorage.getItem('favoriteRecipes')!);
+      if (getFavoriteRecipes) {
+        const favoriteRecipesIds = getFavoriteRecipes.map(
+        (recipeMap: FavoriteRecipeType) => recipeMap.id,
+      );
+      if (favoriteRecipesIds.includes(id as string)) {
+        setIsFavorite(true);
+      }
+    }
     getRecipes();    
   }, []);
 
@@ -78,26 +94,23 @@ function RecipeInProgress() {
     setIngredientsWithMeasures(ingredientsAndMeasures);
     }, [recipe]);
 
+  const handleClickFavorite = () => {
+    const favoriteRecipeObject: FavoriteRecipeType = {
+        id,
+        type,
+        nationality: nationality === undefined ? '' : nationality,
+        category,
+        alcoholicOrNot: alcoholicOrNot === undefined ? '' : alcoholicOrNot,
+        name,
+        image: img,
+      };
+    addFavoriteRecipe(favoriteRecipeObject);
+  };
 
   // Pega a lista de receitas favoritas do localStorage
   useEffect(() => {
     localStorage.setItem('favoriteRecipes', JSON.stringify(favoritesRecipes));
   }, [favoritesRecipes]);
-
-
-
-  const handleClickFavorite = () => {
-  const favoriteRecipeObject: FavoriteRecipeType = {
-      id,
-      type,
-      nationality: nationality === undefined ? '' : nationality,
-      category,
-      alcoholicOrNot: alcoholicOrNot === undefined ? '' : alcoholicOrNot,
-      name,
-      image: img,
-    };
-    addFavoriteRecipe(favoriteRecipeObject);
-  };
   
   
   const handleCheckedIngredients = (ingredient: string) => {
@@ -119,6 +132,11 @@ function RecipeInProgress() {
       },
     });
   }, [list]);
+
+  useEffect(() => {
+    localStorage.setItem('inProgressRecipes', JSON.stringify(checkedIngredients));
+    localStorage.setItem('list', JSON.stringify(list));
+  }, [checkedIngredients]);
  
 
   return (

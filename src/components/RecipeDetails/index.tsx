@@ -11,10 +11,8 @@ function RecipeDetails() {
   const { id } = useParams();
   const location = useLocation();
   const navigate = useNavigate();
-  /*   const [recipe, setRecipe] = useState<RecipeType[]>([]); */
   const [recommendations, setRecommendations] = useState([]);
   const [btnTitle, setBtnTitle] = useState('Start Recipe');
-  /*   const [copyMessage, setCopyMessage] = useState(false); */
 
   const {
     favoritesRecipes,
@@ -27,14 +25,21 @@ function RecipeDetails() {
     copyLinkDetail,
   } = useContext(RecipesContext);
 
+  const mealsOrDrinks = location.pathname.split('/')[1];
+
   const getRecipes = async () => {
     try {
-      const recipeById = await getRecipesById(location.pathname, id as string);
+      const recipeById = await getRecipesById(mealsOrDrinks, id as string);
       setRecipe(recipeById);
+      
+      localStorage.setItem('recipe', JSON.stringify(recipeById));
     } catch (error) {
       console.log(error);
     }
   };
+
+  console.log(recipe);
+  
 
   const getRecommendations = async () => {
     try {

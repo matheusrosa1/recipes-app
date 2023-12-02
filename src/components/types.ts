@@ -35,3 +35,12 @@ export type FavoriteRecipeType = {
   name: string | undefined,
   image: string | undefined,
 };
+
+export type CheckedIngredientsType = {
+  meals: {
+    [key: string]: [string];
+  },
+  drinks: {
+    [key: string]: [string];
+  },
+};

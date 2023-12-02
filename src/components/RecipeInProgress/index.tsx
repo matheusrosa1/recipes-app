@@ -3,15 +3,20 @@ import RecipesContext from "../../context/RecipesContext";
 import { useLocation, useParams } from "react-router-dom";
 import isFavoriteImage from '../../images/blackHeartIcon.svg';
 import notFavoriteImage from '../../images/whiteHeartIcon.svg';
-import { FavoriteRecipeType, RecipeType } from "../types";
+import { CheckedIngredientsType, FavoriteRecipeType, RecipeType } from "../types";
 import { Button } from "../Forms/Button";
 import { getRecipesById } from "../../services/fetchAPI";
 
 function RecipeInProgress() {
-  const { id } = useParams();
+  const { id } = useParams<string>();
   const location = useLocation();
   const [ingredientsWithMeasures, setIngredientsWithMeasures] = useState<string[]>([]);
+  const [checkedIngredients, setCheckedIngredients] = useState<CheckedIngredientsType>({
+    meals: {},
+    drinks: {},
+  });
   const [recipe, setRecipe] = useState<RecipeType[]>([]);
+  const [list, setList] = useState<string[]>([]);
 
   const {
     // recipe,
@@ -93,7 +98,27 @@ function RecipeInProgress() {
     };
     addFavoriteRecipe(favoriteRecipeObject);
   };
+  
+  
+  const handleCheckedIngredients = (ingredient: string) => {
+    if (list.includes(ingredient)) {
+      const newList = list.filter((item) => item !== ingredient);
+      setList(newList);
+      return;
+    } else {
+      setList([...list, ingredient]);
+    }
+  }
 
+  useEffect(() => {
+    setCheckedIngredients({
+      ...checkedIngredients,
+      [mealsOrDrinks]: {
+        ...checkedIngredients[mealsOrDrinks],
+        [id as string]: list,
+      },
+    });
+  }, [list]);
  
 
   return (
@@ -112,10 +137,20 @@ function RecipeInProgress() {
           <label
             key={ index }
             data-testid={ `${index}-ingredient-step` }
+            style={ {
+              textDecoration: checkedIngredients[mealsOrDrinks][id as string]
+                && checkedIngredients[mealsOrDrinks][id as string].includes(ingredient)
+                ? 'line-through solid rgb(0, 0, 0)'
+                : 'none',
+            } }
           >
             <input
               type="checkbox"
-              onChange={ () => {} }
+              checked={ 
+                checkedIngredients[mealsOrDrinks][id as string] 
+                && checkedIngredients[mealsOrDrinks][id as string].includes(ingredient) || false
+              }
+              onChange={ () => handleCheckedIngredients(ingredient) }
             />
             {ingredient}
           </label>  

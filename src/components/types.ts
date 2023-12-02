@@ -7,6 +7,7 @@ export type RecipeType = {
   strMeal?: string;
   [key: string]: string | undefined;
   strCategory?: string,
+  strInstructions?: string,
 };
 
 export type DrinkType = {

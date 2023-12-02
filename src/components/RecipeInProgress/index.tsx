@@ -13,6 +13,7 @@ function RecipeInProgress() {
   const [checkedIngredients, setCheckedIngredients] = useState<{
     [key: string]: boolean;
   }>({});
+  const [isEnable, setIsEnable] = useState(false);
 
   const { recipe,
     setRecipe,
@@ -57,13 +58,29 @@ function RecipeInProgress() {
       const storedInProgressRecipes = JSON
         .parse(localStorage.getItem(localStorageKey) || '{}');
       if (id) {
-        localStorage.setItem(
-          localStorageKey,
-          JSON.stringify({
-            ...storedInProgressRecipes,
-            [id]: updatedIngredients,
-          }),
-        );
+        if (pathId === `/meals/${id}`) {
+          localStorage.setItem(
+            localStorageKey,
+            JSON.stringify({
+              ...storedInProgressRecipes,
+              meals: {
+                ...storedInProgressRecipes.meals,
+                [id]: updatedIngredients,
+              },
+            }),
+          );
+        } else {
+          localStorage.setItem(
+            localStorageKey,
+            JSON.stringify({
+              ...storedInProgressRecipes,
+              drinks: {
+                ...storedInProgressRecipes.drinks,
+                [id]: updatedIngredients,
+              },
+            }),
+          );
+        }
       }
 
       return updatedIngredients;
@@ -100,7 +117,7 @@ function RecipeInProgress() {
   };
 
   /*   const recipeId = location.pathname === `/meals/${id}` ? 'idMeal' : 'idDrink'; */
-  const img = location.pathname === `/meals/${id}/in-progress`
+  const imgPath = location.pathname === `/meals/${id}/in-progress`
     ? 'strMealThumb' : 'strDrinkThumb';
   const name = location.pathname === `/meals/${id}/in-progress` ? 'strMeal' : 'strDrink';
   const alcoholicOrNot = location.pathname === `/meals/${id}/in-progress`
@@ -118,7 +135,7 @@ function RecipeInProgress() {
       alcoholicOrNot: recipe[0][alcoholicOrNot] === undefined
         ? '' : recipe[0][alcoholicOrNot],
       name: recipe[0][name],
-      image: recipe[0][img],
+      image: recipe[0][imgPath],
     };
     console.log(favoriteRecipeObject);
     addFavoriteRecipe(favoriteRecipeObject);
@@ -145,20 +162,32 @@ function RecipeInProgress() {
     localStorage.setItem('favoriteRecipes', JSON.stringify(favoritesRecipes));
   }, [favoritesRecipes]);
 
+  /*   useEffect(() => {
+    const storedInProgressRecipes: {
+      [key: string]: { [key: string]: boolean } } = JSON.parse(localStorage
+      .getItem(localStorageKey) || '{}');
+  }, []); */
+
   return (
     <div>
-      <div>
-        <img
-          data-testid="recipe-photo"
-          src="alguma caminho"
-          alt="alguma coisa"
-        />
-        <h2 data-testid="recipe-title">Título da receita</h2>
-        <h3>Ingredientes:</h3>
-        {renderIngredientsAndMeasures()}
-        <p data-testid="recipe-category">Categoria</p>
-        <h2 data-testid="instructions">Intruções</h2>
-      </div>
+      { recipe && (
+        <div>
+          <img
+            data-testid="recipe-photo"
+            src=""
+            alt="Imagem do prato"
+          />
+          <h2 data-testid="recipe-title">Titulo</h2>
+          <h3>Ingredientes:</h3>
+          {renderIngredientsAndMeasures()}
+          <h4 data-testid="recipe-category">Categoria</h4>
+          <span data-testid="instructions">
+            Instruções
+
+          </span>
+        </div>
+      )}
+
       <input
         type="image"
         src={ isFavorite ? isFavoriteImage : notFavoriteImage }

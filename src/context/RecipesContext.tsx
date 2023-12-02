@@ -8,6 +8,8 @@ export type RecipesContextType = {
   setIsFavorite: (value: boolean) => void,
   recipe: RecipeType[],
   setRecipe: (data: RecipeType[]) => void,
+  copyMessage: boolean,
+  copyLinkDetail: (href: string) => void,
 };
 
 const RecipesContext = createContext({} as RecipesContextType);

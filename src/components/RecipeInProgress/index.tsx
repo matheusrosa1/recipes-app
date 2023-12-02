@@ -1,7 +1,7 @@
 import { useContext, useEffect, useState } from 'react';
 import { useLocation, useParams } from 'react-router-dom';
 import { Button } from '../Forms/Button';
-import { FavoriteRecipeType, RecipeType } from '../types';
+import { FavoriteRecipeType } from '../types';
 import { getRecipesById } from '../../services/fetchAPI';
 import RecipesContext from '../../context/RecipesContext';
 import isFavoriteImage from '../../images/blackHeartIcon.svg';
@@ -10,8 +10,6 @@ import notFavoriteImage from '../../images/whiteHeartIcon.svg';
 function RecipeInProgress() {
   const { id } = useParams();
   const location = useLocation();
-  // const navigate = useNavigate();
-  /*   const [recipe, setRecipe] = useState<RecipeType[]>([]); */
   const [checkedIngredients, setCheckedIngredients] = useState<{
     [key: string]: boolean;
   }>({});
@@ -22,7 +20,8 @@ function RecipeInProgress() {
     isFavorite,
     setIsFavorite,
     copyMessage,
-    copyLinkDetail } = useContext(RecipesContext);
+    copyLinkDetail,
+    favoritesRecipes } = useContext(RecipesContext);
 
   // const recipeId = location.pathname === `/meals/${id}/in-progress`
   //   ? 'idMeal' : 'idDrink';
@@ -100,12 +99,15 @@ function RecipeInProgress() {
     ));
   };
 
-  const recipeId = location.pathname === `/meals/${id}` ? 'idMeal' : 'idDrink';
-  const img = location.pathname === `/meals/${id}` ? 'strMealThumb' : 'strDrinkThumb';
-  const name = location.pathname === `/meals/${id}` ? 'strMeal' : 'strDrink';
-  const alcoholicOrNot = location.pathname === `/meals/${id}` ? '' : 'strAlcoholic';
-  const nationality = location.pathname === `/meals/${id}` ? 'strArea' : '';
-  const type = location.pathname === `/meals/${id}` ? 'meal' : 'drink';
+  /*   const recipeId = location.pathname === `/meals/${id}` ? 'idMeal' : 'idDrink'; */
+  const img = location.pathname === `/meals/${id}/in-progress`
+    ? 'strMealThumb' : 'strDrinkThumb';
+  const name = location.pathname === `/meals/${id}/in-progress` ? 'strMeal' : 'strDrink';
+  const alcoholicOrNot = location.pathname === `/meals/${id}/in-progress`
+    ? '' : 'strAlcoholic';
+  const nationality = location.pathname === `/meals/${id}/in-progress` ? 'strArea' : '';
+  const type = location.pathname === `/meals/${id}/in-progress`
+    ? 'meal' : 'drink';
 
   const handleClickFavorite = () => {
     const favoriteRecipeObject: FavoriteRecipeType = {
@@ -118,12 +120,30 @@ function RecipeInProgress() {
       name: recipe[0][name],
       image: recipe[0][img],
     };
+    console.log(favoriteRecipeObject);
     addFavoriteRecipe(favoriteRecipeObject);
   };
 
+  const hrefReplaced = window.location.href.replace('/in-progress', '');
+
+  /*   console.log(hrefSplit);
+ */
   useEffect(() => {
+    const getFavoriteRecipes = JSON.parse(localStorage.getItem('favoriteRecipes')!);
+    if (getFavoriteRecipes) {
+      const favoriteRecipesIds = getFavoriteRecipes.map(
+        (recipeMap: FavoriteRecipeType) => recipeMap.id,
+      );
+      if (favoriteRecipesIds.includes(id as string)) {
+        setIsFavorite(true);
+      }
+    }
     getRecipes();
   }, [location.pathname, id]);
+
+  useEffect(() => {
+    localStorage.setItem('favoriteRecipes', JSON.stringify(favoritesRecipes));
+  }, [favoritesRecipes]);
 
   return (
     <div>
@@ -151,7 +171,7 @@ function RecipeInProgress() {
       <Button
         dataTestId="share-btn"
         buttonLabel="Compartilhar"
-        onClick={ () => copyLinkDetail() }
+        onClick={ () => copyLinkDetail(hrefReplaced) }
       />
       {copyMessage && (
         <p>Link copied!</p>

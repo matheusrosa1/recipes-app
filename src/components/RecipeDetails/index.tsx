@@ -208,7 +208,7 @@ function RecipeDetails() {
       <Button
         dataTestId="share-btn"
         buttonLabel="Compartilhar"
-        onClick={ () => copyLinkDetail() }
+        onClick={ () => copyLinkDetail(window.location.href) }
       />
       <button
         type="button"

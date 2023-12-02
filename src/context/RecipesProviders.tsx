@@ -18,8 +18,8 @@ function RecipesProvider({ children }: RecipesProviderProps) {
 
   const [copyMessage, setCopyMessage] = useState(false);
 
-  const copyLinkDetail = () => {
-    window.navigator.clipboard.writeText(window.location.href);
+  const copyLinkDetail = (href: string) => {
+    window.navigator.clipboard.writeText(href);
     setCopyMessage(true);
     setTimeout(() => {
       setCopyMessage(false);

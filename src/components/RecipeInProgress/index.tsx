@@ -3,16 +3,14 @@ import { useLocation, useNavigate, useParams } from 'react-router-dom';
 import RecipesContext from '../../context/RecipesContext';
 import isFavoriteImage from '../../images/blackHeartIcon.svg';
 import notFavoriteImage from '../../images/whiteHeartIcon.svg';
-import { CheckedIngredientsType, DoneRecipeType, FavoriteRecipeType, RecipeType } from '../types';
+import { CheckedIngredientsType, DoneRecipeType, RecipeType } from '../types';
 import { Button } from '../Forms/Button';
 import { getRecipesById } from '../../services/fetchAPI';
 
 function RecipeInProgress() {
-  // Obtenha a data atual
   const dataAtual = new Date();
   dataAtual.setUTCHours(dataAtual.getUTCHours() + 3);
 
-  // Formate a data para o formato desejado
   const actualDate = `${dataAtual.getFullYear()}-${(dataAtual.getMonth() + 1)
     .toString().padStart(2, '0')}-${dataAtual.getDate()
     .toString().padStart(2, '0')}T${dataAtual.getHours()
@@ -53,7 +51,6 @@ function RecipeInProgress() {
   const mealsOrDrinks = location.pathname.includes('meals') ? 'meals' : 'drinks';
   const hrefReplaced = window.location.href.replace('/in-progress', '');
 
-  // Variáveis para acessar os dados da receita
   const imgPath = mealsOrDrinks === 'meals' ? 'strMealThumb' : 'strDrinkThumb';
   const namePath = mealsOrDrinks === 'meals' ? 'strMeal' : 'strDrink';
   const categoryPath = 'strCategory';

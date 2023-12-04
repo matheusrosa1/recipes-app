@@ -3,11 +3,34 @@ import { useLocation, useNavigate, useParams } from 'react-router-dom';
 import RecipesContext from '../../context/RecipesContext';
 import isFavoriteImage from '../../images/blackHeartIcon.svg';
 import notFavoriteImage from '../../images/whiteHeartIcon.svg';
-import { CheckedIngredientsType, DoneRecipeType, RecipeType } from '../types';
 import { Button } from '../Forms/Button';
-import { getRecipesById } from '../../services/fetchAPI';
+import { fetchRecipesById } from '../../services/fetchAPI';
+import {
+  CheckedIngredientsType,
+  DoneRecipeType,
+  FavoriteRecipeType,
+  RecipeType,
+} from '../types';
 
 function RecipeInProgress() {
+  const { id } = useParams<string>();
+  const location = useLocation();
+  const navigate = useNavigate();
+
+  const [ingredientsWithMeasures, setIngredientsWithMeasures] = useState<string[]>([]);
+  const [checkedIngredients, setCheckedIngredients] = useState<CheckedIngredientsType>(
+    localStorage.getItem('inProgressRecipes')
+      ? JSON.parse(localStorage.getItem('inProgressRecipes')!)
+      : { meals: {}, drinks: {} },
+  );
+  const [list, setList] = useState<string[]>(
+    localStorage.getItem('list')
+      ? JSON.parse(localStorage.getItem('list')!)
+      : [],
+  );
+  const [isDisable, setIsDisable] = useState<boolean>(true);
+  const [doneRecipes, setDoneRecipes] = useState<DoneRecipeType[]>([]);
+
   const dataAtual = new Date();
   dataAtual.setUTCHours(dataAtual.getUTCHours() + 3);
 
@@ -19,27 +42,10 @@ function RecipeInProgress() {
     .toString().padStart(2, '0')}.${dataAtual.getMilliseconds()
     .toString().padStart(3, '0')}Z`;
 
-  console.log(actualDate);
-
-  const { id } = useParams<string>();
-  const location = useLocation();
-  const navigate = useNavigate();
-  const [ingredientsWithMeasures, setIngredientsWithMeasures] = useState<string[]>([]);
-  const [checkedIngredients, setCheckedIngredients] = useState<CheckedIngredientsType>(
-    localStorage.getItem('inProgressRecipes')
-      ? JSON.parse(localStorage.getItem('inProgressRecipes')!)
-      : { meals: {}, drinks: {} },
-  );
-  const [recipe, setRecipe] = useState<RecipeType[]>([]);
-  const [list, setList] = useState<string[]>(
-    localStorage.getItem('list')
-      ? JSON.parse(localStorage.getItem('list')!)
-      : [],
-  );
-  const [isDisable, setIsDisable] = useState<boolean>(true);
-  const [doneRecipes, setDoneRecipes] = useState<DoneRecipeType[]>([]);
-
   const {
+    recipe,
+    // setRecipe,
+    getRecipes,
     addFavoriteRecipe,
     isFavorite,
     setIsFavorite,
@@ -69,15 +75,6 @@ function RecipeInProgress() {
   const nationality = recipe[0] && recipe[0][nationalityPath];
   const tags = recipe[0] && recipe[0][strTagsPath]?.split(',');
 
-  const getRecipes = async () => {
-    try {
-      const recipeById = await getRecipesById(mealsOrDrinks, id as string);
-      setRecipe(recipeById);
-    } catch (error) {
-      console.log(error);
-    }
-  };
-
   useEffect(() => {
     const getFavoriteRecipes = JSON.parse(localStorage.getItem('favoriteRecipes')!);
     if (getFavoriteRecipes) {
@@ -86,7 +83,7 @@ function RecipeInProgress() {
       );
       if (favoriteRecipesIds.includes(id as string)) { setIsFavorite(true); }
     }
-    getRecipes();
+    getRecipes(mealsOrDrinks, id as string);
   }, []);
 
   useEffect(() => {
@@ -153,10 +150,6 @@ function RecipeInProgress() {
     localStorage.setItem('list', JSON.stringify(list));
   }, [checkedIngredients]);
 
-  interface FavoriteRecipeType extends RecipeType {
-    doneDate: string;
-  }
-
   const handleClickEndRecipe = () => {
     const doneRecipeObject: DoneRecipeType = {
       id,
@@ -191,30 +184,30 @@ function RecipeInProgress() {
       <h2 data-testid="recipe-title">{name}</h2>
       <h3>Ingredientes:</h3>
       {
-        ingredientsWithMeasures.map((ingredient, index) => (
-          <label
-            key={ index }
-            data-testid={ `${index}-ingredient-step` }
-            style={ {
-              textDecoration: checkedIngredients[mealsOrDrinks][id as string]
-                && checkedIngredients[mealsOrDrinks][id as string].includes(ingredient)
-                ? 'line-through solid rgb(0, 0, 0)'
-                : 'none',
-            } }
-          >
-            <input
-              type="checkbox"
-              checked={
-                (checkedIngredients[mealsOrDrinks][id as string]
-                && checkedIngredients[mealsOrDrinks][id as string].includes(ingredient))
-                || false
-              }
-              onChange={ () => handleCheckedIngredients(ingredient) }
-            />
-            {ingredient}
-          </label>
-        ))
-      }
+      ingredientsWithMeasures.map((ingredient, index) => (
+        <label
+          key={ index }
+          data-testid={ `${index}-ingredient-step` }
+          style={ {
+            textDecoration: checkedIngredients[mealsOrDrinks][id as string]
+              && checkedIngredients[mealsOrDrinks][id as string].includes(ingredient)
+              ? 'line-through solid rgb(0, 0, 0)'
+              : 'none',
+          } }
+        >
+          <input
+            type="checkbox"
+            checked={
+              (checkedIngredients[mealsOrDrinks][id as string]
+              && checkedIngredients[mealsOrDrinks][id as string].includes(ingredient))
+              || false
+            }
+            onChange={ () => handleCheckedIngredients(ingredient) }
+          />
+          {ingredient}
+        </label>
+      ))
+    }
       <h4 data-testid="recipe-category">{`Categoria: ${category}`}</h4>
       <span data-testid="instructions">{`Instruções: ${instructions}`}</span>
       <input

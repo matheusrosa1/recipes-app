@@ -1,6 +1,6 @@
 import { useContext, useEffect, useState } from 'react';
 import { useLocation, useNavigate, useParams } from 'react-router-dom';
-import { fetchRecipes, getRecipesById } from '../../services/fetchAPI';
+import { fetchRecipes, fetchRecipesById } from '../../services/fetchAPI';
 import { FavoriteRecipeType, RecipeType } from '../types';
 import { Button } from '../Forms/Button';
 import RecipesContext from '../../context/RecipesContext';
@@ -29,7 +29,7 @@ function RecipeDetails() {
 
   const getRecipes = async () => {
     try {
-      const recipeById = await getRecipesById(mealsOrDrinks, id as string);
+      const recipeById = await fetchRecipesById(mealsOrDrinks, id as string);
       setRecipe(recipeById);
 
       localStorage.setItem('recipe', JSON.stringify(recipeById));
@@ -212,6 +212,7 @@ function RecipeDetails() {
       <Button
         dataTestId="share-btn"
         buttonLabel="Compartilhar"
+        id="btn-share"
         onClick={ () => copyLinkDetail(window.location.href) }
       />
       <button

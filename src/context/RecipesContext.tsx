@@ -10,6 +10,7 @@ export type RecipesContextType = {
   setRecipe: (data: RecipeType[]) => void,
   copyMessage: boolean,
   copyLinkDetail: (href: string) => void,
+  getRecipes: (path: string, id: string) => void,
 };
 
 const RecipesContext = createContext({} as RecipesContextType);

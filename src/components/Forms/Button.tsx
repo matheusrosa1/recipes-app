@@ -3,6 +3,7 @@ export type ButtonProps = {
   onClick: () => void;
   buttonLabel: string;
   disabled?: boolean;
+  id?: string;
 };
 
 export function Button({
@@ -10,6 +11,7 @@ export function Button({
   onClick,
   buttonLabel,
   disabled = false,
+  id = '',
 }: ButtonProps) {
   return (
     <button
@@ -17,6 +19,7 @@ export function Button({
       data-testid={ dataTestId }
       onClick={ onClick }
       disabled={ disabled }
+      id={ id }
     >
       {buttonLabel}
     </button>

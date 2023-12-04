@@ -48,6 +48,7 @@
 .btn-start-recipe {
   bottom: 0;
   position: fixed;
+  margin: 20px;
   right: 0;
 }
 
@@ -72,6 +73,10 @@
 .rocksGlass {
   animation: shake 1s infinite ease;
   max-height: 80vh;
+}
+
+#btn-share {
+  padding: 20px;
 }
 
 /*

@@ -1,6 +1,7 @@
-import { useState } from 'react';
+import { useContext, useState } from 'react';
 import { FavoriteRecipeType, RecipeType } from '../components/types';
 import RecipesContext from './RecipesContext';
+import { fetchRecipesById } from '../services/fetchAPI';
 
 type RecipesProviderProps = {
   children: React.ReactNode
@@ -13,10 +14,17 @@ function RecipesProvider({ children }: RecipesProviderProps) {
       : [],
   );
   const [isFavorite, setIsFavorite] = useState(false);
-
   const [recipe, setRecipe] = useState<RecipeType[]>([]);
-
   const [copyMessage, setCopyMessage] = useState(false);
+
+  const getRecipes = async (path: string, id: string) => {
+    try {
+      const recipeById = await fetchRecipesById(path, id);
+      setRecipe(recipeById);
+    } catch (error) {
+      console.log(error);
+    }
+  };
 
   const copyLinkDetail = (href: string) => {
     window.navigator.clipboard.writeText(href);
@@ -32,6 +40,7 @@ function RecipesProvider({ children }: RecipesProviderProps) {
   };
 
   const value = {
+    getRecipes,
     favoritesRecipes,
     addFavoriteRecipe,
     isFavorite,

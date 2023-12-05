@@ -1,6 +1,6 @@
 import Header from '../Header';
 import Footer from '../Footer';
-import Recipes from '../Recipes';
+import Recipes from '../../pages/Recipes';
 
 function Meals() {
   return (

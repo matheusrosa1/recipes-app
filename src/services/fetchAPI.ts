@@ -31,8 +31,8 @@ export const fetchByCategory = async (path: any, category: string) => {
   return data.drinks;
 };
 
-export const getRecipesById = async (path: any, id: string) => {
-  if (path === `/meals/${id}`) {
+export const fetchRecipesById = async (path: any, id: string) => {
+  if (path === 'meals') {
     const response = await fetch(`https://www.themealdb.com/api/json/v1/1/lookup.php?i=${id}`);
     const data = await response.json();
     return data.meals;

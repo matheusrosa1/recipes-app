@@ -1,8 +1,8 @@
 import { useContext, useEffect, useState } from 'react';
 import { useLocation, useNavigate, useParams } from 'react-router-dom';
-import { fetchRecipes, getRecipesById } from '../../services/fetchAPI';
-import { FavoriteRecipeType, RecipeType } from '../types';
-import { Button } from '../Forms/Button';
+import { fetchRecipes, fetchRecipesById } from '../../services/fetchAPI';
+import { FavoriteRecipeType, RecipeType } from '../../types';
+import { Button } from '../../components/Forms/Button';
 import RecipesContext from '../../context/RecipesContext';
 import isFavoriteImage from '../../images/blackHeartIcon.svg';
 import notFavoriteImage from '../../images/whiteHeartIcon.svg';
@@ -11,25 +11,34 @@ function RecipeDetails() {
   const { id } = useParams();
   const location = useLocation();
   const navigate = useNavigate();
-  const [recipe, setRecipe] = useState<RecipeType[]>([]);
   const [recommendations, setRecommendations] = useState([]);
   const [btnTitle, setBtnTitle] = useState('Start Recipe');
-  const [copyMessage, setCopyMessage] = useState(false);
+
   const {
     favoritesRecipes,
     addFavoriteRecipe,
     isFavorite,
     setIsFavorite,
+    recipe,
+    setRecipe,
+    copyMessage,
+    copyLinkDetail,
   } = useContext(RecipesContext);
+
+  const mealsOrDrinks = location.pathname.split('/')[1];
 
   const getRecipes = async () => {
     try {
-      const recipeById = await getRecipesById(location.pathname, id as string);
+      const recipeById = await fetchRecipesById(mealsOrDrinks, id as string);
       setRecipe(recipeById);
+
+      localStorage.setItem('recipe', JSON.stringify(recipeById));
     } catch (error) {
       console.log(error);
     }
   };
+
+  console.log(recipe);
 
   const getRecommendations = async () => {
     try {
@@ -93,13 +102,13 @@ function RecipeDetails() {
   const nationality = location.pathname === `/meals/${id}` ? 'strArea' : '';
   const type = location.pathname === `/meals/${id}` ? 'meal' : 'drink';
 
-  const copyLinkDetail = () => {
+  /*   const copyLinkDetail = () => {
     window.navigator.clipboard.writeText(window.location.href);
     setCopyMessage(true);
     setTimeout(() => {
       setCopyMessage(false);
     }, 2000);
-  };
+  }; */
 
   const handleClickFavorite = () => {
     const favoriteRecipeObject: FavoriteRecipeType = {
@@ -203,7 +212,8 @@ function RecipeDetails() {
       <Button
         dataTestId="share-btn"
         buttonLabel="Compartilhar"
-        onClick={ () => copyLinkDetail() }
+        id="btn-share"
+        onClick={ () => copyLinkDetail(window.location.href) }
       />
       <button
         type="button"

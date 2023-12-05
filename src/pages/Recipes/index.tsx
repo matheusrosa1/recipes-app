@@ -1,8 +1,8 @@
 import { useEffect, useState } from 'react';
 import { useLocation, useNavigate } from 'react-router-dom';
 import { fetchCategoties, fetchByCategory, fetchRecipes } from '../../services/fetchAPI';
-import { CategoriesType, RecipeType } from '../types';
-import { Button } from '../Forms/Button';
+import { CategoriesType, RecipeType } from '../../types';
+import { Button } from '../../components/Forms/Button';
 
 function Recipes() {
   const navigate = useNavigate();

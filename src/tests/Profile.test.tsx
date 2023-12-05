@@ -2,7 +2,7 @@ import { fireEvent, render, screen } from '@testing-library/react';
 import { BrowserRouter as Router } from 'react-router-dom';
 import { UserEvent } from '@testing-library/user-event/dist/types/setup/setup';
 import userEvent from '@testing-library/user-event';
-import Profile from '../components/Profile';
+import Profile from '../pages/Profile';
 import App from '../App';
 
 const emailId = 'profile-email';

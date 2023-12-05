@@ -9,7 +9,10 @@ import {
   DoneRecipeType,
   FavoriteRecipeType,
 } from '../../types';
-import { useGetFavoritesAndRecipes, useGetIngredientsAndMeasures } from '../../hooks/useEffects';
+import {
+  useGetFavoritesAndRecipes,
+  useGetIngredientsAndMeasures,
+} from '../../hooks/useEffects';
 
 function RecipeInProgress() {
   const { id } = useParams<string>();

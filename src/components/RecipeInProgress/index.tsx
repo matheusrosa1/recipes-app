@@ -4,13 +4,12 @@ import RecipesContext from '../../context/RecipesContext';
 import isFavoriteImage from '../../images/blackHeartIcon.svg';
 import notFavoriteImage from '../../images/whiteHeartIcon.svg';
 import { Button } from '../Forms/Button';
-import { fetchRecipesById } from '../../services/fetchAPI';
 import {
   CheckedIngredientsType,
   DoneRecipeType,
   FavoriteRecipeType,
-  RecipeType,
 } from '../types';
+import { useGetFavoritesAndRecipes, useGetIngredientsAndMeasures } from './useEffects';
 
 function RecipeInProgress() {
   const { id } = useParams<string>();
@@ -44,11 +43,8 @@ function RecipeInProgress() {
 
   const {
     recipe,
-    // setRecipe,
-    getRecipes,
     addFavoriteRecipe,
     isFavorite,
-    setIsFavorite,
     copyMessage,
     copyLinkDetail,
     favoritesRecipes,
@@ -57,63 +53,47 @@ function RecipeInProgress() {
   const mealsOrDrinks = location.pathname.includes('meals') ? 'meals' : 'drinks';
   const hrefReplaced = window.location.href.replace('/in-progress', '');
 
-  const imgPath = mealsOrDrinks === 'meals' ? 'strMealThumb' : 'strDrinkThumb';
-  const namePath = mealsOrDrinks === 'meals' ? 'strMeal' : 'strDrink';
-  const categoryPath = 'strCategory';
-  const instructionsPath = mealsOrDrinks === 'meals' ? 'strInstructions'
-    : 'strInstructions';
-  const alcoholicOrNotPath = mealsOrDrinks === 'meals' ? '' : 'strAlcoholic';
-  const nationalityPath = mealsOrDrinks === 'meals' ? 'strArea' : '';
-  const strTagsPath = mealsOrDrinks === 'meals' ? 'strTags' : '';
-
-  const img = recipe[0] && recipe[0][imgPath];
-  const name = recipe[0] && recipe[0][namePath];
-  const category = recipe[0] && recipe[0][categoryPath];
-  const instructions = recipe[0] && recipe[0][instructionsPath];
-  const alcoholicOrNot = recipe[0] && recipe[0][alcoholicOrNotPath];
-  const type = recipe[0] && mealsOrDrinks === 'meals' ? 'meal' : 'drink';
-  const nationality = recipe[0] && recipe[0][nationalityPath];
-  const tags = recipe[0] && recipe[0][strTagsPath]?.split(',');
-
-  useEffect(() => {
-    const getFavoriteRecipes = JSON.parse(localStorage.getItem('favoriteRecipes')!);
-    if (getFavoriteRecipes) {
-      const favoriteRecipesIds = getFavoriteRecipes.map(
-        (recipeMap: FavoriteRecipeType) => recipeMap.id,
-      );
-      if (favoriteRecipesIds.includes(id as string)) { setIsFavorite(true); }
+  const getPath = (field: string) => {
+    switch (field) {
+      case 'img':
+        return mealsOrDrinks === 'meals' ? 'strMealThumb' : 'strDrinkThumb';
+      case 'name':
+        return mealsOrDrinks === 'meals' ? 'strMeal' : 'strDrink';
+      case 'category':
+        return 'strCategory';
+      case 'instructions':
+        return mealsOrDrinks === 'meals' ? 'strInstructions' : 'strInstructions';
+      case 'alcoholicOrNot':
+        return mealsOrDrinks === 'meals' ? '' : 'strAlcoholic';
+      case 'nationality':
+        return mealsOrDrinks === 'meals' ? 'strArea' : '';
+      case 'tags':
+        return mealsOrDrinks === 'meals' ? 'strTags' : '';
+      default:
+        return '';
     }
-    getRecipes(mealsOrDrinks, id as string);
-  }, []);
+  };
 
-  useEffect(() => {
-    if (recipe[0] === undefined) return;
-    const ingredients = Object.keys(recipe[0]).filter(
-      (key) => key.includes('strIngredient') && recipe[0][key],
-    );
-    const measures = Object.keys(recipe[0]).filter(
-      (key) => key.includes('strMeasure') && recipe[0][key],
-    );
-    const ingredientsAndMeasures = ingredients.map((ingredient, index) => (
-      `${recipe[0][ingredient]} - ${[recipe[0][measures[index]]]}`));
+  const type = recipe[0] && mealsOrDrinks === 'meals' ? 'meal' : 'drink';
 
-    setIngredientsWithMeasures(ingredientsAndMeasures);
-  }, [recipe]);
+  useGetFavoritesAndRecipes(mealsOrDrinks, id as string);
+  useGetIngredientsAndMeasures(recipe, setIngredientsWithMeasures);
 
   const handleClickFavorite = () => {
     const favoriteRecipeObject: FavoriteRecipeType = {
       id,
       type,
-      nationality: nationality === undefined ? '' : nationality,
-      category,
-      alcoholicOrNot: alcoholicOrNot === undefined ? '' : alcoholicOrNot,
-      name,
-      image: img,
+      nationality: recipe[0] && recipe[0][getPath('nationality')] === undefined
+        ? '' : recipe[0] && recipe[0][getPath('nationality')],
+      category: recipe[0] && recipe[0][getPath('category')],
+      alcoholicOrNot: recipe[0] && recipe[0][getPath('alcoholicOrNot')] === undefined
+        ? '' : recipe[0] && recipe[0][getPath('alcoholicOrNot')],
+      name: recipe[0] && recipe[0][getPath('name')],
+      image: recipe[0] && recipe[0][getPath('img')],
     };
     addFavoriteRecipe(favoriteRecipeObject);
   };
 
-  // Pega a lista de receitas favoritas do localStorage
   useEffect(() => {
     localStorage.setItem('favoriteRecipes', JSON.stringify(favoritesRecipes));
   }, [favoritesRecipes]);
@@ -154,13 +134,17 @@ function RecipeInProgress() {
     const doneRecipeObject: DoneRecipeType = {
       id,
       type,
-      nationality: nationality === undefined ? '' : nationality,
-      category,
-      alcoholicOrNot: alcoholicOrNot === undefined ? '' : alcoholicOrNot,
-      name,
-      image: img,
+      nationality: recipe[0] && recipe[0][getPath('nationality')] === undefined
+        ? '' : recipe[0] && recipe[0][getPath('nationality')],
+      category: recipe[0] && recipe[0][getPath('category')],
+      alcoholicOrNot: recipe[0] && recipe[0][getPath('alcoholicOrNot')] === undefined
+        ? ''
+        : recipe[0] && recipe[0][getPath('alcoholicOrNot')],
+      name: recipe[0] && recipe[0][getPath('name')],
+      image: recipe[0] && recipe[0][getPath('img')],
       doneDate: actualDate,
-      tags: tags === undefined ? [] : tags,
+      tags: recipe[0] && recipe[0][getPath('tags')]?.split(',') === undefined
+        ? [] : recipe[0] && recipe[0][getPath('tags')]?.split(','),
     };
     setDoneRecipes([...doneRecipes, doneRecipeObject]);
   };
@@ -177,11 +161,11 @@ function RecipeInProgress() {
       <h1>RecipeInProgress</h1>
       <img
         data-testid="recipe-photo"
-        src={ img }
+        src={ recipe[0] && recipe[0][getPath('img')] }
         alt="Imagem do prato"
         height={ 200 }
       />
-      <h2 data-testid="recipe-title">{name}</h2>
+      <h2 data-testid="recipe-title">{recipe[0] && recipe[0][getPath('name')]}</h2>
       <h3>Ingredientes:</h3>
       {
       ingredientsWithMeasures.map((ingredient, index) => (
@@ -208,8 +192,12 @@ function RecipeInProgress() {
         </label>
       ))
     }
-      <h4 data-testid="recipe-category">{`Categoria: ${category}`}</h4>
-      <span data-testid="instructions">{`Instruções: ${instructions}`}</span>
+      <h4 data-testid="recipe-category">
+        {`Categoria: ${recipe[0] && recipe[0][getPath('category')]}`}
+      </h4>
+      <span data-testid="instructions">
+        {`Instruções: ${recipe[0] && recipe[0][getPath('instructions')]}`}
+      </span>
       <input
         type="image"
         src={ isFavorite ? isFavoriteImage : notFavoriteImage }

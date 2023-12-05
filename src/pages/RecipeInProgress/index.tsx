@@ -3,13 +3,13 @@ import { useLocation, useNavigate, useParams } from 'react-router-dom';
 import RecipesContext from '../../context/RecipesContext';
 import isFavoriteImage from '../../images/blackHeartIcon.svg';
 import notFavoriteImage from '../../images/whiteHeartIcon.svg';
-import { Button } from '../Forms/Button';
+import { Button } from '../../components/Forms/Button';
 import {
   CheckedIngredientsType,
   DoneRecipeType,
   FavoriteRecipeType,
-} from '../types';
-import { useGetFavoritesAndRecipes, useGetIngredientsAndMeasures } from './useEffects';
+} from '../../types';
+import { useGetFavoritesAndRecipes, useGetIngredientsAndMeasures } from '../../hooks/useEffects';
 
 function RecipeInProgress() {
   const { id } = useParams<string>();

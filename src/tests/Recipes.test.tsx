@@ -5,7 +5,6 @@ import App from '../App';
 import { MOCK_DRINKS_CATEGORIES, MOCK_MEALS_CATEGORY } from './mocks';
 import * as fetchs from '../services/fetchAPI';
 import { renderWithRouter } from '../utils/renderWithRouter';
-import Recipes from '../components/Recipes';
 
 describe('Testando componente Recipes.tsx', () => {
   afterEach(() => {

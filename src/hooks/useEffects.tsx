@@ -1,5 +1,5 @@
 import { useContext, useEffect } from 'react';
-import RecipesContext from '../../context/RecipesContext';
+import RecipesContext from '../context/RecipesContext';
 import { FavoriteRecipeType, RecipeType } from '../types';
 
 export const useGetFavoritesAndRecipes = (path: string, id: string) => {

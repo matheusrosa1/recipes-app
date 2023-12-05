@@ -1,8 +1,8 @@
 import { useContext, useEffect, useState } from 'react';
 import { useLocation, useNavigate, useParams } from 'react-router-dom';
 import { fetchRecipes, fetchRecipesById } from '../../services/fetchAPI';
-import { FavoriteRecipeType, RecipeType } from '../types';
-import { Button } from '../Forms/Button';
+import { FavoriteRecipeType, RecipeType } from '../../types';
+import { Button } from '../../components/Forms/Button';
 import RecipesContext from '../../context/RecipesContext';
 import isFavoriteImage from '../../images/blackHeartIcon.svg';
 import notFavoriteImage from '../../images/whiteHeartIcon.svg';

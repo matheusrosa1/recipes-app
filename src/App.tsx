@@ -1,15 +1,14 @@
-import React from 'react';
 import { Route, Routes } from 'react-router-dom';
 import './App.css';
 import 'bootstrap/dist/css/bootstrap.min.css';
-import Login from './components/Login';
+import Login from './pages/Login';
 import Meals from './components/Meals';
 import Drinks from './components/Drinks';
-import RecipeInProgress from './components/RecipeInProgress';
-import Profile from './components/Profile';
-import DoneRecipes from './components/DoneRecipes';
-import FavoriteRecipes from './components/FavoriteRecipes';
-import RecipeDetails from './components/RecipeDetails';
+import RecipeInProgress from './pages/RecipeInProgress';
+import Profile from './pages/Profile';
+import DoneRecipes from './pages/DoneRecipes';
+import FavoriteRecipes from './pages/FavoriteRecipes';
+import RecipeDetails from './pages/RecipeDetails';
 import RecipesProvider from './context/RecipesProviders';
 
 function App() {

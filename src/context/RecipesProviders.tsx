@@ -1,5 +1,5 @@
 import { useContext, useState } from 'react';
-import { FavoriteRecipeType, RecipeType } from '../components/types';
+import { FavoriteRecipeType, RecipeType } from '../types';
 import RecipesContext from './RecipesContext';
 import { fetchRecipesById } from '../services/fetchAPI';
 

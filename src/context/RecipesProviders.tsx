@@ -1,5 +1,5 @@
 import { useContext, useState } from 'react';
-import { FavoriteRecipeType, RecipeType } from '../types';
+import { DoneRecipeType, FavoriteRecipeType, RecipeType } from '../types';
 import RecipesContext from './RecipesContext';
 import { fetchRecipesById } from '../services/fetchAPI';
 
@@ -13,7 +13,19 @@ function RecipesProvider({ children }: RecipesProviderProps) {
       ? JSON.parse(localStorage.getItem('favoriteRecipes')!)
       : [],
   );
+
   const [isFavorite, setIsFavorite] = useState(false);
+
+  const [doneRecipes, setDoneRecipes] = useState<DoneRecipeType[]>(
+    localStorage.getItem('doneRecipes')
+      ? JSON.parse(localStorage.getItem('doneRecipes')!)
+      : [],
+  );
+
+  const addDoneRecipes = (doneRecipeProp: DoneRecipeType) => {
+    setDoneRecipes([...doneRecipes, doneRecipeProp]);
+  };
+
   const [recipe, setRecipe] = useState<RecipeType[]>([]);
   const [copyMessage, setCopyMessage] = useState(false);
 
@@ -49,6 +61,8 @@ function RecipesProvider({ children }: RecipesProviderProps) {
     setRecipe,
     copyMessage,
     copyLinkDetail,
+    doneRecipes,
+    addDoneRecipes,
   };
 
   return (

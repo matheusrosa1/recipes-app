@@ -54,5 +54,5 @@ export type DoneRecipeType = {
   name: string | undefined,
   image: string | undefined,
   doneDate: string | undefined,
-  tags: string[] | undefined | string,
+  tags: string[] | undefined,
 };

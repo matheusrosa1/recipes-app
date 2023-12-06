@@ -31,7 +31,7 @@ function RecipeInProgress() {
       : [],
   );
   const [isDisable, setIsDisable] = useState<boolean>(true);
-  const [doneRecipes, setDoneRecipes] = useState<DoneRecipeType[]>([]);
+  /* const [doneRecipes, setDoneRecipes] = useState<DoneRecipeType[]>([]); */
 
   const dataAtual = new Date();
   dataAtual.setUTCHours(dataAtual.getUTCHours() + 3);
@@ -51,6 +51,8 @@ function RecipeInProgress() {
     copyMessage,
     copyLinkDetail,
     favoritesRecipes,
+    doneRecipes,
+    addDoneRecipes,
   } = useContext(RecipesContext);
 
   const mealsOrDrinks = location.pathname.includes('meals') ? 'meals' : 'drinks';
@@ -149,12 +151,16 @@ function RecipeInProgress() {
       tags: recipe[0] && recipe[0][getPath('tags')]?.split(',') === undefined
         ? [] : recipe[0] && recipe[0][getPath('tags')]?.split(','),
     };
-    setDoneRecipes([...doneRecipes, doneRecipeObject]);
+    addDoneRecipes(doneRecipeObject);
+
+    setList([]);
+    JSON.stringify(localStorage.setItem('list', ''));
   };
 
   useEffect(() => {
     localStorage.setItem('doneRecipes', JSON.stringify(doneRecipes));
-    if (doneRecipes.length > 0) {
+    if (doneRecipes.length > 0
+      && doneRecipes.map((doneRecipe) => doneRecipe.id).includes(id)) {
       navigate('/done-recipes');
     }
   }, [doneRecipes]);

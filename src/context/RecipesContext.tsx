@@ -1,5 +1,5 @@
 import { createContext } from 'react';
-import { FavoriteRecipeType, RecipeType } from '../types';
+import { DoneRecipeType, FavoriteRecipeType, RecipeType } from '../types';
 
 export type RecipesContextType = {
   favoritesRecipes: RecipeType[],
@@ -11,6 +11,8 @@ export type RecipesContextType = {
   copyMessage: boolean,
   copyLinkDetail: (href: string) => void,
   getRecipes: (path: string, id: string) => void,
+  doneRecipes: DoneRecipeType[],
+  addDoneRecipes: (doneRecipeProp: DoneRecipeType) => void,
 };
 
 const RecipesContext = createContext({} as RecipesContextType);

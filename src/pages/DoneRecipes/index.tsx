@@ -1,4 +1,4 @@
-import { useContext } from 'react';
+import { useContext, useState } from 'react';
 import Header from '../../components/Header';
 import RecipesContext from '../../context/RecipesContext';
 import { Button } from '../../components/Forms/Button';
@@ -6,7 +6,24 @@ import shareImage from '../../images/shareIcon.svg';
 
 function DoneRecipes() {
   const { doneRecipes, copyMessage, copyLinkDetail } = useContext(RecipesContext);
+  const [doneRecipesFiltered, setDoneRecipesFiltered] = useState(doneRecipes);
   const hrefReplaced = window.location.href.replace('/done-recipes', '');
+
+  const handleClickFilter = (filter: string) => {
+    switch (filter) {
+      case 'all':
+        setDoneRecipesFiltered(doneRecipes);
+        break;
+      case 'meals':
+        setDoneRecipesFiltered(doneRecipes.filter((recipe) => recipe.type === 'meal'));
+        break;
+      case 'drinks':
+        setDoneRecipesFiltered(doneRecipes.filter((recipe) => recipe.type === 'drink'));
+        break;
+      default:
+        break;
+    }
+  };
 
   return (
     <div>
@@ -14,20 +31,20 @@ function DoneRecipes() {
       <h1>Done Recipes</h1>
       <Button
         dataTestId="filter-by-all-btn"
-        onClick={ () => console.log('oi') }
+        onClick={ () => handleClickFilter('all') }
         buttonLabel="All"
       />
       <Button
         dataTestId="filter-by-meal-btn"
-        onClick={ () => console.log('oi') }
+        onClick={ () => handleClickFilter('meals') }
         buttonLabel="Meals"
       />
       <Button
         dataTestId="filter-by-drink-btn"
-        onClick={ () => console.log('oi') }
+        onClick={ () => handleClickFilter('drinks') }
         buttonLabel="Drinks"
       />
-      {doneRecipes && doneRecipes.map((doneRecipe, index) => (
+      {doneRecipesFiltered && doneRecipesFiltered.map((doneRecipe, index) => (
         doneRecipe.type === 'meal'
           ? (
             <div key={ doneRecipe.id }>

@@ -128,7 +128,7 @@ function RecipeDetails() {
 
   return (
     <div>
-      {recipe.map((recipeDetail: RecipeType, index) => (
+      {recipe && recipe.map((recipeDetail: RecipeType, index) => (
         <div key={ recipeDetail[recipeId] }>
           <img
             data-testid="recipe-photo"

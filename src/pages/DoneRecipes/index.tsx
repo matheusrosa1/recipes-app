@@ -2,11 +2,11 @@ import { useContext } from 'react';
 import Header from '../../components/Header';
 import RecipesContext from '../../context/RecipesContext';
 import { Button } from '../../components/Forms/Button';
-/* import DoneRecipesRender from './DoneRecipesRender'; */
 import shareImage from '../../images/shareIcon.svg';
 
 function DoneRecipes() {
-  const { doneRecipes, copyLinkDetail, copyMessage } = useContext(RecipesContext);
+  const { doneRecipes, copyMessage, copyLinkDetail } = useContext(RecipesContext);
+  const hrefReplaced = window.location.href.replace('/done-recipes', '');
 
   return (
     <div>
@@ -58,7 +58,9 @@ function DoneRecipes() {
                 className="btn-category"
                 alt="blackHeartIcon"
                 data-testid={ `${index}-horizontal-share-btn` }
-                onClick={ () => {} }
+                onClick={ () => copyLinkDetail(
+                  `${hrefReplaced}/${doneRecipe.type}s/${doneRecipe.id}`,
+                ) }
                 style={ { maxWidth: '100%', maxHeight: '100%' } }
               />
               {copyMessage && (
@@ -104,7 +106,9 @@ function DoneRecipes() {
                 className="btn-category"
                 alt="blackHeartIcon"
                 data-testid={ `${index}-horizontal-share-btn` }
-                onClick={ () => {} }
+                onClick={ () => copyLinkDetail(
+                  `${hrefReplaced}/${doneRecipe.type}s/${doneRecipe.id}`,
+                ) }
                 style={ { maxWidth: '100%', maxHeight: '100%' } }
               />
               {copyMessage && (

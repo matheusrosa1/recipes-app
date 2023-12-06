@@ -1,4 +1,5 @@
 import { useContext, useState } from 'react';
+import { useNavigate } from 'react-router-dom';
 import Header from '../../components/Header';
 import RecipesContext from '../../context/RecipesContext';
 import { Button } from '../../components/Forms/Button';
@@ -8,6 +9,7 @@ function DoneRecipes() {
   const { doneRecipes, copyMessage, copyLinkDetail } = useContext(RecipesContext);
   const [doneRecipesFiltered, setDoneRecipesFiltered] = useState(doneRecipes);
   const hrefReplaced = window.location.href.replace('/done-recipes', '');
+  const navigate = useNavigate();
 
   const handleClickFilter = (filter: string) => {
     switch (filter) {
@@ -48,12 +50,19 @@ function DoneRecipes() {
         doneRecipe.type === 'meal'
           ? (
             <div key={ doneRecipe.id }>
-              <img
-                src={ doneRecipe && doneRecipe.image }
-                alt=""
-                height={ 200 }
-                data-testid={ `${index}-horizontal-image` }
-              />
+              <div
+                onClick={ () => navigate(`/meals/${doneRecipe.id}`) }
+                aria-hidden="true"
+                role="link"
+                tabIndex={ 0 }
+              >
+                <img
+                  src={ doneRecipe && doneRecipe.image }
+                  alt=""
+                  height={ 200 }
+                  data-testid={ `${index}-horizontal-image` }
+                />
+              </div>
               <p
                 data-testid={ `${index}-horizontal-top-text` }
               >
@@ -61,6 +70,8 @@ function DoneRecipes() {
               </p>
               <h3
                 data-testid={ `${index}-horizontal-name` }
+                onClick={ () => navigate(`/meals/${doneRecipe.id}`) }
+                aria-hidden="true"
               >
                 {doneRecipe.name}
               </h3>
@@ -96,12 +107,19 @@ function DoneRecipes() {
           )
           : (
             <div key={ doneRecipe.id }>
-              <img
-                src={ doneRecipe && doneRecipe.image }
-                alt=""
-                height={ 200 }
-                data-testid={ `${index}-horizontal-image` }
-              />
+              <div
+                onClick={ () => navigate(`/drinks/${doneRecipe.id}`) }
+                aria-hidden="true"
+                role="link"
+                tabIndex={ 0 }
+              >
+                <img
+                  src={ doneRecipe && doneRecipe.image }
+                  alt=""
+                  height={ 200 }
+                  data-testid={ `${index}-horizontal-image` }
+                />
+              </div>
               <p
                 data-testid={ `${index}-horizontal-top-text` }
               >
@@ -109,6 +127,8 @@ function DoneRecipes() {
               </p>
               <h3
                 data-testid={ `${index}-horizontal-name` }
+                onClick={ () => navigate(`/drinks/${doneRecipe.id}`) }
+                aria-hidden="true"
               >
                 {doneRecipe.name}
               </h3>

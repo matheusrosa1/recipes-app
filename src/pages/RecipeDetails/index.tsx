@@ -38,8 +38,6 @@ function RecipeDetails() {
     }
   };
 
-  console.log(recipe);
-
   const getRecommendations = async () => {
     try {
       const type = location.pathname === `/meals/${id}`

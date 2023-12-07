@@ -1,4 +1,5 @@
 import { useState } from 'react';
+import { set } from 'cypress/types/lodash';
 import { DoneRecipeType, FavoriteRecipeType, RecipeType } from '../types';
 import RecipesContext from './RecipesContext';
 import { fetchRecipesById } from '../services/fetchAPI';
@@ -51,7 +52,9 @@ function RecipesProvider({ children }: RecipesProviderProps) {
   const addFavoriteRecipe = (recipeProp: FavoriteRecipeType) => {
     setIsFavorite((prevState) => !prevState);
     if (!favoritesRecipes.some((favRecipe) => favRecipe.id === recipeProp.id)) {
-      setFavoritesRecipes([...favoritesRecipes, recipeProp]);
+      const newFavoritesRecipes = [...favoritesRecipes, recipeProp];
+      setFavoritesRecipes(newFavoritesRecipes);
+      localStorage.setItem('favoriteRecipes', JSON.stringify(newFavoritesRecipes));
     }
   };
 
@@ -76,7 +79,11 @@ function RecipesProvider({ children }: RecipesProviderProps) {
     }
   };
 
-  const handleClickFavorite = (id: string, type: string, mealsOrDrinks: string) => {
+  const handleClickFavorite = (
+    id: string,
+    type: string,
+    mealsOrDrinks: string,
+  ) => {
     const favoriteRecipeObject: FavoriteRecipeType = {
       id,
       type,
@@ -94,13 +101,22 @@ function RecipesProvider({ children }: RecipesProviderProps) {
       image: recipe[0]
       && recipe[0][getPath('img', mealsOrDrinks)],
     };
-    if (isFavorite) {
-      const newFavoritesRecipes = favoritesRecipes
-        .filter((favRecipe) => favRecipe.id !== id);
-      setFavoritesRecipes(newFavoritesRecipes);
-      localStorage.setItem('favoriteRecipes', JSON.stringify(newFavoritesRecipes));
+    if (favoritesRecipes.some(
+      (favRecipe) => favRecipe.id === id,
+    )) {
+      if (favoritesRecipes.length === 1) {
+        setFavoritesRecipes([]);
+        localStorage.setItem('favoriteRecipes', JSON.stringify([]));
+        setIsFavorite(false);
+      } else {
+        const newFavoritesRecipes = favoritesRecipes
+          .filter((favRecipe) => favRecipe.id !== id);
+        setFavoritesRecipes(newFavoritesRecipes);
+        setIsFavorite(false);
+      }
     } else {
       addFavoriteRecipe(favoriteRecipeObject);
+      setIsFavorite(true);
     }
   };
 

@@ -13,6 +13,13 @@ function FavoriteRecipes() {
     setFavoritesRecipeFiltered(favoritesRecipes);
   }, [favoritesRecipes]);
 
+  useEffect(
+    () => {
+      localStorage.setItem('favoriteRecipes', JSON.stringify(favoritesRecipes));
+    },
+    [favoritesRecipes],
+  );
+
   const handleClickFilter = (filter: string) => {
     switch (filter) {
       case 'all':

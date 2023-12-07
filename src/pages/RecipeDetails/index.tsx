@@ -16,13 +16,14 @@ function RecipeDetails() {
 
   const {
     favoritesRecipes,
-    addFavoriteRecipe,
+    /*     addFavoriteRecipe, */
     isFavorite,
     setIsFavorite,
     recipe,
     setRecipe,
     copyMessage,
     copyLinkDetail,
+    handleClickFavorite,
   } = useContext(RecipesContext);
 
   const mealsOrDrinks = location.pathname.split('/')[1];
@@ -62,8 +63,12 @@ function RecipeDetails() {
       const favoriteRecipesIds = getFavoriteRecipes.map(
         (recipeMap: FavoriteRecipeType) => recipeMap.id,
       );
+      /*       console.log(favoriteRecipesIds); */
+      console.log(favoriteRecipesIds);
       if (favoriteRecipesIds.includes(id as string)) {
         setIsFavorite(true);
+      } else {
+        setIsFavorite(false);
       }
     }
     getRecommendations();
@@ -107,7 +112,7 @@ function RecipeDetails() {
       setCopyMessage(false);
     }, 2000);
   }; */
-
+  /*
   const handleClickFavorite = () => {
     const favoriteRecipeObject: FavoriteRecipeType = {
       id,
@@ -121,7 +126,7 @@ function RecipeDetails() {
     };
     addFavoriteRecipe(favoriteRecipeObject);
   };
-
+ */
   useEffect(() => {
     localStorage.setItem('favoriteRecipes', JSON.stringify(favoritesRecipes));
   }, [favoritesRecipes]);
@@ -204,7 +209,7 @@ function RecipeDetails() {
         className="btn-category"
         alt="blackHeartIcon"
         data-testid="favorite-btn"
-        onClick={ () => handleClickFavorite() }
+        onClick={ () => handleClickFavorite(id as string, type, mealOrDrink) }
         style={ { maxWidth: '100%', maxHeight: '100%' } }
       />
       <Button

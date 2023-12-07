@@ -1,16 +1,12 @@
 import { useContext, useState } from 'react';
-import { useNavigate } from 'react-router-dom';
 import Header from '../../components/Header';
 import RecipesContext from '../../context/RecipesContext';
 import { Button } from '../../components/Forms/Button';
-import shareImage from '../../images/shareIcon.svg';
 import RecipeCard from './RecipeCard';
 
 function DoneRecipes() {
-  const { doneRecipes, copyMessage, copyLinkDetail } = useContext(RecipesContext);
+  const { doneRecipes, copyMessage } = useContext(RecipesContext);
   const [doneRecipesFiltered, setDoneRecipesFiltered] = useState(doneRecipes);
-  const localHost = window.location.href.replace('/done-recipes', '');
-  const navigate = useNavigate();
 
   const handleClickFilter = (filter: string) => {
     switch (filter) {
@@ -50,9 +46,10 @@ function DoneRecipes() {
       {doneRecipesFiltered && doneRecipesFiltered.map((doneRecipe, index) => (
         <div key={ index }>
           <RecipeCard
-            doneRecipe={ doneRecipe }
+            recipe={ doneRecipe }
             index={ index }
             copyMessage={ copyMessage }
+            typeRecipe="done"
           />
         </div>
       ))}

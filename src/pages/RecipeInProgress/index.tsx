@@ -46,19 +46,21 @@ function RecipeInProgress() {
 
   const {
     recipe,
-    addFavoriteRecipe,
+    /*     addFavoriteRecipe, */
     isFavorite,
     copyMessage,
     copyLinkDetail,
     favoritesRecipes,
     doneRecipes,
     addDoneRecipes,
+    handleClickFavorite,
+    getPath,
   } = useContext(RecipesContext);
 
   const mealsOrDrinks = location.pathname.includes('meals') ? 'meals' : 'drinks';
   const hrefReplaced = window.location.href.replace('/in-progress', '');
 
-  const getPath = (field: string) => {
+  /*   const getPath = (field: string) => {
     switch (field) {
       case 'img':
         return mealsOrDrinks === 'meals' ? 'strMealThumb' : 'strDrinkThumb';
@@ -77,14 +79,14 @@ function RecipeInProgress() {
       default:
         return '';
     }
-  };
+  }; */
 
   const type = recipe[0] && mealsOrDrinks === 'meals' ? 'meal' : 'drink';
 
   useGetFavoritesAndRecipes(mealsOrDrinks, id as string);
   useGetIngredientsAndMeasures(recipe, setIngredientsWithMeasures);
 
-  const handleClickFavorite = () => {
+  /*   const handleClickFavorite = () => {
     const favoriteRecipeObject: FavoriteRecipeType = {
       id,
       type,
@@ -97,7 +99,7 @@ function RecipeInProgress() {
       image: recipe[0] && recipe[0][getPath('img')],
     };
     addFavoriteRecipe(favoriteRecipeObject);
-  };
+  }; */
 
   useEffect(() => {
     localStorage.setItem('favoriteRecipes', JSON.stringify(favoritesRecipes));
@@ -128,7 +130,7 @@ function RecipeInProgress() {
     } else {
       setIsDisable(true);
     }
-  }, [list]);
+  }, [list, ingredientsWithMeasures]);
 
   useEffect(() => {
     localStorage.setItem('inProgressRecipes', JSON.stringify(checkedIngredients));
@@ -139,17 +141,20 @@ function RecipeInProgress() {
     const doneRecipeObject: DoneRecipeType = {
       id,
       type,
-      nationality: recipe[0] && recipe[0][getPath('nationality')] === undefined
-        ? '' : recipe[0] && recipe[0][getPath('nationality')],
-      category: recipe[0] && recipe[0][getPath('category')],
-      alcoholicOrNot: recipe[0] && recipe[0][getPath('alcoholicOrNot')] === undefined
+      nationality: recipe[0]
+      && recipe[0][getPath('nationality', mealsOrDrinks)] === undefined
+        ? '' : recipe[0] && recipe[0][getPath('nationality', mealsOrDrinks)],
+      category: recipe[0] && recipe[0][getPath('category', mealsOrDrinks)],
+      alcoholicOrNot: recipe[0]
+       && recipe[0][getPath('alcoholicOrNot', mealsOrDrinks)] === undefined
         ? ''
-        : recipe[0] && recipe[0][getPath('alcoholicOrNot')],
-      name: recipe[0] && recipe[0][getPath('name')],
-      image: recipe[0] && recipe[0][getPath('img')],
+        : recipe[0] && recipe[0][getPath('alcoholicOrNot', mealsOrDrinks)],
+      name: recipe[0] && recipe[0][getPath('name', mealsOrDrinks)],
+      image: recipe[0] && recipe[0][getPath('img', mealsOrDrinks)],
       doneDate: actualDate,
-      tags: recipe[0] && recipe[0][getPath('tags')]?.split(',') === undefined
-        ? [] : recipe[0] && recipe[0][getPath('tags')]?.split(','),
+      tags: recipe[0]
+      && recipe[0][getPath('tags', mealsOrDrinks)]?.split(',') === undefined
+        ? [] : recipe[0] && recipe[0][getPath('tags', mealsOrDrinks)]?.split(','),
     };
     addDoneRecipes(doneRecipeObject);
 
@@ -170,11 +175,15 @@ function RecipeInProgress() {
       <h1>RecipeInProgress</h1>
       <img
         data-testid="recipe-photo"
-        src={ recipe[0] && recipe[0][getPath('img')] }
+        src={ recipe[0] && recipe[0][getPath('img', mealsOrDrinks)] }
         alt="Imagem do prato"
         height={ 200 }
       />
-      <h2 data-testid="recipe-title">{recipe[0] && recipe[0][getPath('name')]}</h2>
+      <h2 data-testid="recipe-title">
+        {recipe[0]
+      && recipe[0][getPath('name', mealsOrDrinks)]}
+
+      </h2>
       <h3>Ingredientes:</h3>
       {
       ingredientsWithMeasures.map((ingredient, index) => (
@@ -202,10 +211,10 @@ function RecipeInProgress() {
       ))
     }
       <h4 data-testid="recipe-category">
-        {`Categoria: ${recipe[0] && recipe[0][getPath('category')]}`}
+        {`Categoria: ${recipe[0] && recipe[0][getPath('category', mealsOrDrinks)]}`}
       </h4>
       <span data-testid="instructions">
-        {`Instruções: ${recipe[0] && recipe[0][getPath('instructions')]}`}
+        {`Instruções: ${recipe[0] && recipe[0][getPath('instructions', mealsOrDrinks)]}`}
       </span>
       <input
         type="image"
@@ -213,7 +222,7 @@ function RecipeInProgress() {
         className="btn-category"
         alt="blackHeartIcon"
         data-testid="favorite-btn"
-        onClick={ () => handleClickFavorite() }
+        onClick={ () => handleClickFavorite(id as string, type, mealsOrDrinks) }
       />
       <Button
         dataTestId="share-btn"

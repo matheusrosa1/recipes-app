@@ -51,11 +51,54 @@ function RecipesProvider({ children }: RecipesProviderProps) {
     setFavoritesRecipes([...favoritesRecipes, recipeProp]);
   };
 
+  const getPath = (field: string, mealsOrDrinks: string) => {
+    switch (field) {
+      case 'img':
+        return mealsOrDrinks === 'meals' ? 'strMealThumb' : 'strDrinkThumb';
+      case 'name':
+        return mealsOrDrinks === 'meals' ? 'strMeal' : 'strDrink';
+      case 'category':
+        return 'strCategory';
+      case 'instructions':
+        return mealsOrDrinks === 'meals' ? 'strInstructions' : 'strInstructions';
+      case 'alcoholicOrNot':
+        return mealsOrDrinks === 'meals' ? '' : 'strAlcoholic';
+      case 'nationality':
+        return mealsOrDrinks === 'meals' ? 'strArea' : '';
+      case 'tags':
+        return mealsOrDrinks === 'meals' ? 'strTags' : '';
+      default:
+        return '';
+    }
+  };
+
+  const handleClickFavorite = (id: string, type: string, mealsOrDrinks: string) => {
+    const favoriteRecipeObject: FavoriteRecipeType = {
+      id,
+      type,
+      nationality: recipe[0]
+      && recipe[0][getPath('nationality', mealsOrDrinks)] === undefined
+        ? '' : recipe[0]
+        && recipe[0][getPath('nationality', mealsOrDrinks)],
+      category: recipe[0]
+      && recipe[0][getPath('category', mealsOrDrinks)],
+      alcoholicOrNot: recipe[0]
+      && recipe[0][getPath('alcoholicOrNot', mealsOrDrinks)] === undefined
+        ? '' : recipe[0] && recipe[0][getPath('alcoholicOrNot', mealsOrDrinks)],
+      name: recipe[0]
+      && recipe[0][getPath('name', mealsOrDrinks)],
+      image: recipe[0]
+      && recipe[0][getPath('img', mealsOrDrinks)],
+    };
+    addFavoriteRecipe(favoriteRecipeObject);
+  };
+
   const value = {
     getRecipes,
     favoritesRecipes,
-    addFavoriteRecipe,
+    /*   addFavoriteRecipe, */
     isFavorite,
+    handleClickFavorite,
     setIsFavorite,
     recipe,
     setRecipe,
@@ -63,6 +106,7 @@ function RecipesProvider({ children }: RecipesProviderProps) {
     copyLinkDetail,
     doneRecipes,
     addDoneRecipes,
+    getPath,
   };
 
   return (

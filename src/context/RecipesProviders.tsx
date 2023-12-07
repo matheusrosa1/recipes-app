@@ -14,7 +14,9 @@ function RecipesProvider({ children }: RecipesProviderProps) {
       : [],
   );
 
-  const [isFavorite, setIsFavorite] = useState(false);
+  const [isFavorite, setIsFavorite] = useState(
+    favoritesRecipes.some((recipe) => recipe.id === localStorage.getItem('id')),
+  );
 
   const [doneRecipes, setDoneRecipes] = useState<DoneRecipeType[]>(
     localStorage.getItem('doneRecipes')
@@ -48,7 +50,9 @@ function RecipesProvider({ children }: RecipesProviderProps) {
 
   const addFavoriteRecipe = (recipeProp: FavoriteRecipeType) => {
     setIsFavorite((prevState) => !prevState);
-    setFavoritesRecipes([...favoritesRecipes, recipeProp]);
+    if (!favoritesRecipes.some((favRecipe) => favRecipe.id === recipeProp.id)) {
+      setFavoritesRecipes([...favoritesRecipes, recipeProp]);
+    }
   };
 
   const getPath = (field: string, mealsOrDrinks: string) => {
@@ -90,7 +94,14 @@ function RecipesProvider({ children }: RecipesProviderProps) {
       image: recipe[0]
       && recipe[0][getPath('img', mealsOrDrinks)],
     };
-    addFavoriteRecipe(favoriteRecipeObject);
+    if (isFavorite) {
+      const newFavoritesRecipes = favoritesRecipes
+        .filter((favRecipe) => favRecipe.id !== id);
+      setFavoritesRecipes(newFavoritesRecipes);
+      localStorage.setItem('favoriteRecipes', JSON.stringify(newFavoritesRecipes));
+    } else {
+      addFavoriteRecipe(favoriteRecipeObject);
+    }
   };
 
   const value = {

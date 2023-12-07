@@ -1,8 +1,10 @@
-import { useContext } from 'react';
+import { useContext, useEffect } from 'react';
 import { useNavigate } from 'react-router-dom';
 import shareImage from '../../images/shareIcon.svg';
 import RecipesContext from '../../context/RecipesContext';
 import { DoneRecipeType, RecipeType } from '../../types';
+import isFavoriteImage from '../../images/blackHeartIcon.svg';
+import notFavoriteImage from '../../images/whiteHeartIcon.svg';
 
 export type RecipeCardProps = {
   recipe: DoneRecipeType | RecipeType,
@@ -13,8 +15,17 @@ export type RecipeCardProps = {
 
 function RecipeCard({ recipe, index, copyMessage, typeRecipe }: RecipeCardProps) {
   const { copyLinkDetail } = useContext(RecipesContext);
-  const localHost = window.location.href.replace('/done-recipes', '');
+  const localHost = 'http://localhost:3000';
   const navigate = useNavigate();
+  const isFavorite = useContext(RecipesContext);
+  const { handleClickFavorite } = useContext(RecipesContext);
+
+  useEffect(
+    () => {
+      localStorage.setItem('favoriteRecipes', JSON.stringify(isFavorite));
+    },
+    [isFavorite],
+  );
 
   return (
     <div key={ recipe.id }>
@@ -62,6 +73,19 @@ function RecipeCard({ recipe, index, copyMessage, typeRecipe }: RecipeCardProps)
             {tag}
           </p>
       ))}
+      <input
+        type="image"
+        src={ isFavorite ? isFavoriteImage : notFavoriteImage }
+        className="btn-category"
+        alt="blackHeartIcon"
+        data-testid={ `${index}-horizontal-favorite-btn` }
+        onClick={ () => handleClickFavorite(
+          recipe.id as string,
+          recipe.type as string,
+          recipe.type === 'meal' ? 'meals' : 'cocktails',
+        ) }
+        style={ { maxWidth: '100%', maxHeight: '100%' } }
+      />
     </div>
   );
 }

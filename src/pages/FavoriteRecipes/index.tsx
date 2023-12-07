@@ -1,4 +1,4 @@
-import { useContext, useState } from 'react';
+import { useContext, useState, useEffect } from 'react';
 import Header from '../../components/Header';
 import RecipesContext from '../../context/RecipesContext';
 import RecipeCard from '../DoneRecipes/RecipeCard';
@@ -9,6 +9,9 @@ function FavoriteRecipes() {
   const { copyMessage } = useContext(RecipesContext);
   const [favoritesRecipeFiltered,
     setFavoritesRecipeFiltered] = useState(favoritesRecipes);
+  useEffect(() => {
+    setFavoritesRecipeFiltered(favoritesRecipes);
+  }, [favoritesRecipes]);
 
   const handleClickFilter = (filter: string) => {
     switch (filter) {

@@ -2,7 +2,7 @@ import { useContext } from 'react';
 import { useNavigate } from 'react-router-dom';
 import shareImage from '../../images/shareIcon.svg';
 import RecipesContext from '../../context/RecipesContext';
-import { DoneRecipeType, FavoriteRecipeType, RecipeType } from '../../types';
+import { DoneRecipeType, RecipeType } from '../../types';
 
 export type RecipeCardProps = {
   recipe: DoneRecipeType | RecipeType,

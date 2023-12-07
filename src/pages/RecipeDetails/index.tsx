@@ -16,7 +16,6 @@ function RecipeDetails() {
 
   const {
     favoritesRecipes,
-    /*     addFavoriteRecipe, */
     isFavorite,
     setIsFavorite,
     recipe,
@@ -105,28 +104,6 @@ function RecipeDetails() {
   const nationality = location.pathname === `/meals/${id}` ? 'strArea' : '';
   const type = location.pathname === `/meals/${id}` ? 'meal' : 'drink';
 
-  /*   const copyLinkDetail = () => {
-    window.navigator.clipboard.writeText(window.location.href);
-    setCopyMessage(true);
-    setTimeout(() => {
-      setCopyMessage(false);
-    }, 2000);
-  }; */
-  /*
-  const handleClickFavorite = () => {
-    const favoriteRecipeObject: FavoriteRecipeType = {
-      id,
-      type,
-      nationality: recipe[0][nationality] === undefined ? '' : recipe[0][nationality],
-      category: recipe[0].strCategory,
-      alcoholicOrNot: recipe[0][alcoholicOrNot] === undefined
-        ? '' : recipe[0][alcoholicOrNot],
-      name: recipe[0][name],
-      image: recipe[0][img],
-    };
-    addFavoriteRecipe(favoriteRecipeObject);
-  };
- */
   useEffect(() => {
     localStorage.setItem('favoriteRecipes', JSON.stringify(favoritesRecipes));
   }, [favoritesRecipes]);

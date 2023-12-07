@@ -56,7 +56,7 @@ function RecipeCard({ recipe, index, copyMessage, typeRecipe }: RecipeCardProps)
         style={ { maxWidth: '100%', maxHeight: '100%' } }
       />
       {copyMessage && <p>Link copied!</p>}
-      {recipe.tags
+      {Array.isArray(recipe.tags)
         && typeRecipe === 'done' && recipe.tags.slice(0, 2).map((tag: any) => (
           <p data-testid={ `${index}-${tag}-horizontal-tag` } key={ tag }>
             {tag}

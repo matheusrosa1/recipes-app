@@ -14,7 +14,7 @@ export type RecipesContextType = {
   doneRecipes: DoneRecipeType[],
   addDoneRecipes: (doneRecipeProp: DoneRecipeType) => void,
   handleClickFavorite: (id: string, type: string, mealsOrDrinks: string) => void,
-  getPath: (field: string, mealsOrDrinks: string) => void,
+  getPath: (field: string, mealsOrDrinks: string) => string,
 };
 
 const RecipesContext = createContext({} as RecipesContextType);

@@ -46,7 +46,6 @@ function RecipeInProgress() {
 
   const {
     recipe,
-    /*     addFavoriteRecipe, */
     isFavorite,
     copyMessage,
     copyLinkDetail,
@@ -60,46 +59,10 @@ function RecipeInProgress() {
   const mealsOrDrinks = location.pathname.includes('meals') ? 'meals' : 'drinks';
   const hrefReplaced = window.location.href.replace('/in-progress', '');
 
-  /*   const getPath = (field: string) => {
-    switch (field) {
-      case 'img':
-        return mealsOrDrinks === 'meals' ? 'strMealThumb' : 'strDrinkThumb';
-      case 'name':
-        return mealsOrDrinks === 'meals' ? 'strMeal' : 'strDrink';
-      case 'category':
-        return 'strCategory';
-      case 'instructions':
-        return mealsOrDrinks === 'meals' ? 'strInstructions' : 'strInstructions';
-      case 'alcoholicOrNot':
-        return mealsOrDrinks === 'meals' ? '' : 'strAlcoholic';
-      case 'nationality':
-        return mealsOrDrinks === 'meals' ? 'strArea' : '';
-      case 'tags':
-        return mealsOrDrinks === 'meals' ? 'strTags' : '';
-      default:
-        return '';
-    }
-  }; */
-
   const type = recipe[0] && mealsOrDrinks === 'meals' ? 'meal' : 'drink';
 
   useGetFavoritesAndRecipes(mealsOrDrinks, id as string);
   useGetIngredientsAndMeasures(recipe, setIngredientsWithMeasures);
-
-  /*   const handleClickFavorite = () => {
-    const favoriteRecipeObject: FavoriteRecipeType = {
-      id,
-      type,
-      nationality: recipe[0] && recipe[0][getPath('nationality')] === undefined
-        ? '' : recipe[0] && recipe[0][getPath('nationality')],
-      category: recipe[0] && recipe[0][getPath('category')],
-      alcoholicOrNot: recipe[0] && recipe[0][getPath('alcoholicOrNot')] === undefined
-        ? '' : recipe[0] && recipe[0][getPath('alcoholicOrNot')],
-      name: recipe[0] && recipe[0][getPath('name')],
-      image: recipe[0] && recipe[0][getPath('img')],
-    };
-    addFavoriteRecipe(favoriteRecipeObject);
-  }; */
 
   useEffect(() => {
     localStorage.setItem('favoriteRecipes', JSON.stringify(favoritesRecipes));

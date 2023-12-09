@@ -1,5 +1,5 @@
 import { fireEvent, screen, within } from '@testing-library/react';
-import { renderWithRouter } from '../utils/renderWithRouter';
+import renderWithRouter from '../utils/renderWithRouter';
 import App from '../App';
 
 const path = '/meals/52977/in-progress';

@@ -1,11 +1,10 @@
 import { fireEvent, render, screen, waitFor } from '@testing-library/react';
 import { vi } from 'vitest';
 import { BrowserRouter as Router } from 'react-router-dom';
-
-import { renderWithRouter } from '../utils/renderWithRouter';
+import renderWithRouter from '../utils/renderWithRouter';
 import SearchBar from '../components/SearchBar';
 import App from '../App';
-import { MOCK_RECIPES_MEALS, oneDrink, oneMeal } from './mocks';
+import { MOCK_RECIPES_MEALS, oneDrink, oneMeal } from './Mocks/mocks';
 
 const searchTopBtnTestId = 'search-top-btn';
 const searchInputTestId = 'search-input';

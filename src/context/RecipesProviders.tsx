@@ -14,7 +14,9 @@ function RecipesProvider({ children }: RecipesProviderProps) {
       : [],
   );
 
-  const [isFavorite, setIsFavorite] = useState(false);
+  const [isFavorite, setIsFavorite] = useState(
+    favoritesRecipes.some((recipe) => recipe.id === localStorage.getItem('id')),
+  );
 
   const [doneRecipes, setDoneRecipes] = useState<DoneRecipeType[]>(
     localStorage.getItem('doneRecipes')
@@ -48,7 +50,11 @@ function RecipesProvider({ children }: RecipesProviderProps) {
 
   const addFavoriteRecipe = (recipeProp: FavoriteRecipeType) => {
     setIsFavorite((prevState) => !prevState);
-    setFavoritesRecipes([...favoritesRecipes, recipeProp]);
+    if (!favoritesRecipes.some((favRecipe) => favRecipe.id === recipeProp.id)) {
+      const newFavoritesRecipes = [...favoritesRecipes, recipeProp];
+      setFavoritesRecipes(newFavoritesRecipes);
+      localStorage.setItem('favoriteRecipes', JSON.stringify(newFavoritesRecipes));
+    }
   };
 
   const getPath = (field: string, mealsOrDrinks: string) => {
@@ -72,7 +78,11 @@ function RecipesProvider({ children }: RecipesProviderProps) {
     }
   };
 
-  const handleClickFavorite = (id: string, type: string, mealsOrDrinks: string) => {
+  const handleClickFavorite = (
+    id: string,
+    type: string,
+    mealsOrDrinks: string,
+  ) => {
     const favoriteRecipeObject: FavoriteRecipeType = {
       id,
       type,
@@ -90,13 +100,28 @@ function RecipesProvider({ children }: RecipesProviderProps) {
       image: recipe[0]
       && recipe[0][getPath('img', mealsOrDrinks)],
     };
-    addFavoriteRecipe(favoriteRecipeObject);
+    if (favoritesRecipes.some(
+      (favRecipe) => favRecipe.id === id,
+    )) {
+      if (favoritesRecipes.length === 1) {
+        setFavoritesRecipes([]);
+        localStorage.setItem('favoriteRecipes', JSON.stringify([]));
+        setIsFavorite(false);
+      } else {
+        const newFavoritesRecipes = favoritesRecipes
+          .filter((favRecipe) => favRecipe.id !== id);
+        setFavoritesRecipes(newFavoritesRecipes);
+        setIsFavorite(false);
+      }
+    } else {
+      addFavoriteRecipe(favoriteRecipeObject);
+      setIsFavorite(true);
+    }
   };
 
   const value = {
     getRecipes,
     favoritesRecipes,
-    /*   addFavoriteRecipe, */
     isFavorite,
     handleClickFavorite,
     setIsFavorite,

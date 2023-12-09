@@ -1,12 +1,11 @@
 import { useContext, useState, useEffect } from 'react';
 import Header from '../../components/Header';
 import RecipesContext from '../../context/RecipesContext';
-import RecipeCard from '../DoneRecipes/RecipeCard';
+import RecipeCard from '../../components/RecipeCard/RecipeCard';
 import { Button } from '../../components/Forms/Button';
 
 function FavoriteRecipes() {
-  const { favoritesRecipes } = useContext(RecipesContext);
-  const { copyMessage } = useContext(RecipesContext);
+  const { favoritesRecipes, copyMessage } = useContext(RecipesContext);
   const [favoritesRecipeFiltered,
     setFavoritesRecipeFiltered] = useState(favoritesRecipes);
   useEffect(() => {

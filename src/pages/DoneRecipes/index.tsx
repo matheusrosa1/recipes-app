@@ -2,7 +2,7 @@ import { useContext, useState } from 'react';
 import Header from '../../components/Header';
 import RecipesContext from '../../context/RecipesContext';
 import { Button } from '../../components/Forms/Button';
-import RecipeCard from './RecipeCard';
+import RecipeCard from '../../components/RecipeCard/RecipeCard';
 
 function DoneRecipes() {
   const { doneRecipes, copyMessage } = useContext(RecipesContext);

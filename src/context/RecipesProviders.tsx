@@ -1,5 +1,4 @@
 import { useState } from 'react';
-import { set } from 'cypress/types/lodash';
 import { DoneRecipeType, FavoriteRecipeType, RecipeType } from '../types';
 import RecipesContext from './RecipesContext';
 import { fetchRecipesById } from '../services/fetchAPI';
@@ -123,7 +122,6 @@ function RecipesProvider({ children }: RecipesProviderProps) {
   const value = {
     getRecipes,
     favoritesRecipes,
-    /*   addFavoriteRecipe, */
     isFavorite,
     handleClickFavorite,
     setIsFavorite,

@@ -1,4 +1,4 @@
-import { useContext, useEffect } from 'react';
+import { useContext } from 'react';
 import { useNavigate } from 'react-router-dom';
 import shareImage from '../../images/shareIcon.svg';
 import RecipesContext from '../../context/RecipesContext';
@@ -14,18 +14,17 @@ export type RecipeCardProps = {
 };
 
 function RecipeCard({ recipe, index, copyMessage, typeRecipe }: RecipeCardProps) {
-  const { copyLinkDetail } = useContext(RecipesContext);
+  const { copyLinkDetail, handleClickFavorite } = useContext(RecipesContext);
   const localHost = 'http://localhost:3000';
   const navigate = useNavigate();
   const isFavorite = useContext(RecipesContext);
-  const { handleClickFavorite } = useContext(RecipesContext);
 
-  useEffect(
+  /*   useEffect(
     () => {
       localStorage.setItem('favoriteRecipes', JSON.stringify(isFavorite));
     },
     [isFavorite],
-  );
+  ); */
 
   return (
     <div key={ recipe.id }>

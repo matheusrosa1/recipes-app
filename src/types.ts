@@ -14,12 +14,18 @@ export type DrinkType = {
   idDrink: string;
   strDrinkThumb: string;
   strDrink: string;
+  strCategory: string;
+  strAlcoholic: string;
+  strTags: string;
 };
 
 export type MealType = {
   idMeal: string;
   strMealThumb: string;
   strMeal: string;
+  strCategory: string;
+  strArea: string;
+  strTags: string;
 };
 
 export type CategoriesType = {
@@ -53,6 +59,6 @@ export type DoneRecipeType = {
   alcoholicOrNot: string | undefined,
   name: string | undefined,
   image: string | undefined,
-  doneDate: string | undefined,
+  doneDate: any,
   tags: string[] | undefined,
 };

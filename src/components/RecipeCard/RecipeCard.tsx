@@ -15,17 +15,9 @@ export type RecipeCardProps = {
 
 function RecipeCard({ recipe, index, copyMessage, typeRecipe }: RecipeCardProps) {
   const { copyLinkDetail, handleClickFavorite } = useContext(RecipesContext);
-  const localHost = 'http://localhost:3000';
   const navigate = useNavigate();
   const isFavorite = useContext(RecipesContext);
-
-  /*   useEffect(
-    () => {
-      localStorage.setItem('favoriteRecipes', JSON.stringify(isFavorite));
-    },
-    [isFavorite],
-  ); */
-
+  const path = window.location.href.split('/');
   return (
     <div key={ recipe.id }>
       <div
@@ -61,7 +53,7 @@ function RecipeCard({ recipe, index, copyMessage, typeRecipe }: RecipeCardProps)
         alt="blackHeartIcon"
         data-testid={ `${index}-horizontal-share-btn` }
         onClick={ () => copyLinkDetail(
-          `${localHost}/${recipe.type}s/${recipe.id}`,
+          `${path[0]}//${path[2]}/${recipe.type}s/${recipe.id}`,
         ) }
         style={ { maxWidth: '100%', maxHeight: '100%' } }
       />

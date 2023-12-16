@@ -39,7 +39,6 @@ function FavoriteRecipes() {
   return (
     <div>
       <Header tipo="Favorite Recipes" />
-      <h1>Meals</h1>
       <Button
         dataTestId="filter-by-all-btn"
         onClick={ () => handleClickFilter('all') }

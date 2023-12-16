@@ -1,0 +1,34 @@
+.header {
+  display: flex;
+/*   width: 360px; */
+  height: 52px;
+  flex-shrink: 0;
+  background: #FCDC36;
+  width: 100%;
+  justify-content: space-between;
+}
+
+.title {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+}
+
+.title img {
+  width: 50px;
+height: 50px;
+flex-shrink: 0;
+}
+
+.title h1 {
+  color: #41197F;
+text-align: center;
+font-family: Epilogue;
+font-size: 20px;
+font-style: normal;
+font-weight: 900;
+line-height: normal;
+letter-spacing: 2.1px;
+text-transform: uppercase;
+}

@@ -1,5 +1,5 @@
 import { Route, Routes } from 'react-router-dom';
-import './App.css';
+/* import './App.css'; */
 import 'bootstrap/dist/css/bootstrap.min.css';
 import Login from './pages/Login';
 import Meals from './components/Meals';

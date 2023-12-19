@@ -1,6 +1,5 @@
 import { useState } from 'react';
 import { useNavigate } from 'react-router-dom';
-import searchImage from '../../images/searchIcon.svg';
 import profileImage from '../../images/profileIcon.svg';
 import SearchBar from '../SearchBar';
 import logoRecipeApp from '../../images/logo Recipes app.svg';
@@ -21,6 +20,8 @@ function Header({ tipo }: Titulo) {
   const handleNavigate = () => {
     navigate('/profile');
   };
+  const path = window.location.href.split('/');
+  console.log(path[3]);
   const searchShow = () => {
     if (show === 'show') {
       setShow('hide');
@@ -58,14 +59,20 @@ function Header({ tipo }: Titulo) {
           />
         </div>
         <div>
-          <button onClick={ searchShow }>
+          <button
+            onClick={ searchShow }
+            className={ styles.buttonWithoutBorder }
+          >
             <img
               src={ searchIcon }
               alt="search"
               data-testid="search-top-btn"
             />
           </button>
-          <button onClick={ handleNavigate }>
+          <button
+            onClick={ handleNavigate }
+            className={ styles.buttonWithoutBorder }
+          >
             <img
               src={ profileIcon }
               alt="profile"
@@ -79,7 +86,7 @@ function Header({ tipo }: Titulo) {
       </header>
       <div className={ styles.title }>
         <img
-          src={ tipo === 'drinks' ? drinkIcon : mealIcon }
+          src={ path[3] === 'drinks' ? drinkIcon : mealIcon }
           alt="Icon"
         />
         <h1 data-testid="page-title">{ tipo }</h1>

@@ -27,7 +27,6 @@ function DoneRecipes() {
   return (
     <div>
       <Header tipo="Done Recipes" />
-      <h1>Done Recipes</h1>
       <Button
         dataTestId="filter-by-all-btn"
         onClick={ () => handleClickFilter('all') }

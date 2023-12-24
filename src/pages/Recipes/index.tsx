@@ -15,6 +15,7 @@ import IconCocoaDrinks from '../../images/Categories/Drinks/Cocoa.svg';
 import IconOrdinaryDrink from '../../images/Categories/Drinks/Ordinary Drink.svg';
 import IconOtherDrink from '../../images/Categories/Drinks/Other.svg';
 import IconShakeDrink from '../../images/Categories/Drinks/Shake.svg';
+import styles from './recipes.module.css';
 
 export type RecipeProp = {
   type: string,
@@ -110,7 +111,17 @@ function Recipes({ type } : RecipeProp) {
 
   return (
     <>
-      <div>
+      <div className={ styles.categories }>
+        <button
+          data-testid="All-category-filter"
+          onClick={ () => getData() }
+        >
+          <img
+            src={ type === 'Meals' ? IconAllMeals : IconAllDrinks }
+            alt="Icon All"
+          />
+          All
+        </button>
         {categories && categories.map(({ strCategory }: CategoriesType, index) => (
           <div key={ index }>
             <button
@@ -136,12 +147,8 @@ function Recipes({ type } : RecipeProp) {
             /> */}
           </div>
         ))}
+
       </div>
-      <Button
-        dataTestId="All-category-filter"
-        onClick={ () => getData() }
-        buttonLabel="All"
-      />
       <div className="recipes-container">
         {recipes && recipes.map((recipe: RecipeType, index) => (
           <div

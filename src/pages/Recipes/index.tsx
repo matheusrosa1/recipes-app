@@ -149,7 +149,7 @@ function Recipes({ type } : RecipeProp) {
         ))}
 
       </div>
-      <div className="recipes-container">
+      <div className={ styles.recipesContainer }>
         {recipes && recipes.map((recipe: RecipeType, index) => (
           <div
             className="recipes-item"
@@ -157,6 +157,7 @@ function Recipes({ type } : RecipeProp) {
           >
 
             <div
+              className={ styles.recipeCard }
               data-testid={ `${index}-recipe-card` }
               onClick={ () => navigate(`${location.pathname}/${recipe[id]}`) }
               onKeyDown={ (e) => {
@@ -168,6 +169,7 @@ function Recipes({ type } : RecipeProp) {
               tabIndex={ 0 }
             >
               <img
+                className={ styles.recipeImg }
                 src={ recipe[img] }
                 alt={ recipe[name] }
                 data-testid={ `${index}-card-img` }

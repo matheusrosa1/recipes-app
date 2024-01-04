@@ -120,7 +120,7 @@ function Recipes({ type } : RecipeProp) {
             src={ type === 'Meals' ? IconAllMeals : IconAllDrinks }
             alt="Icon All"
           />
-          All
+          <span>All</span>
         </button>
         {categories && categories.map(({ strCategory }: CategoriesType, index) => (
           <div key={ index }>
@@ -152,7 +152,7 @@ function Recipes({ type } : RecipeProp) {
       <div className={ styles.recipesContainer }>
         {recipes && recipes.map((recipe: RecipeType, index) => (
           <div
-            className="recipes-item"
+            className={ styles.RecipeItem }
             key={ recipe[id] }
           >
 

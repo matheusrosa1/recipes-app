@@ -6,8 +6,7 @@ function Drinks() {
   return (
     <div>
       <Header tipo="Drinks" />
-      <h1>Drinks</h1>
-      <Recipes />
+      <Recipes type="Drinks" />
       <Footer />
     </div>
   );

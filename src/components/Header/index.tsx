@@ -89,10 +89,12 @@ function Header({ tipo }: Titulo) {
       <header className={ styles.header }>
         <div>
           <img
+            className={ styles.logoIcon }
             src={ iconRecipeApp }
             alt="Recipe App Icon"
           />
           <img
+            className={ styles.logoRecipeApp }
             src={ logoRecipeApp }
             alt="Recipe App Logo"
           />

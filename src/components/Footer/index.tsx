@@ -1,5 +1,4 @@
 import { useNavigate } from 'react-router-dom';
-import './index.css';
 import styles from './footer.module.css';
 import mealIcon from '../../images/icone-prato.svg';
 import drinkIcon from '../../images/icone-prato (1).svg';

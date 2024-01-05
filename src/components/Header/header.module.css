@@ -8,20 +8,35 @@
   width: 100%;
 }
 
+.logoIcon {
+  width: 42.604px;
+  height: 39.279px;
+  margin-left: 20px;
+  margin-bottom: 6px;
+}
+
+.logoRecipeApp {
+  width: 150px;
+  height: 50px;
+  margin-left: 20px;
+}
 
 .title {
   align-items: center;
   display: flex;
   flex-direction: column;
   justify-content: center;
+/*   margin-top: 15px; */
+  margin-bottom: 25px;
+  margin-top: 15px;
 }
 
 .title img {
   flex-shrink: 0;
-  height: 50px;
+  height: 70px;
   margin-top: 20px;
-  padding: 5px;
-  width: 50px;
+/*   padding: 5px; */
+  width: 70px;
 }
 
 .title h1 {
@@ -34,10 +49,62 @@
   line-height: normal;
   text-align: center;
   text-transform: uppercase;
+  margin-left: 10px;
 }
 
 .buttonWithoutBorder {
   background: none;
   border: none;
   padding: 5px;
+}
+
+@media screen and (max-width: 768px) {
+  .header {
+    background: #fcdc36;
+    display: flex;
+    flex-shrink: 0;
+    height: 52px;
+    justify-content: space-between;
+    padding: 5px;
+    width: 100%;
+  }
+  
+  .logoRecipeApp {
+    width: 109.131px;
+    height: 16.972px;
+    flex-shrink: 0;
+  }
+  
+  .title {
+    align-items: center;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+  }
+  
+  .title img {
+    flex-shrink: 0;
+    width: 45.28px;
+    height: 45.28px;
+    margin-top: 20px;
+    padding: 5px;
+  }
+  
+  .title h1 {
+    color: #41197f;
+    font-family: Epilogue , sans-serif;
+    font-size: 20px;
+    font-style: normal;
+    font-weight: 900;
+    letter-spacing: 2.1px;
+    line-height: normal;
+    text-align: center;
+    text-transform: uppercase;
+  }
+  
+  .buttonWithoutBorder {
+    background: none;
+    border: none;
+    padding: 5px;
+  }
 }

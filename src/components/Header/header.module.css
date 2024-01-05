@@ -42,7 +42,7 @@
 .title h1 {
   color: #41197f;
   font-family: Epilogue , sans-serif;
-  font-size: 20px;
+  font-size: 25px;
   font-style: normal;
   font-weight: 900;
   letter-spacing: 2.1px;
@@ -73,6 +73,7 @@
     width: 109.131px;
     height: 16.972px;
     flex-shrink: 0;
+
   }
   
   .title {

@@ -120,18 +120,19 @@ function Header({ tipo }: Titulo) {
               data-testid="profile-top-btn"
             />
           </button>
-          {show === 'show' && (
-            <SearchBar />
-          )}
+
         </div>
       </header>
       <div className={ styles.title }>
         <img
-          src={ path[3] === 'drinks' ? drinkIcon : mealIcon }
+          src={ tipo === 'Drinks' ? drinkIcon : mealIcon }
           alt="Icon"
         />
         <h1 data-testid="page-title">{ tipo }</h1>
       </div>
+      {show === 'show' && (
+        <SearchBar />
+      )}
     </div>
   );
 }

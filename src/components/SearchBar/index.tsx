@@ -1,4 +1,5 @@
 import { useState } from 'react';
+import styles from './searchBar.module.css';
 
 function SearchBar() {
   const [searchInput, setSearchInput] = useState('');
@@ -42,53 +43,61 @@ function SearchBar() {
       });
   };
   return (
-    <form>
+    <form className={ styles.form }>
       <input
+        className={ styles.seachInput }
         type="text"
         data-testid="search-input"
-        placeholder="Search recipe"
+        placeholder="Search"
         value={ searchInput }
         onChange={ ({ target }) => setSearchInput(target.value) }
       />
-      <input
-        data-testid="ingredient-search-radio"
-        type="radio"
-        id="ingredientSearchOption"
-        name="searchOption"
-        value="ingredientSearch"
+      <div className={ styles.radiosDiv }>
+        <div>
+          <input
+            data-testid="ingredient-search-radio"
+            type="radio"
+            id="ingredientSearchOption"
+            name="searchOption"
+            value="ingredientSearch"
         // checked={ inputValue === 'ingredientSearch' }
-        onChange={ ({ target }) => setInputValue(target.value) }
-      />
-      <label htmlFor="ingredientSearchOption">Ingredient</label>
+            onChange={ ({ target }) => setInputValue(target.value) }
+          />
+          <label htmlFor="ingredientSearchOption">Ingredient</label>
 
-      <input
-        data-testid="name-search-radio"
-        type="radio"
-        id="nameSearchOption"
-        name="searchOption"
-        value="nameSearch"
-        onChange={ ({ target }) => setInputValue(target.value) }
-      />
-      <label htmlFor="nameSearchOption">Name</label>
+          <input
+            data-testid="name-search-radio"
+            type="radio"
+            id="nameSearchOption"
+            name="searchOption"
+            value="nameSearch"
+            onChange={ ({ target }) => setInputValue(target.value) }
+          />
+          <label htmlFor="nameSearchOption">Name</label>
 
-      <input
-        data-testid="first-letter-search-radio"
-        type="radio"
-        id="firstLetterSearchOption"
-        name="searchOption"
-        value="firstLetterSearch"
-        onChange={ ({ target }) => setInputValue(target.value) }
-      />
-      <label htmlFor="firstLetterSearchOption">First letter</label>
-
-      <button
-        type="submit"
-        data-testid="exec-search-btn"
-        onClick={ handleClick }
-      >
-        Search
-
-      </button>
+          <input
+            data-testid="first-letter-search-radio"
+            type="radio"
+            id="firstLetterSearchOption"
+            name="searchOption"
+            value="firstLetterSearch"
+            onChange={ ({ target }) => setInputValue(target.value) }
+          />
+          <label htmlFor="firstLetterSearchOption">First letter</label>
+        </div>
+        <div>
+          <button
+            className={ styles.searchButton }
+            type="submit"
+            data-testid="exec-search-btn"
+            onClick={ handleClick }
+          >
+            <span>
+              Search
+            </span>
+          </button>
+        </div>
+      </div>
     </form>
   );
 }

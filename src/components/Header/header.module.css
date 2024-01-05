@@ -2,8 +2,6 @@
   background: #fcdc36;
   display: flex;
   flex-shrink: 0;
-
-  /*   width: 360px; */
   height: 52px;
   justify-content: space-between;
   padding: 5px;

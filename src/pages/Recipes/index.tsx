@@ -2,7 +2,6 @@ import { useEffect, useState } from 'react';
 import { useLocation, useNavigate } from 'react-router-dom';
 import { fetchCategoties, fetchByCategory, fetchRecipes } from '../../services/fetchAPI';
 import { CategoriesType, RecipeType } from '../../types';
-import { Button } from '../../components/Forms/Button';
 import IconAllMeals from '../../images/Categories/Meals/All.svg';
 import IconBeefMeal from '../../images/Categories/Meals/Beef.svg';
 import IconBreakfastMeal from '../../images/Categories/Meals/Breakfast.svg';

@@ -2,10 +2,10 @@ import { useContext, useEffect, useState } from 'react';
 import { useLocation, useNavigate, useParams } from 'react-router-dom';
 import { fetchRecipes, fetchRecipesById } from '../../services/fetchAPI';
 import { FavoriteRecipeType, RecipeType } from '../../types';
-import { Button } from '../../components/Forms/Button';
 import RecipesContext from '../../context/RecipesContext';
 import isFavoriteImage from '../../images/blackHeartIcon.svg';
 import notFavoriteImage from '../../images/whiteHeartIcon.svg';
+import styles from './recipeDetails.module.css';
 
 function RecipeDetails() {
   const { id } = useParams();
@@ -100,8 +100,6 @@ function RecipeDetails() {
   const recipeId = location.pathname === `/meals/${id}` ? 'idMeal' : 'idDrink';
   const img = location.pathname === `/meals/${id}` ? 'strMealThumb' : 'strDrinkThumb';
   const name = location.pathname === `/meals/${id}` ? 'strMeal' : 'strDrink';
-  const alcoholicOrNot = location.pathname === `/meals/${id}` ? '' : 'strAlcoholic';
-  const nationality = location.pathname === `/meals/${id}` ? 'strArea' : '';
   const type = location.pathname === `/meals/${id}` ? 'meal' : 'drink';
 
   useEffect(() => {
@@ -109,104 +107,118 @@ function RecipeDetails() {
   }, [favoritesRecipes]);
 
   return (
-    <div>
-      {recipe && recipe.map((recipeDetail: RecipeType, index) => (
-        <div key={ recipeDetail[recipeId] }>
-          <img
-            data-testid="recipe-photo"
-            src={ recipeDetail[img] }
-            alt={ recipeDetail[name] }
-            width="350px"
-          />
-          <h2
-            data-testid="recipe-title"
+    <div className={ styles.body }>
+      <div className={ styles.container }>
+        <div className={ styles.buttons }>
+          <button
+            data-testid="share-btn"
+            id="btn-share"
+            onClick={ () => copyLinkDetail(window.location.href) }
           >
-            {recipeDetail[name]}
+            Compartilhar
 
-          </h2>
-          {location.pathname === `/meals/${id}` ? (
-            <p data-testid="recipe-category">
-              {recipeDetail.strCategory}
-            </p>
-          ) : (
-            <p data-testid="recipe-category">
-              {recipeDetail.strAlcoholic}
-            </p>
-          ) }
-          <p
-            data-testid="instructions"
-          >
-            {recipeDetail.strInstructions}
-
-          </p>
-          <h3>Ingredients:</h3>
-          <ul
-            data-testid={ `${index}-ingredient-name-and-measure` }
-          >
-            {renderIngredientsAndMeasures(recipeDetail)}
-          </ul>
-          {location.pathname === `/meals/${id}` && (
-            <iframe
-              data-testid="video"
-              width="560"
-              height="315"
-              src={ recipeDetail.strYoutube }
-              title="YouTube video player"
-              allow="accelerometer;
-              clipboard-write; encrypted-media; gyroscope; picture-in-picture"
-              allowFullScreen
-            />
+          </button>
+          {copyMessage && (
+            <p>Link copied!</p>
           )}
-
+          <input
+            type="image"
+            src={ isFavorite ? isFavoriteImage : notFavoriteImage }
+            className="btn-category"
+            alt="blackHeartIcon"
+            data-testid="favorite-btn"
+            onClick={ () => handleClickFavorite(id as string, type, mealOrDrink) }
+            style={ { maxWidth: '100%', maxHeight: '100%' } }
+          />
         </div>
-      ))}
-      <h3>Recommendations:</h3>
-      <div className="carrossel-container">
-        {recommendations.slice(0, 6).map((recommendation: any, index2) => (
-          <div
-            key={ index2 }
-          >
-            <img
-              data-testid={ `${index2}-recommendation-card` }
-              src={ recommendation.strDrinkThumb || recommendation.strMealThumb }
-              alt={ recommendation.strDrink || recommendation.strMeal }
-              width="150px"
-            />
-            <p
-              data-testid={ `${index2}-recommendation-title` }
+        <div className={ styles.recipeContainer }>
+          {recipe && recipe.map((recipeDetail: RecipeType, index) => (
+            <div key={ recipeDetail[recipeId] }>
+              <img
+                className={ styles.imageRecipe }
+                data-testid="recipe-photo"
+                src={ recipeDetail[img] }
+                alt={ recipeDetail[name] }
+                width="350px"
+              />
+              <h2
+                data-testid="recipe-title"
+              >
+                {recipeDetail[name]}
+
+              </h2>
+              {location.pathname === `/meals/${id}` ? (
+                <p data-testid="recipe-category">
+                  {recipeDetail.strCategory}
+                </p>
+              ) : (
+                <p data-testid="recipe-category">
+                  {recipeDetail.strAlcoholic}
+                </p>
+              ) }
+              <p
+                data-testid="instructions"
+              >
+                {recipeDetail.strInstructions}
+
+              </p>
+              <h3>Ingredients:</h3>
+              <ul
+                data-testid={ `${index}-ingredient-name-and-measure` }
+              >
+                {renderIngredientsAndMeasures(recipeDetail)}
+              </ul>
+              <h3>Video</h3>
+              <div className={ styles.iframeCountainer }>
+                {location.pathname === `/meals/${id}` && (
+                  <iframe
+                    data-testid="video"
+                    width="560"
+                    height="315"
+                    src={ recipeDetail.strYoutube }
+                    title="YouTube video player"
+                    allow="accelerometer;
+              clipboard-write; encrypted-media; gyroscope; picture-in-picture"
+                    allowFullScreen
+                  />
+                )}
+              </div>
+            </div>
+
+          ))}
+        </div>
+        <h3>Recommendations:</h3>
+        <div className={ styles.carrosselContainer }>
+          {recommendations.slice(0, 6).map((recommendation: any, index2) => (
+            <div
+              key={ index2 }
             >
-              {recommendation.strDrink || recommendation.strMeal}
-            </p>
-          </div>
-        ))}
+              <img
+                data-testid={ `${index2}-recommendation-card` }
+                src={ recommendation.strDrinkThumb || recommendation.strMealThumb }
+                alt={ recommendation.strDrink || recommendation.strMeal }
+                width="150px"
+              />
+              <p
+                data-testid={ `${index2}-recommendation-title` }
+              >
+                {recommendation.strDrink || recommendation.strMeal}
+              </p>
+            </div>
+          ))}
+        </div>
+
+        <button
+          type="button"
+          id="btn-start-recipe"
+          data-testid="start-recipe-btn"
+          className="btn-start-recipe btn-category"
+          onClick={ () => handleClickStartRecipe() }
+        >
+          {btnTitle}
+        </button>
+
       </div>
-      <input
-        type="image"
-        src={ isFavorite ? isFavoriteImage : notFavoriteImage }
-        className="btn-category"
-        alt="blackHeartIcon"
-        data-testid="favorite-btn"
-        onClick={ () => handleClickFavorite(id as string, type, mealOrDrink) }
-        style={ { maxWidth: '100%', maxHeight: '100%' } }
-      />
-      <Button
-        dataTestId="share-btn"
-        buttonLabel="Compartilhar"
-        id="btn-share"
-        onClick={ () => copyLinkDetail(window.location.href) }
-      />
-      <button
-        type="button"
-        id="btn-start-recipe"
-        data-testid="start-recipe-btn"
-        className="btn-start-recipe btn-category"
-        onClick={ () => handleClickStartRecipe() }
-      >
-        {btnTitle}
-      </button>
-      {copyMessage && (
-        <p>Link copied!</p>
-      )}
     </div>
   );
 }

@@ -1,0 +1,53 @@
+.body {
+  margin: 0;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  width: 100%; /* Largura total do corpo */
+  background-color: #fcf4cd;
+/*   background-color: white; */
+}
+
+.container {
+  align-items: center;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  width: 50%;
+  display: flex;
+  background-color: #fff;
+/*   text-align: center; */
+  position: relative; 
+}
+
+.buttons {
+  position: absolute;
+  display: flex;
+/*   transform: translateX(-50%); */
+  right: 12px;
+  top: 10px;
+  gap: 10px; /* Adicione um espaçamento entre os botões conforme necessário */
+}
+
+.imageRecipe {
+   width: 100%;  /* Garante que a imagem não ultrapasse a largura da div */
+  height: 250px;  /* Garante que a imagem não ultrapasse a altura da div */
+  top: 0;
+  object-fit: cover; /* Isso preserva a proporção da imagem e a cobre completamente */
+/*   transform: translateX(-25%); */ /* Ajusta a posição para o centro */
+} 
+
+.container iframe {
+  width: 336px;
+height: 205.091px;
+flex-shrink: 0;
+display: flex;
+}
+
+
+.carrosselContainer {
+  display: flex;
+  flex-direction: row;
+  max-width: 320px;
+  overflow-x: auto;
+}

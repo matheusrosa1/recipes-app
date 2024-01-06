@@ -20,6 +20,15 @@
   position: relative; 
 }
 
+.container h3 {
+  color: #1A1B1C;
+  font-family: Epilogue, sans-serif;
+  font-size: 20px;
+  font-style: normal;
+  font-weight: 700;
+  line-height: normal;
+}
+
 .buttons {
   position: absolute;
   display: flex;
@@ -37,11 +46,16 @@
 /*   transform: translateX(-25%); */ /* Ajusta a posição para o centro */
 } 
 
-.container iframe {
+.videoCountainer {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+
+.videoCountainer iframe {
   width: 336px;
-height: 205.091px;
-flex-shrink: 0;
-display: flex;
+  height: 205.091px;
+  flex-shrink: 0;
 }
 
 

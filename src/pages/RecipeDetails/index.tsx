@@ -168,8 +168,8 @@ function RecipeDetails() {
               >
                 {renderIngredientsAndMeasures(recipeDetail)}
               </ul>
-              <h3>Video</h3>
-              <div className={ styles.iframeCountainer }>
+              <div className={ styles.videoCountainer }>
+                <h3>Video</h3>
                 {location.pathname === `/meals/${id}` && (
                   <iframe
                     data-testid="video"

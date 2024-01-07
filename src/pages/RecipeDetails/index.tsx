@@ -118,9 +118,6 @@ function RecipeDetails() {
             Compartilhar
 
           </button>
-          {copyMessage && (
-            <p>Link copied!</p>
-          )}
           <input
             type="image"
             src={ isFavorite ? isFavoriteImage : notFavoriteImage }
@@ -156,18 +153,21 @@ function RecipeDetails() {
                   {recipeDetail.strAlcoholic}
                 </p>
               ) }
+              <h3>Ingredients:</h3>
+              <div className={ styles.ingredientsContainer }>
+                <ul
+                  data-testid={ `${index}-ingredient-name-and-measure` }
+                >
+                  {renderIngredientsAndMeasures(recipeDetail)}
+                </ul>
+              </div>
+              <h3>Instructions</h3>
               <p
                 data-testid="instructions"
               >
                 {recipeDetail.strInstructions}
 
               </p>
-              <h3>Ingredients:</h3>
-              <ul
-                data-testid={ `${index}-ingredient-name-and-measure` }
-              >
-                {renderIngredientsAndMeasures(recipeDetail)}
-              </ul>
               <div className={ styles.videoCountainer }>
                 <h3>Video</h3>
                 {location.pathname === `/meals/${id}` && (

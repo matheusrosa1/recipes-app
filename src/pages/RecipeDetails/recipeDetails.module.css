@@ -8,12 +8,13 @@
 /*   background-color: white; */
 }
 
+
 .container {
   align-items: center;
   display: flex;
   flex-direction: column;
   justify-content: center;
-  width: 50%;
+  width: 360px;
   display: flex;
   background-color: #fff;
 /*   text-align: center; */
@@ -27,6 +28,10 @@
   font-style: normal;
   font-weight: 700;
   line-height: normal;
+}
+
+.recipeContainer {
+  width: 100%;
 }
 
 .buttons {

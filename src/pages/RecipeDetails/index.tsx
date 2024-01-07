@@ -6,6 +6,8 @@ import RecipesContext from '../../context/RecipesContext';
 import isFavoriteImage from '../../images/blackHeartIcon.svg';
 import notFavoriteImage from '../../images/whiteHeartIcon.svg';
 import styles from './recipeDetails.module.css';
+import mealIcon from '../../images/🦆 emoji _shortcake_.svg';
+import drinkIcon from '../../images/emoji_drink.svg';
 
 function RecipeDetails() {
   const { id } = useParams();
@@ -109,6 +111,13 @@ function RecipeDetails() {
   return (
     <div className={ styles.body }>
       <div className={ styles.container }>
+        <div className={ styles.iconMealOrDrink }>
+          <img
+            src={ location.pathname === `/meals/${id}`
+              ? mealIcon : drinkIcon }
+            alt="Icon Drink or Meal"
+          />
+        </div>
         <div className={ styles.buttons }>
           <button
             data-testid="share-btn"

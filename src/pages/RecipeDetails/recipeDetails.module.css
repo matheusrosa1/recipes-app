@@ -4,8 +4,8 @@
   justify-content: center;
   align-items: center;
   width: 100%; /* Largura total do corpo */
-  background-color: #fcf4cd;
-/*   background-color: white; */
+/*   background-color: #fcf4cd; */
+   background-color: white; 
 }
 
 
@@ -14,7 +14,7 @@
   display: flex;
   flex-direction: column;
   justify-content: center;
-  width: 360px;
+  width: 40%;
   display: flex;
   background-color: #fff;
 /*   text-align: center; */
@@ -49,6 +49,7 @@
   top: 0;
   object-fit: cover; /* Isso preserva a proporção da imagem e a cobre completamente */
 /*   transform: translateX(-25%); */ /* Ajusta a posição para o centro */
+border-radius: 5px;
 } 
 
 .videoCountainer {
@@ -63,10 +64,15 @@
   flex-shrink: 0;
 }
 
-
 .carrosselContainer {
   display: flex;
   flex-direction: row;
   max-width: 320px;
   overflow-x: auto;
+}
+
+.iconMealOrDrink {
+  position: absolute;
+  top: 10px;
+  left: 15px;
 }

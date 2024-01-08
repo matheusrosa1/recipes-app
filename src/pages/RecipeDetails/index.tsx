@@ -139,71 +139,72 @@ function RecipeDetails() {
             style={ { maxWidth: '100%', maxHeight: '100%' } }
           />
         </div>
-        <div className={ styles.recipeContainer }>
-          {recipe && recipe.map((recipeDetail: RecipeType, index) => (
-            <div key={ recipeDetail[recipeId] }>
-              <img
-                className={ styles.imageRecipe }
-                data-testid="recipe-photo"
-                src={ recipeDetail[img] }
-                alt={ recipeDetail[name] }
-                width="350px"
-              />
-              <h2
-                data-testid="recipe-title"
-              >
-                {recipeDetail[name]}
+        {recipe && recipe.map((recipeDetail: RecipeType, index) => (
+          <div
+            key={ recipeDetail[recipeId] }
+            className={ styles.recipeContainer }
+          >
+            <img
+              className={ styles.imageRecipe }
+              data-testid="recipe-photo"
+              src={ recipeDetail[img] }
+              alt={ recipeDetail[name] }
+              width="350px"
+            />
+            <h2
+              data-testid="recipe-title"
+            >
+              {recipeDetail[name]}
 
-              </h2>
-              {location.pathname === `/meals/${id}` ? (
-                <p data-testid="recipe-category">
-                  {recipeDetail.strCategory}
-                </p>
-              ) : (
-                <p data-testid="recipe-category">
-                  {recipeDetail.strAlcoholic}
-                </p>
-              ) }
-              <h3>Ingredients:</h3>
-              <div className={ styles.ingredientsContainer }>
-                <div className={ styles.ingredients }>
-                  <ul
-                    data-testid={ `${index}-ingredient-name-and-measure` }
-                  >
-                    <p>{renderIngredientsAndMeasures(recipeDetail)}</p>
-                  </ul>
-                </div>
-              </div>
-              <h3>Instructions</h3>
-              <div className={ styles.instructionsContainer }>
-                <div className={ styles.instructions }>
-                  <p
-                    data-testid="instructions"
-                  >
-                    {recipeDetail.strInstructions}
-
-                  </p>
-                </div>
-              </div>
-              <h3>Video</h3>
-              <div className={ styles.videoCountainer }>
-                {location.pathname === `/meals/${id}` && (
-                  <iframe
-                    data-testid="video"
-                    width="560"
-                    height="315"
-                    src={ recipeDetail.strYoutube }
-                    title="YouTube video player"
-                    allow="accelerometer;
-              clipboard-write; encrypted-media; gyroscope; picture-in-picture"
-                    allowFullScreen
-                  />
-                )}
+            </h2>
+            {location.pathname === `/meals/${id}` ? (
+              <p data-testid="recipe-category">
+                {recipeDetail.strCategory}
+              </p>
+            ) : (
+              <p data-testid="recipe-category">
+                {recipeDetail.strAlcoholic}
+              </p>
+            ) }
+            <h3>Ingredients:</h3>
+            <div className={ styles.ingredientsContainer }>
+              <div className={ styles.ingredients }>
+                <ul
+                  data-testid={ `${index}-ingredient-name-and-measure` }
+                >
+                  <p>{renderIngredientsAndMeasures(recipeDetail)}</p>
+                </ul>
               </div>
             </div>
+            <h3>Instructions</h3>
+            <div className={ styles.instructionsContainer }>
+              <div className={ styles.instructions }>
+                <p
+                  data-testid="instructions"
+                >
+                  {recipeDetail.strInstructions}
 
-          ))}
-        </div>
+                </p>
+              </div>
+            </div>
+            <h3>Video</h3>
+            <div className={ styles.videoCountainer }>
+              {location.pathname === `/meals/${id}` && (
+                <iframe
+                  data-testid="video"
+                  width="560"
+                  height="315"
+                  src={ recipeDetail.strYoutube }
+                  title="YouTube video player"
+                  allow="accelerometer;
+              clipboard-write; encrypted-media; gyroscope; picture-in-picture"
+                  allowFullScreen
+                />
+              )}
+            </div>
+          </div>
+
+        ))}
         <h3>Recommendations:</h3>
         <div className={ styles.carrosselContainer }>
           {recommendations.slice(0, 6).map((recommendation: any, index2) => (

@@ -29,7 +29,7 @@
 .container h3 {
   color: #1A1B1C;
   font-family: Epilogue, sans-serif;
-  font-size: 20px;
+  font-size: 23px;
   font-style: normal;
   font-weight: 700;
   line-height: normal;
@@ -252,6 +252,11 @@ text-align: center;
   width: 100%;
 }
 
+.componente {
+  position: relative;
+  width: 100%;
+}
+
 .buttons {
   position: absolute;
   display: flex;
@@ -312,6 +317,19 @@ font-style: normal;
 font-weight: 700;
 line-height: normal;
 letter-spacing: 0.42px;
+text-transform: uppercase;
+}
+
+.title {
+  color: #FFF;
+
+text-align: center;
+font-family: Epilogue;
+font-size: 20px;
+font-style: normal;
+font-weight: 900;
+line-height: normal;
+letter-spacing: 2.1px;
 text-transform: uppercase;
 }
 }

@@ -6,9 +6,10 @@ import RecipesContext from '../../context/RecipesContext';
 import isFavoriteImage from '../../images/like.svg';
 import notFavoriteImage from '../../images/dislike.png';
 import styles from './recipeDetails.module.css';
-import mealIcon from '../../images/🦆 emoji _shortcake_.svg';
-import drinkIcon from '../../images/emoji_drink.svg';
+import mealIcon from '../../images/icone-prato.svg';
+import drinkIcon from '../../images/icone-prato (1).svg';
 import shareButton from '../../images/Share.svg';
+import recipesAppLogo from '../../images/logo Recipes App.svg';
 
 function RecipeDetails() {
   const { id } = useParams();

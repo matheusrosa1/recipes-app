@@ -107,8 +107,8 @@
   height: 20.299px;
 }
 .imageRecipe {
-   width: 35%;  /* Garante que a imagem não ultrapasse a largura da div */
-   height: 40vh;
+   width: 332px;  /* Garante que a imagem não ultrapasse a largura da div */
+   height: 363px;
   top: 0;
   object-fit: cover; /* Isso preserva a proporção da imagem e a cobre completamente */
   border-radius: 5%;
@@ -168,6 +168,27 @@ font-weight: 700;
 line-height: normal;
 letter-spacing: 0.42px;
 text-transform: uppercase;
+}
+.componente {
+  position: relative;
+}
+.title {
+  color: #FFF;
+text-align: center;
+font-family: Epilogue;
+font-size: 29px;
+font-style: normal;
+font-weight: 900;
+line-height: normal;
+letter-spacing: 2.1px;
+text-transform: uppercase;
+position: absolute;
+top: 50%;
+left: 50%;
+transform: translate(-50%, -50%);
+color: white;
+text-align: center;
+
 }
 
 @media screen and (max-width: 768px) {

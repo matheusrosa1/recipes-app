@@ -145,19 +145,22 @@ function RecipeDetails() {
             key={ recipeDetail[recipeId] }
             className={ styles.recipeContainer }
           >
-            <img
-              className={ styles.imageRecipe }
-              data-testid="recipe-photo"
-              src={ recipeDetail[img] }
-              alt={ recipeDetail[name] }
-              width="350px"
-            />
-            <h2
-              data-testid="recipe-title"
-            >
-              {recipeDetail[name]}
+            <div className={ styles.componente }>
+              <img
+                className={ styles.imageRecipe }
+                data-testid="recipe-photo"
+                src={ recipeDetail[img] }
+                alt={ recipeDetail[name] }
+                width="350px"
+              />
+              <h2
+                className={ styles.title }
+                data-testid="recipe-title"
+              >
+                {recipeDetail[name]}
 
-            </h2>
+              </h2>
+            </div>
             {location.pathname === `/meals/${id}` ? (
               <p data-testid="recipe-category">
                 {recipeDetail.strCategory}

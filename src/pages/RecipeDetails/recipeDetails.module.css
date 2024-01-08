@@ -5,7 +5,7 @@
   align-items: center;
   width: 100%; /* Largura total do corpo */
 /*   background-color: #fcf4cd; */
-   background-color: white; 
+   background-color: #dbd6fc;
 }
 
 
@@ -14,11 +14,16 @@
   display: flex;
   flex-direction: column;
   justify-content: center;
-  width: 40%;
+  width:35%;
   display: flex;
   background-color: #fff;
 /*   text-align: center; */
   position: relative; 
+  border-radius: 5px;
+  border-width: 1100px;
+  border-color:#1A1B1C;
+  border: 0.554px solid #B1B1B1;
+  padding: 3px;
 }
 
 .container h3 {
@@ -28,6 +33,177 @@
   font-style: normal;
   font-weight: 700;
   line-height: normal;
+}
+
+.ingredientsContainer {
+  border-radius: 5.351px;
+  border: 0.554px solid #B1B1B1;
+  background: #FFF;
+}
+
+.ingredients {
+  color: #1A1B1C;
+  font-family: Epilogue, sans-serif;
+  font-size: 14px;
+  font-style: normal;
+  font-weight: 400;
+  line-height: normal;
+  padding: 17px;
+  padding-top: 20px;
+}
+
+.instructionsContainer {
+  border-radius: 5.351px;
+  border: 0.554px solid #B1B1B1;
+  background: #FFF;
+}
+
+.instructions {
+  color: #1A1B1C;
+  font-family: Epilogue;
+  font-size: 14px;
+  font-style: normal;
+  font-weight: 400;
+  line-height: 113%; /* 15.82px */
+  padding-top: 19px;
+  padding: 17px;
+  padding-bottom: 27px;
+}
+
+.recipeContainer {
+  width: 100%;
+}
+
+.buttons {
+  position: absolute;
+  display: flex;
+/*   transform: translateX(-50%); */
+  right: 12px;
+  top: 10px;
+  gap: 10px; /* Adicione um espaçamento entre os botões conforme necessário */
+}
+
+.shareButton {
+  background: none;
+  border: none;
+  padding: 5px;
+}
+
+.favoriteImage {
+  margin-top: 8px;
+  width: 22.89px;
+  height: 20.299px;
+}
+.imageRecipe {
+   width: 100%;  /* Garante que a imagem não ultrapasse a largura da div */
+   height: 250px;
+  top: 0;
+  object-fit: cover; /* Isso preserva a proporção da imagem e a cobre completamente */
+/*   transform: translateX(-25%); */ /* Ajusta a posição para o centro */
+/* border-radius: 5px; */
+} 
+
+.videoCountainer {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  background: linear-gradient(0deg, rgba(0, 0, 0, 0.35) 0%, rgba(0, 0, 0, 0.35) 100%), url(<path-to-image>), lightgray 0.892px -104.12px / 137.579% 150.768% no-repeat;
+  
+}
+
+.videoCountainer iframe {
+  width: 336px;
+  height: 205.091px;
+  flex-shrink: 0;
+}
+
+.carrosselContainer {
+  display: flex;
+  flex-direction: row;
+  width: 360px;
+  height: 200px;
+  overflow-y:auto;
+}
+
+.iconMealOrDrink {
+  position: absolute;
+  top: 10px;
+  left: 15px;
+}
+
+.startButton {
+  width: 336px;
+height: 40px;
+flex-shrink: 0;
+border-radius: 5px;
+background: #FCC436;
+color: #FFF;
+text-align: center;
+font-family: Epilogue;
+font-size: 14px;
+font-style: normal;
+font-weight: 700;
+line-height: normal;
+letter-spacing: 0.42px;
+text-transform: uppercase;
+}
+
+@media screen and (max-width: 768px) {
+.container {
+  align-items: center;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  width: 100%;
+  display: flex;
+  background-color: #fff;
+/*   text-align: center; */
+  position: relative; 
+  border-radius: 5px;
+}
+
+.container h3 {
+  color: #1A1B1C;
+  font-family: Epilogue, sans-serif;
+  font-size: 20px;
+  font-style: normal;
+  font-weight: 700;
+  line-height: normal;
+}
+
+.ingredientsContainer {
+  border-radius: 5.351px;
+  border: 0.554px solid #B1B1B1;
+  background: #FFF;
+}
+
+.ingredients {
+  color: #1A1B1C;
+  font-family: Epilogue, sans-serif;
+  font-size: 14px;
+  font-style: normal;
+  font-weight: 400;
+  line-height: normal;
+  padding: 17px;
+  padding-top: 20px;
+}
+
+.instructionsContainer {
+  border-radius: 5.351px;
+  border: 0.554px solid #B1B1B1;
+  background: #FFF;
+}
+
+.instructions {
+  color: #1A1B1C;
+  font-family: Epilogue;
+  font-size: 14px;
+  font-style: normal;
+  font-weight: 400;
+  line-height: 113%; /* 15.82px */
+  padding-top: 19px;
+  padding: 17px;
+  padding-bottom: 27px;
 }
 
 .recipeContainer {
@@ -45,17 +221,19 @@
 
 .imageRecipe {
    width: 100%;  /* Garante que a imagem não ultrapasse a largura da div */
-  height: 250px;  /* Garante que a imagem não ultrapasse a altura da div */
+   height: 161.854px;
   top: 0;
   object-fit: cover; /* Isso preserva a proporção da imagem e a cobre completamente */
 /*   transform: translateX(-25%); */ /* Ajusta a posição para o centro */
-border-radius: 5px;
+/* border-radius: 5px; */
 } 
 
 .videoCountainer {
   display: flex;
   flex-direction: column;
   align-items: center;
+  background: linear-gradient(0deg, rgba(0, 0, 0, 0.35) 0%, rgba(0, 0, 0, 0.35) 100%), url(<path-to-image>), lightgray 0.892px -104.12px / 137.579% 150.768% no-repeat;
+  
 }
 
 .videoCountainer iframe {
@@ -67,12 +245,31 @@ border-radius: 5px;
 .carrosselContainer {
   display: flex;
   flex-direction: row;
-  max-width: 320px;
-  overflow-x: auto;
+  width: 360px;
+  height: 200px;
+  overflow-y:auto;
 }
 
 .iconMealOrDrink {
   position: absolute;
   top: 10px;
   left: 15px;
+}
+
+.startButton {
+  width: 336px;
+height: 40px;
+flex-shrink: 0;
+border-radius: 5px;
+background: #FCC436;
+color: #FFF;
+text-align: center;
+font-family: Epilogue;
+font-size: 14px;
+font-style: normal;
+font-weight: 700;
+line-height: normal;
+letter-spacing: 0.42px;
+text-transform: uppercase;
+}
 }

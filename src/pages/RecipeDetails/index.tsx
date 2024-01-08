@@ -3,11 +3,12 @@ import { useLocation, useNavigate, useParams } from 'react-router-dom';
 import { fetchRecipes, fetchRecipesById } from '../../services/fetchAPI';
 import { FavoriteRecipeType, RecipeType } from '../../types';
 import RecipesContext from '../../context/RecipesContext';
-import isFavoriteImage from '../../images/blackHeartIcon.svg';
-import notFavoriteImage from '../../images/whiteHeartIcon.svg';
+import isFavoriteImage from '../../images/like.svg';
+import notFavoriteImage from '../../images/dislike.png';
 import styles from './recipeDetails.module.css';
 import mealIcon from '../../images/🦆 emoji _shortcake_.svg';
 import drinkIcon from '../../images/emoji_drink.svg';
+import shareButton from '../../images/Share.svg';
 
 function RecipeDetails() {
   const { id } = useParams();
@@ -22,7 +23,6 @@ function RecipeDetails() {
     setIsFavorite,
     recipe,
     setRecipe,
-    copyMessage,
     copyLinkDetail,
     handleClickFavorite,
   } = useContext(RecipesContext);
@@ -120,17 +120,19 @@ function RecipeDetails() {
         </div>
         <div className={ styles.buttons }>
           <button
+            className={ styles.shareButton }
             data-testid="share-btn"
             id="btn-share"
             onClick={ () => copyLinkDetail(window.location.href) }
           >
-            Compartilhar
+            <img src={ shareButton } alt="Share Button" />
 
           </button>
           <input
+            className={ styles.favoriteImage }
             type="image"
             src={ isFavorite ? isFavoriteImage : notFavoriteImage }
-            className="btn-category"
+/*             className="btn-category" */
             alt="blackHeartIcon"
             data-testid="favorite-btn"
             onClick={ () => handleClickFavorite(id as string, type, mealOrDrink) }
@@ -164,21 +166,27 @@ function RecipeDetails() {
               ) }
               <h3>Ingredients:</h3>
               <div className={ styles.ingredientsContainer }>
-                <ul
-                  data-testid={ `${index}-ingredient-name-and-measure` }
-                >
-                  {renderIngredientsAndMeasures(recipeDetail)}
-                </ul>
+                <div className={ styles.ingredients }>
+                  <ul
+                    data-testid={ `${index}-ingredient-name-and-measure` }
+                  >
+                    <p>{renderIngredientsAndMeasures(recipeDetail)}</p>
+                  </ul>
+                </div>
               </div>
               <h3>Instructions</h3>
-              <p
-                data-testid="instructions"
-              >
-                {recipeDetail.strInstructions}
+              <div className={ styles.instructionsContainer }>
+                <div className={ styles.instructions }>
+                  <p
+                    data-testid="instructions"
+                  >
+                    {recipeDetail.strInstructions}
 
-              </p>
+                  </p>
+                </div>
+              </div>
+              <h3>Video</h3>
               <div className={ styles.videoCountainer }>
-                <h3>Video</h3>
                 {location.pathname === `/meals/${id}` && (
                   <iframe
                     data-testid="video"
@@ -218,10 +226,10 @@ function RecipeDetails() {
         </div>
 
         <button
+          className={ styles.startButton }
           type="button"
           id="btn-start-recipe"
           data-testid="start-recipe-btn"
-          className="btn-start-recipe btn-category"
           onClick={ () => handleClickStartRecipe() }
         >
           {btnTitle}

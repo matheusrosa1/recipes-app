@@ -13,6 +13,7 @@ import {
   useGetFavoritesAndRecipes,
   useGetIngredientsAndMeasures,
 } from '../../hooks/useEffects';
+import styles from './recipeInProgress.module.css';
 
 function RecipeInProgress() {
   const { id } = useParams<string>();
@@ -134,21 +135,21 @@ function RecipeInProgress() {
   }, [doneRecipes]);
 
   return (
-    <div>
-      <h1>RecipeInProgress</h1>
-      <img
-        data-testid="recipe-photo"
-        src={ recipe[0] && recipe[0][getPath('img', mealsOrDrinks)] }
-        alt="Imagem do prato"
-        height={ 200 }
-      />
-      <h2 data-testid="recipe-title">
-        {recipe[0]
+    <div className={ styles.body }>
+      <div className={ styles.container }>
+        <img
+          data-testid="recipe-photo"
+          src={ recipe[0] && recipe[0][getPath('img', mealsOrDrinks)] }
+          alt="Imagem do prato"
+          height={ 200 }
+        />
+        <h2 data-testid="recipe-title">
+          {recipe[0]
       && recipe[0][getPath('name', mealsOrDrinks)]}
 
-      </h2>
-      <h3>Ingredientes:</h3>
-      {
+        </h2>
+        <h3>Ingredientes:</h3>
+        {
       ingredientsWithMeasures.map((ingredient, index) => (
         <label
           key={ index }
@@ -173,34 +174,36 @@ function RecipeInProgress() {
         </label>
       ))
     }
-      <h4 data-testid="recipe-category">
-        {`Categoria: ${recipe[0] && recipe[0][getPath('category', mealsOrDrinks)]}`}
-      </h4>
-      <span data-testid="instructions">
-        {`Instruções: ${recipe[0] && recipe[0][getPath('instructions', mealsOrDrinks)]}`}
-      </span>
-      <input
-        type="image"
-        src={ isFavorite ? isFavoriteImage : notFavoriteImage }
-        className="btn-category"
-        alt="blackHeartIcon"
-        data-testid="favorite-btn"
-        onClick={ () => handleClickFavorite(id as string, type, mealsOrDrinks) }
-      />
-      <Button
-        dataTestId="share-btn"
-        buttonLabel="Compartilhar"
-        onClick={ () => copyLinkDetail(hrefReplaced) }
-      />
-      {copyMessage && (
-        <p>Link copied!</p>
-      )}
-      <Button
-        dataTestId="finish-recipe-btn"
-        buttonLabel="Finalizar"
-        disabled={ isDisable }
-        onClick={ () => handleClickEndRecipe() }
-      />
+        <h4 data-testid="recipe-category">
+          {`Categoria: ${recipe[0] && recipe[0][getPath('category', mealsOrDrinks)]}`}
+        </h4>
+        <span data-testid="instructions">
+          {`Instruções: ${recipe[0]
+             && recipe[0][getPath('instructions', mealsOrDrinks)]}`}
+        </span>
+        <input
+          type="image"
+          src={ isFavorite ? isFavoriteImage : notFavoriteImage }
+          className="btn-category"
+          alt="blackHeartIcon"
+          data-testid="favorite-btn"
+          onClick={ () => handleClickFavorite(id as string, type, mealsOrDrinks) }
+        />
+        <Button
+          dataTestId="share-btn"
+          buttonLabel="Compartilhar"
+          onClick={ () => copyLinkDetail(hrefReplaced) }
+        />
+        {copyMessage && (
+          <p>Link copied!</p>
+        )}
+        <Button
+          dataTestId="finish-recipe-btn"
+          buttonLabel="Finalizar"
+          disabled={ isDisable }
+          onClick={ () => handleClickEndRecipe() }
+        />
+      </div>
     </div>
   );
 }

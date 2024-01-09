@@ -162,15 +162,21 @@ function RecipeDetails() {
               </h2>
             </div>
             {location.pathname === `/meals/${id}` ? (
-              <p data-testid="recipe-category">
+              <p
+                data-testid="recipe-category"
+                className={ styles.category }
+              >
                 {recipeDetail.strCategory}
               </p>
             ) : (
-              <p data-testid="recipe-category">
+              <p
+                data-testid="recipe-category"
+                className={ styles.category }
+              >
                 {recipeDetail.strAlcoholic}
               </p>
             ) }
-            <h3>Ingredients:</h3>
+            <h3>Ingredients</h3>
             <div className={ styles.ingredientsContainer }>
               <div className={ styles.ingredients }>
                 <ul
@@ -191,9 +197,9 @@ function RecipeDetails() {
                 </p>
               </div>
             </div>
-            <h3>Video</h3>
-            <div className={ styles.videoCountainer }>
-              {location.pathname === `/meals/${id}` && (
+            {location.pathname === `/meals/${id}` && (
+              <div className={ styles.videoCountainer }>
+                <h3>Video</h3>
                 <iframe
                   data-testid="video"
                   width="560"
@@ -201,15 +207,16 @@ function RecipeDetails() {
                   src={ recipeDetail.strYoutube }
                   title="YouTube video player"
                   allow="accelerometer;
-              clipboard-write; encrypted-media; gyroscope; picture-in-picture"
+                     clipboard-write; encrypted-media; gyroscope; picture-in-picture"
                   allowFullScreen
                 />
-              )}
-            </div>
+              </div>
+            )}
+
           </div>
 
         ))}
-        <h3>Recommendations:</h3>
+        <h3>Recommendations</h3>
         <div className={ styles.carrosselContainer }>
           {recommendations.slice(0, 6).map((recommendation: any, index2) => (
             <div

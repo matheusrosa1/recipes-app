@@ -9,7 +9,6 @@ import styles from './recipeDetails.module.css';
 import mealIcon from '../../images/icone-prato.svg';
 import drinkIcon from '../../images/icone-prato (1).svg';
 import shareButton from '../../images/Share.svg';
-import recipesAppLogo from '../../images/logo Recipes App.svg';
 
 function RecipeDetails() {
   const { id } = useParams();
@@ -54,7 +53,6 @@ function RecipeDetails() {
 
   const mealOrDrink = location.pathname.split('/')[1];
 
-  // Função que inclui o recipe no localStorage como concluído [EM DESENVOLVIMENTO]
   const handleClickStartRecipe = () => {
     navigate(`${location.pathname}/in-progress`);
   };
@@ -65,7 +63,6 @@ function RecipeDetails() {
       const favoriteRecipesIds = getFavoriteRecipes.map(
         (recipeMap: FavoriteRecipeType) => recipeMap.id,
       );
-      /*       console.log(favoriteRecipesIds); */
       console.log(favoriteRecipesIds);
       if (favoriteRecipesIds.includes(id as string)) {
         setIsFavorite(true);
@@ -133,7 +130,6 @@ function RecipeDetails() {
             className={ styles.favoriteImage }
             type="image"
             src={ isFavorite ? isFavoriteImage : notFavoriteImage }
-/*             className="btn-category" */
             alt="blackHeartIcon"
             data-testid="favorite-btn"
             onClick={ () => handleClickFavorite(id as string, type, mealOrDrink) }
@@ -158,7 +154,6 @@ function RecipeDetails() {
                 data-testid="recipe-title"
               >
                 {recipeDetail[name]}
-
               </h2>
             </div>
             {location.pathname === `/meals/${id}` ? (
@@ -214,7 +209,6 @@ function RecipeDetails() {
             )}
 
           </div>
-
         ))}
         <h3>Recommendations</h3>
         <div className={ styles.carrosselContainer }>
@@ -246,7 +240,6 @@ function RecipeDetails() {
         >
           {btnTitle}
         </button>
-
       </div>
     </div>
   );

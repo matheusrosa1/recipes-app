@@ -8,7 +8,6 @@
    background-color: #dbd6fc;
 }
 
-
 .container {
   align-items: center;
   display: flex;
@@ -179,22 +178,23 @@
 .componente {
   position: relative;
 }
+
 .title {
   color: #FFF;
-text-align: center;
-font-family: Epilogue, sans-serif;
-font-size: 30px;
-font-style: normal;
-font-weight: 900;
-line-height: normal;
-letter-spacing: 2.1px;
-text-transform: uppercase;
-position: absolute;
-top: 50%;
-left: 50%;
-transform: translate(-50%, -50%);
-color: white;
-text-align: center;
+  text-align: center;
+  font-family: Epilogue, sans-serif;
+  font-size: 30px;
+  font-style: normal;
+  font-weight: 900;
+  line-height: normal;
+  letter-spacing: 2.1px;
+  text-transform: uppercase;
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  color: white;
+  text-align: center;
 }
 
 .category {
@@ -211,7 +211,6 @@ text-align: center;
   width: 100%;
   display: flex;
   background-color: #fff;
-/*   text-align: center; */
   position: relative; 
 }
 
@@ -274,7 +273,6 @@ text-align: center;
 .buttons {
   position: absolute;
   display: flex;
-/*   transform: translateX(-50%); */
   right: 12px;
   top: 10px;
   gap: 10px; /* Adicione um espaçamento entre os botões conforme necessário */
@@ -293,10 +291,9 @@ text-align: center;
   display: flex;
   flex-direction: column;
   align-items: center;
-/*   background: linear-gradient(0deg, rgba(0, 0, 0, 0.35) 0%, rgba(0, 0, 0, 0.35) 100%), url(<path-to-image>), lightgray 0.892px -104.12px / 137.579% 150.768% no-repeat; */
-width: 336px;
-height: 205.091px;
-  margin-bottom: 45px;
+  width: 336px;
+  height: 205.091px;
+  margin-bottom: 50px;
 }
 
 .videoCountainer iframe {

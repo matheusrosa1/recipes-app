@@ -3,6 +3,10 @@ import Header from '../../components/Header';
 import RecipesContext from '../../context/RecipesContext';
 import RecipeCard from '../../components/RecipeCard/RecipeCard';
 import { Button } from '../../components/Forms/Button';
+import styles from './favoriteRecipes.module.css';
+import drinkIcon from '../../images/icone-prato (1).svg';
+import drinkAllIcon from '../../images/🦆 icon _fast food outline_.png';
+import mealIcon from '../../images/icone-prato.svg';
 
 function FavoriteRecipes() {
   const { favoritesRecipes, copyMessage } = useContext(RecipesContext);
@@ -37,34 +41,64 @@ function FavoriteRecipes() {
     }
   };
   return (
-    <div>
+    <>
       <Header tipo="Favorite Recipes" />
-      <Button
-        dataTestId="filter-by-all-btn"
-        onClick={ () => handleClickFilter('all') }
-        buttonLabel="All"
-      />
-      <Button
-        dataTestId="filter-by-meal-btn"
-        onClick={ () => handleClickFilter('meals') }
-        buttonLabel="Meals"
-      />
-      <Button
-        dataTestId="filter-by-drink-btn"
-        onClick={ () => handleClickFilter('drinks') }
-        buttonLabel="Drinks"
-      />
-      {favoritesRecipeFiltered && favoritesRecipeFiltered.map((favoriteRecipe, index) => (
-        <div key={ index }>
-          <RecipeCard
-            recipe={ favoriteRecipe }
-            index={ index }
-            copyMessage={ copyMessage }
-            typeRecipe="favorite"
-          />
+      <div className={ styles.container }>
+        <div className={ styles.buttonsContainer }>
+          <button
+            className={ styles.buttons }
+            data-testid="filter-by-all-btn"
+            onClick={ () => handleClickFilter('all') }
+          >
+            <img
+              src={ drinkAllIcon }
+              alt="all"
+            />
+            <p>All</p>
+          </button>
+          <button
+            className={ styles.buttons }
+            data-testid="filter-by-meal-btn"
+            onClick={ () => handleClickFilter('meals') }
+          >
+            <img
+              src={ mealIcon }
+              alt="drink"
+              data-testid="meals-bottom-btn"
+            />
+            <p>Meals</p>
+          </button>
+          <button
+            className={ styles.buttonDrink }
+            data-testid="filter-by-drink-btn"
+            onClick={ () => handleClickFilter('drinks') }
+          >
+            <img
+              src={ drinkIcon }
+              alt="drink"
+            />
+            <p>Drinks</p>
+          </button>
         </div>
-      ))}
-    </div>
+        <div className={ styles.recipesContainer }>
+          {favoritesRecipeFiltered
+          && favoritesRecipeFiltered.map((favoriteRecipe, index) => (
+            <div
+              key={ index }
+              className={ styles.RecipeItem }
+            >
+              <RecipeCard
+                recipe={ favoriteRecipe }
+                index={ index }
+                copyMessage={ copyMessage }
+                typeRecipe="favorite"
+              />
+            </div>
+          ))}
+        </div>
+
+      </div>
+    </>
   );
 }
 export default FavoriteRecipes;

@@ -10,7 +10,7 @@
    height: 100%;
 }
 
-.body {
+.bodyDSDS {
   margin: 0;
   padding: 0;
   height: 100vh; /* 100% da altura da viewport */
@@ -37,6 +37,52 @@
   padding: 2px;
   height: 100%;
 }
+
+.RecipeItem {
+  width: calc(25% - 10px); /* 10px é um exemplo de espaçamento entre os itens */
+  margin-right: 10px; /* Espaçamento entre os itens */
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  margin-top: 20px;
+  padding: 50px;
+}
+
+.recipeCard {
+  width: 163.204px;
+  height: 166.118px;
+  flex-shrink: 0;
+  border-radius: 5px;
+  border: 0.518px solid #B1B1B1;
+  background: #FFF;
+  margin-right: 10px; 
+}
+
+.recipeCard img {
+  width: 163.346px;
+  height: 134.854px;
+  flex-shrink: 0;
+  border-radius: 2.5%;
+}
+
+.recipeCard p {
+  color: #1A1B1C;
+font-family: Epilogue, sans-serif;
+font-size: 15px;
+font-style: normal;
+font-weight: 400;
+line-height: normal;
+text-align: center;
+}
+
+.recipesContainer {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: space-around;
+  margin-top: 20px;
+  margin-bottom: 55px;
+}
+
 
 @media screen and (max-width: 768px) {
   .container {

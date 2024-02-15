@@ -42,11 +42,6 @@ function DoneRecipes() {
               alt="all"
             />
           </button>
-          {/*         <Button
-          dataTestId="filter-by-all-btn"
-          onClick={ () => handleClickFilter('all') }
-          buttonLabel="All"
-        /> */}
           <button
             data-testid="filter-by-meal-btn"
             onClick={ () => handleClickFilter('meals') }
@@ -57,11 +52,6 @@ function DoneRecipes() {
               data-testid="meals-bottom-btn"
             />
           </button>
-          {/*         <Button
-          dataTestId="filter-by-meal-btn"
-          onClick={ () => handleClickFilter('meals') }
-          buttonLabel="Meals"
-        /> */}
           <button
             data-testid="filter-by-drink-btn"
             onClick={ () => handleClickFilter('drinks') }
@@ -71,21 +61,21 @@ function DoneRecipes() {
               alt="drink"
             />
           </button>
-          {/*         <Button
-          dataTestId="filter-by-drink-btn"
-          onClick={ () => handleClickFilter('drinks') }
-          buttonLabel="Drinks"
-        /> */}
-          {doneRecipesFiltered && doneRecipesFiltered.map((doneRecipe, index) => (
-            <div key={ index }>
-              <RecipeCard
-                recipe={ doneRecipe }
-                index={ index }
-                copyMessage={ copyMessage }
-                typeRecipe="done"
-              />
-            </div>
-          ))}
+          <div className={ styles.recipesContainer }>
+            {doneRecipesFiltered && doneRecipesFiltered.map((doneRecipe, index) => (
+              <div
+                key={ index }
+                className={ styles.RecipeItem }
+              >
+                <RecipeCard
+                  recipe={ doneRecipe }
+                  index={ index }
+                  copyMessage={ copyMessage }
+                  typeRecipe="done"
+                />
+              </div>
+            ))}
+          </div>
         </div>
       </div>
       <Footer />

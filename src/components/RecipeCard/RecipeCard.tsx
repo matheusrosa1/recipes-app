@@ -45,7 +45,7 @@ function RecipeCard({ recipe, index, copyMessage, typeRecipe }: RecipeCardProps)
       >
         {recipe.name}
       </h3>
-      <p data-testid={ `${index}-horizontal-done-date` }>{recipe.doneDate}</p>
+      {/*      <p data-testid={ `${index}-horizontal-done-date` }>{recipe.doneDate}</p> */}
       <input
         type="image"
         src={ shareImage }

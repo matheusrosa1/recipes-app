@@ -7,6 +7,7 @@ import styles from './doneRecipes.module.css';
 import drinkAllIcon from '../../images/🦆 icon _fast food outline_.png';
 import mealIcon from '../../images/icone-prato.svg';
 import Footer from '../../components/Footer';
+import drinkIcon from '../../images/icone-prato (1).svg';
 
 function DoneRecipes() {
   const { doneRecipes, copyMessage } = useContext(RecipesContext);
@@ -31,9 +32,11 @@ function DoneRecipes() {
   return (
     <>
       <Header tipo="Done Recipes" />
-      <div className={ styles.body }>
-        <div className={ styles.container }>
+      {/*       <div className={ styles.body }> */}
+      <div className={ styles.container }>
+        <div className={ styles.buttonsContainer }>
           <button
+            className={ styles.buttons }
             data-testid="filter-by-all-btn"
             onClick={ () => handleClickFilter('all') }
           >
@@ -41,8 +44,10 @@ function DoneRecipes() {
               src={ drinkAllIcon }
               alt="all"
             />
+            <p>All</p>
           </button>
           <button
+            className={ styles.buttons }
             data-testid="filter-by-meal-btn"
             onClick={ () => handleClickFilter('meals') }
           >
@@ -51,33 +56,37 @@ function DoneRecipes() {
               alt="drink"
               data-testid="meals-bottom-btn"
             />
+            <p>Meals</p>
           </button>
           <button
+            className={ styles.buttonDrink }
             data-testid="filter-by-drink-btn"
             onClick={ () => handleClickFilter('drinks') }
           >
             <img
-              src={ drinkAllIcon }
+              src={ drinkIcon }
               alt="drink"
             />
+            <p>Drinks</p>
           </button>
-          <div className={ styles.recipesContainer }>
-            {doneRecipesFiltered && doneRecipesFiltered.map((doneRecipe, index) => (
-              <div
-                key={ index }
-                className={ styles.RecipeItem }
-              >
-                <RecipeCard
-                  recipe={ doneRecipe }
-                  index={ index }
-                  copyMessage={ copyMessage }
-                  typeRecipe="done"
-                />
-              </div>
-            ))}
-          </div>
+        </div>
+        <div className={ styles.recipesContainer }>
+          {doneRecipesFiltered && doneRecipesFiltered.map((doneRecipe, index) => (
+            <div
+              key={ index }
+              className={ styles.RecipeItem }
+            >
+              <RecipeCard
+                recipe={ doneRecipe }
+                index={ index }
+                copyMessage={ copyMessage }
+                typeRecipe="done"
+              />
+            </div>
+          ))}
         </div>
       </div>
+      {/*       </div> */}
       <Footer />
     </>
   );

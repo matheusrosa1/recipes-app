@@ -10,7 +10,7 @@ import Footer from '../../components/Footer';
 import drinkIcon from '../../images/icone-prato (1).svg';
 
 function DoneRecipes() {
-  const { doneRecipes, copyMessage } = useContext(RecipesContext);
+  const { doneRecipes, copyMessage, isFavorite } = useContext(RecipesContext);
   const [doneRecipesFiltered, setDoneRecipesFiltered] = useState(doneRecipes);
 
   const handleClickFilter = (filter: string) => {

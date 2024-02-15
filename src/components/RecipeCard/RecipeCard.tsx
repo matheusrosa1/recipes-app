@@ -15,9 +15,16 @@ export type RecipeCardProps = {
 };
 
 function RecipeCard({ recipe, index, copyMessage, typeRecipe }: RecipeCardProps) {
-  const { copyLinkDetail, handleClickFavorite, isFavorite } = useContext(RecipesContext);
+  const { copyLinkDetail,
+    handleClickFavorite, favoritesRecipes } = useContext(RecipesContext);
   const navigate = useNavigate();
   /*   const isFavorite = useContext(RecipesContext); */
+
+  const isFavoriteRecipe = favoritesRecipes
+    .some((favRecipe) => favRecipe.id === recipe.id);
+
+  // Define o estado de favorito apenas para a receita atual
+  const [isFavorite, setIsFavorite] = useState(isFavoriteRecipe);
 
   const path = window.location.href.split('/');
   return (
@@ -71,19 +78,22 @@ function RecipeCard({ recipe, index, copyMessage, typeRecipe }: RecipeCardProps)
             {tag}
           </p>
           ))} */}
-          {/*           <input
+          <input
             type="image"
             src={ isFavorite ? isFavoriteImage : notFavoriteImage }
             className="btn-category"
             alt="blackHeartIcon"
             data-testid={ `${index}-horizontal-favorite-btn` }
-            onClick={ () => handleClickFavorite(
-              recipe.id as string,
-              recipe.type as string,
-              recipe.type === 'meal' ? 'meals' : 'cocktails',
-            ) }
+            onClick={ () => {
+              handleClickFavorite(
+                recipe.id as string,
+                recipe.type as string,
+                recipe.type === 'meal' ? 'meals' : 'cocktails',
+              );
+              setIsFavorite(!isFavorite); // Inverte o estado apenas para a receita atual
+            } }
             style={ { maxWidth: '100%', maxHeight: '100%' } }
-          /> */}
+          />
         </div>
       </div>
     </div>

@@ -1,0 +1,23 @@
+.footer {
+  background: #41197F;
+  display: flex;
+  flex-shrink: 0;
+  height: 52px;
+  justify-content: space-between;
+  padding: 5px;
+  width: 100%;
+  position: fixed;
+  bottom: 0;
+}
+
+.footer img {
+  width: 40.334px;
+  height: 29.532px;
+  flex-shrink: 0;
+}
+
+.buttonWithoutBorder {
+  background: none;
+  border: none;
+  padding: 5px;
+}

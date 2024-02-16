@@ -1,5 +1,8 @@
 import React, { useState, useEffect, FormEvent } from 'react';
 import { useNavigate } from 'react-router-dom';
+import styles from './login.module.css';
+import recipesAppLogo from '../../images/logo Recipes App.svg';
+import tomatosImg from '../../images/tomate.png';
 
 function Login() {
   const [email, setEmail] = useState('');
@@ -37,21 +40,43 @@ function Login() {
   };
 
   return (
-    <div>
-      <form onSubmit={ handleSubmit }>
+    <div className={ styles.container }>
+      <img
+        className={ styles.logo }
+        src={ recipesAppLogo }
+        alt="Logo"
+      />
+      <img
+        className={ styles.imageTomato }
+        src={ tomatosImg }
+        alt="TomatosImg"
+      />
+      <form
+        onSubmit={ handleSubmit }
+        className={ styles.formContainer }
+      >
+        <h1 className={ styles.title }>LOGIN</h1>
         <input
+          className={ styles.inputStyle }
           type="text"
           data-testid="email-input"
           value={ email }
           onChange={ handleEmailChange }
+          placeholder="Email"
         />
         <input
+          className={ styles.inputStyle }
           type="password"
           data-testid="password-input"
           value={ password }
           onChange={ handlePasswordChange }
+          placeholder="Password"
         />
-        <button data-testid="login-submit-btn" disabled={ isButtonDisabled }>
+        <button
+          data-testid="login-submit-btn"
+          disabled={ isButtonDisabled }
+          className={ styles.buttonStyle }
+        >
           Enter
         </button>
       </form>

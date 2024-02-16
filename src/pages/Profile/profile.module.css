@@ -1,0 +1,64 @@
+.profileContainer {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  margin-top: 100px;
+}
+
+.profileContainer h1 {
+  font-family: Epilogue;
+font-size: 35px;
+font-weight: 700;
+line-height: 16px;
+letter-spacing: 0em;
+text-align: center;
+}
+
+.buttonsContainer {
+  display: flex;
+  width: 100%;
+  margin-top: 50px;
+  flex-direction: column;
+  align-items: center;
+  gap: 10px;
+/*   margin-right: 35px; */
+}
+
+.buttons {
+  display: flex;
+  background: none;
+  border: none;
+  padding: 5px;
+  width: 60px;
+  height: 60px;
+  margin-top: 35px;
+  border-bottom: 1px solid #797D86;
+  width: 250px;
+}
+
+.buttons p {
+  color: #797D86;
+  text-align: center;
+  font-family: Epilogue, sans-serif;
+  font-size: 20px;
+  font-style: normal;
+  font-weight: 300;
+  line-height: normal;
+  width: 50px;
+  white-space: nowrap;
+}
+
+.buttons img {
+/*   display: flex;
+  background: none;
+  border: none; */
+  padding: 5px;
+  width: 40px;
+/*   height: 35px; */
+  margin-right: 20px;
+}
+
+.logout {
+  margin-top: 8px;
+}

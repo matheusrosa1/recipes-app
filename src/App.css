@@ -1,6 +1,10 @@
-* {
-  background-color: rgb(56, 56, 56);
-  color: aliceblue;
+body {
+  width: 80%; /* Ocupa toda a largura da tela */
+  height: 100vh; /* Ocupa 100% da altura da viewport */
+  margin: 0; /* Remove as margens padrão do corpo */
+  display: flex;
+  justify-content: center;
+  align-items: center;
 }
 
 .meals {

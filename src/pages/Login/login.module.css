@@ -1,0 +1,76 @@
+.container {
+  align-items: center;
+  background: linear-gradient(to bottom, #41197f 50%, white 50%);
+  display: flex;
+  flex-direction: column;
+  height: 100vh;
+  justify-content: center;
+  width: 100%;
+}
+
+.logo {
+  flex-shrink: 0;
+  height: 157.25px;
+  width: 198px;
+}
+
+.imageTomato {
+  flex-shrink: 0;
+  height: 279px;
+  width: 458px;
+}
+
+.formContainer {
+  align-items: center;
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+  justify-content: center;
+}
+
+.title {
+  color: #41197f;
+  font-family: Epilogue , sans-serif;
+  font-size: 20px;
+  font-style: italic;
+  font-weight: 500;
+  letter-spacing: 3.3px;
+  line-height: normal;
+  text-align: center;
+  text-transform: uppercase;
+  width: 182px;
+}
+
+.inputStyle {
+  border: 0.5px solid #41197f;
+  border-radius: 5px;
+  flex-shrink: 0;
+  height: 40px;
+  width: 276px;
+}
+
+.inputStyle::placeholder {
+  color: #41197f;
+  font-family: Epilogue , sans-serif;
+  font-size: 14px;
+  font-style: normal;
+  font-weight: 300;
+  line-height: normal;
+}
+
+.buttonStyle {
+  background: #fcc436;
+  border-radius: 5px;
+  color: white;
+  flex-shrink: 0;
+  font-family: Epilogue , sans-serif;
+  font-size: 14px;
+  font-style: normal;
+  font-weight: 700;
+  height: 40px;
+  letter-spacing: 0.42px;
+  line-height: normal;
+  text-align: center;
+  text-transform: uppercase;
+  width: 276px;
+}

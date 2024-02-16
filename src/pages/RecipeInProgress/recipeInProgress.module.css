@@ -1,0 +1,384 @@
+/* html, body {
+  height: 100%;
+  margin: 0;
+}
+ */
+
+.body {
+  margin: 0;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  width: 100%; /* Largura total do corpo */
+/*   background-color: #fcf4cd; */
+   background-color: #dbd6fc;
+}
+
+.container {
+  align-items: center;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  width:50%;
+  display: flex;
+  background-color: #fff;
+  position: relative; 
+  border-radius: 5px;
+  border-width: 1100px;
+  border-color: #1A1B1C;
+  border: 0.554px solid #B1B1B1;
+  padding: 2px;
+  min-height: 100vh;
+}
+
+.container h3 {
+  color: #1A1B1C;
+  font-family: Epilogue, sans-serif;
+  font-size: 25px;
+  font-style: normal;
+  font-weight: 700;
+  line-height: normal;
+}
+
+.ingredientsContainer {
+  border-radius: 5.351px;
+  border: 0.554px solid #B1B1B1;
+  background: #FFF;
+  width: 100%;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  margin-bottom: 25px;
+  flex-direction: column;
+}
+
+.ingredientsContainer span {
+  color: #1A1B1C;
+  font-family: Epilogue, sans-serif;
+  font-size: 18px;
+  font-style: normal;
+  font-weight: 400;
+  line-height: normal;
+/*   padding: 10px;
+  padding-top: 20px; */
+  margin-left: 10px;
+}
+
+
+.instructionsContainer {
+  border-radius: 5.351px;
+  border: 0.554px solid #B1B1B1;
+  background: #FFF;
+  width: 100%;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  margin-bottom: 25px;
+}
+
+.instructions {
+  border-radius: 5.351px;
+  border: 0.554px solid #B1B1B1;
+  background: #FFF;
+  width: 100%;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  margin-bottom: 25px;
+  flex-direction: column;
+}
+
+.recipeContainer {
+  width: 100%;
+  display: flex;
+  justify-content: center;
+  flex-direction: column;
+  align-items: center;
+}
+
+.buttons {
+  position: absolute;
+  display: flex;
+/*   transform: translateX(-50%); */
+  right: 12px;
+  top: 10px;
+  gap: 10px; /* Adicione um espaçamento entre os botões conforme necessário */
+}
+
+.shareButton {
+  background: none;
+  border: none;
+  padding: 5px;
+}
+
+.favoriteImage {
+  margin-top: 8px;
+  width: 22.89px;
+  height: 20.299px;
+}
+.imageRecipe {
+   width: 332px;  /* Garante que a imagem não ultrapasse a largura da div */
+   height: 363px;
+  top: 0;
+  object-fit: cover; /* Isso preserva a proporção da imagem e a cobre completamente */
+  border-radius: 5%;
+/*   transform: translateX(-25%); */ /* Ajusta a posição para o centro */
+/* border-radius: 5px; */
+} 
+
+.videoCountainer {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+/*   background: linear-gradient(0deg, rgba(0, 0, 0, 0.35) 0%, rgba(0, 0, 0, 0.35) 100%), url(<path-to-image>), lightgray 0.892px -104.12px / 137.579% 150.768% no-repeat; */
+  margin-bottom: 55px;
+  width: 60%;
+  height: 35vh;
+}
+
+ .videoCountainer iframe {
+  width: 100%;
+  height: 100%;
+  flex-shrink: 0;
+} 
+
+.carrosselContainer {
+  display: flex;
+  flex-direction: row;
+  width: 100%;
+  height: 200px;
+  gap: 10px;
+  border-radius: 5.351px;
+  border: 0.554px solid #B1B1B1;
+  background: #FFF;
+  overflow-x: auto;
+  margin-bottom: 25px;
+}
+
+.carrosselContainer img {
+  width: 163.346px;
+  height: 134.854px;
+}
+
+.iconMealOrDrink {
+  position: absolute;
+  top: 10px;
+  left: 15px;
+}
+
+.finishButton {
+  width: 336px;
+  height: 40px;
+  flex-shrink: 0;
+  border-radius: 5px;
+  background: #FCC436;
+  color: #FFF;
+  text-align: center;
+  font-family: Epilogue, sans-serif;
+  font-size: 16px;
+  font-style: normal;
+  font-weight: 700;
+  line-height: normal;
+  letter-spacing: 0.42px;
+  text-transform: uppercase;
+}
+
+.componente {
+  position: relative;
+}
+
+.title {
+  color: #FFF;
+  text-align: center;
+  font-family: Epilogue, sans-serif;
+  font-size: 30px;
+  font-style: normal;
+  font-weight: 900;
+  line-height: normal;
+  letter-spacing: 2.1px;
+  text-transform: uppercase;
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  color: white;
+  text-align: center;
+}
+
+.category {
+  font-style: italic;
+/*   font-size: 15px; */
+}
+
+.customCheckbox {
+  display: none; /* Oculta o checkbox padrão */
+}
+
+.checkboxCustom {
+/*   position: absolute; */
+  left: 0;
+  top: 2px; /* Ajuste conforme necessário para centralizar verticalmente */
+  width: 15px; /* Tamanho do checkbox */
+  height: 15px;
+  border-radius: 5px; /*   Bordas arredondadas */
+  border: 5px solid #f90; /* Cor da borda do checkbox */
+  background-color: #da9d9d; /* Cor de fundo do checkbox */
+  cursor: pointer;
+}
+
+.recipeContainer {
+  width: 100%;
+  display: flex;
+  justify-content: center;
+  flex-direction: column;
+  align-items: center;
+}
+
+@media screen and (max-width: 768px) {
+  .container {
+    align-items: center;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    width: 100%;
+    display: flex;
+    background-color: #fff;
+    position: relative; 
+  }
+  
+  .container h3 {
+    color: #1A1B1C;
+    font-family: Epilogue, sans-serif;
+    font-size: 20px;
+    font-style: normal;
+    font-weight: 700;
+    line-height: normal;
+  }
+  
+  .ingredientsContainer {
+    border-radius: 5.351px;
+    border: 0.554px solid #B1B1B1;
+    background: #FFF;
+    margin-bottom: 20px;
+  }
+  
+  .ingredientsContainer span {
+    color: #1A1B1C;
+    font-family: Epilogue, sans-serif;
+    font-size: 14px;
+    font-style: normal;
+    font-weight: 400;
+    line-height: normal;
+    padding: 17px;
+    padding-top: 20px;
+  }
+  
+  .instructionsContainer {
+    border-radius: 5.351px;
+    border: 0.554px solid #B1B1B1;
+    background: #FFF;
+    margin-bottom: 20px;
+  }
+  
+  .instructions {
+    color: #1A1B1C;
+    font-family: Epilogue;
+    font-size: 14px;
+    font-style: normal;
+    font-weight: 400;
+    line-height: 113%; /* 15.82px */
+    padding-top: 19px;
+    padding: 17px;
+    padding-bottom: 27px;
+    text-align: center;
+  }
+  
+  .recipeContainer {
+    width: 100%;
+  }
+  
+  .componente {
+    position: relative;
+    width: 100%;
+  }
+  
+  .buttons {
+    position: absolute;
+    display: flex;
+    right: 12px;
+    top: 10px;
+    gap: 10px; /* Adicione um espaçamento entre os botões conforme necessário */
+  }
+  
+  .imageRecipe {
+     width: 100%;  /* Garante que a imagem não ultrapasse a largura da div */
+     height: 161.854px;
+    top: 0;
+    object-fit: cover; /* Isso preserva a proporção da imagem e a cobre completamente */
+  /*   transform: translateX(-25%); */ /* Ajusta a posição para o centro */
+  /* border-radius: 5px; */
+  } 
+  
+  .videoCountainer {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    width: 336px;
+    height: 205.091px;
+    margin-bottom: 50px;
+  }
+  
+  .videoCountainer iframe {
+    width: 100%;
+    height: 100%;
+    flex-shrink: 0;
+  }
+  
+  .carrosselContainer {
+    display: flex;
+    flex-direction: row;
+    width: 360px;
+    height: 200px;
+    overflow-y:auto;
+    margin-bottom: 20px;
+  }
+  
+  .iconMealOrDrink {
+    position: absolute;
+    top: 10px;
+    left: 15px;
+  }
+  
+  .startButton {
+    width: 336px;
+    height: 40px;
+    flex-shrink: 0;
+    border-radius: 5px;
+    background: #FCC436;
+    color: #FFF;
+    text-align: center;
+    font-family: Epilogue;
+    font-size: 14px;
+    font-style: normal;
+    font-weight: 700;
+    line-height: normal;
+    letter-spacing: 0.42px;
+    text-transform: uppercase;
+  }
+  
+  .title {
+    color: #FFF;
+    text-align: center;
+    font-family: Epilogue;
+    font-size: 20px;
+    font-style: normal;
+    font-weight: 900;
+    line-height: normal;
+    letter-spacing: 2.1px;
+    text-transform: uppercase;
+  }
+  .category {
+    font-style: italic;
+     font-size: 12px;
+  }
+  }

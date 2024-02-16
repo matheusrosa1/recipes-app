@@ -1,9 +1,12 @@
 import { useContext, useEffect, useState } from 'react';
 import { useLocation, useNavigate, useParams } from 'react-router-dom';
 import RecipesContext from '../../context/RecipesContext';
-import isFavoriteImage from '../../images/blackHeartIcon.svg';
-import notFavoriteImage from '../../images/whiteHeartIcon.svg';
+import isFavoriteImage from '../../images/like.svg';
+import notFavoriteImage from '../../images/dislike.png';
 import { Button } from '../../components/Forms/Button';
+import mealIcon from '../../images/icone-prato.svg';
+import drinkIcon from '../../images/icone-prato (1).svg';
+import shareButton from '../../images/Share.svg';
 import {
   CheckedIngredientsType,
   DoneRecipeType,
@@ -13,6 +16,7 @@ import {
   useGetFavoritesAndRecipes,
   useGetIngredientsAndMeasures,
 } from '../../hooks/useEffects';
+import styles from './recipeInProgress.module.css';
 
 function RecipeInProgress() {
   const { id } = useParams<string>();
@@ -132,75 +136,100 @@ function RecipeInProgress() {
       navigate('/done-recipes');
     }
   }, [doneRecipes]);
+  const mealOrDrink = location.pathname.split('/')[1];
 
   return (
-    <div>
-      <h1>RecipeInProgress</h1>
-      <img
-        data-testid="recipe-photo"
-        src={ recipe[0] && recipe[0][getPath('img', mealsOrDrinks)] }
-        alt="Imagem do prato"
-        height={ 200 }
-      />
-      <h2 data-testid="recipe-title">
-        {recipe[0]
+    <div className={ styles.body }>
+      <div className={ styles.container }>
+        <div className={ styles.iconMealOrDrink }>
+          <img
+            src={ location.pathname === `/meals/${id}/in-progress`
+              ? mealIcon : drinkIcon }
+            alt="Icon Drink or Meal"
+          />
+        </div>
+        <div className={ styles.buttons }>
+          <button
+            className={ styles.shareButton }
+            data-testid="share-btn"
+            id="btn-share"
+            onClick={ () => copyLinkDetail(window.location.href) }
+          >
+            <img src={ shareButton } alt="Share Button" />
+
+          </button>
+          <input
+            className={ styles.favoriteImage }
+            type="image"
+            src={ isFavorite ? isFavoriteImage : notFavoriteImage }
+            alt="blackHeartIcon"
+            data-testid="favorite-btn"
+            onClick={ () => handleClickFavorite(id as string, type, mealOrDrink) }
+            style={ { maxWidth: '100%', maxHeight: '100%' } }
+          />
+        </div>
+        <div className={ styles.recipeContainer }>
+          <div className={ styles.componente }>
+            <img
+              className={ styles.imageRecipe }
+              data-testid="recipe-photo"
+              src={ recipe[0] && recipe[0][getPath('img', mealsOrDrinks)] }
+              alt="Imagem do prato"
+              height={ 200 }
+            />
+            <h2
+              data-testid="recipe-title"
+              className={ styles.title }
+            >
+              {recipe[0]
       && recipe[0][getPath('name', mealsOrDrinks)]}
 
-      </h2>
-      <h3>Ingredientes:</h3>
-      {
-      ingredientsWithMeasures.map((ingredient, index) => (
-        <label
-          key={ index }
-          data-testid={ `${index}-ingredient-step` }
-          style={ {
-            textDecoration: checkedIngredients[mealsOrDrinks][id as string]
-              && checkedIngredients[mealsOrDrinks][id as string].includes(ingredient)
-              ? 'line-through solid rgb(0, 0, 0)'
-              : 'none',
-          } }
+            </h2>
+          </div>
+          <p
+            data-testid="recipe-category"
+            className={ styles.category }
+          >
+            {`${recipe[0] && recipe[0][getPath('category', mealsOrDrinks)]}`}
+          </p>
+          <h3>Ingredients</h3>
+          <div className={ styles.ingredientsContainer }>
+            {ingredientsWithMeasures.map((ingredient, index) => (
+              <label
+                key={ index }
+                data-testid={ `${index}-ingredient-step` }
+              >
+                <input
+                  className={ styles.checkboxCustom }
+                  type="checkbox"
+                  onChange={ () => handleCheckedIngredients(ingredient) }
+                />
+                <span>{ingredient}</span>
+              </label>
+            ))}
+          </div>
+          <h3>Instructions</h3>
+          <div className={ styles.instructionsContainer }>
+            <span
+              data-testid="instructions"
+              className={ styles.instructions }
+            >
+              {`${recipe[0]
+             && recipe[0][getPath('instructions', mealsOrDrinks)]}`}
+            </span>
+          </div>
+        </div>
+        <button
+          className={ styles.finishButton }
+          type="button"
+          id="btn-start-recipe"
+          data-testid="finish-recipe-btn"
+          disabled={ isDisable }
+          onClick={ () => handleClickEndRecipe() }
         >
-          <input
-            type="checkbox"
-            checked={
-              (checkedIngredients[mealsOrDrinks][id as string]
-              && checkedIngredients[mealsOrDrinks][id as string].includes(ingredient))
-              || false
-            }
-            onChange={ () => handleCheckedIngredients(ingredient) }
-          />
-          {ingredient}
-        </label>
-      ))
-    }
-      <h4 data-testid="recipe-category">
-        {`Categoria: ${recipe[0] && recipe[0][getPath('category', mealsOrDrinks)]}`}
-      </h4>
-      <span data-testid="instructions">
-        {`Instruções: ${recipe[0] && recipe[0][getPath('instructions', mealsOrDrinks)]}`}
-      </span>
-      <input
-        type="image"
-        src={ isFavorite ? isFavoriteImage : notFavoriteImage }
-        className="btn-category"
-        alt="blackHeartIcon"
-        data-testid="favorite-btn"
-        onClick={ () => handleClickFavorite(id as string, type, mealsOrDrinks) }
-      />
-      <Button
-        dataTestId="share-btn"
-        buttonLabel="Compartilhar"
-        onClick={ () => copyLinkDetail(hrefReplaced) }
-      />
-      {copyMessage && (
-        <p>Link copied!</p>
-      )}
-      <Button
-        dataTestId="finish-recipe-btn"
-        buttonLabel="Finalizar"
-        disabled={ isDisable }
-        onClick={ () => handleClickEndRecipe() }
-      />
+          <span>Finalizar</span>
+        </button>
+      </div>
     </div>
   );
 }

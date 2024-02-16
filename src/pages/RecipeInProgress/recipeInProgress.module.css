@@ -22,14 +22,13 @@
   width:50%;
   display: flex;
   background-color: #fff;
-/*   text-align: center; */
   position: relative; 
   border-radius: 5px;
   border-width: 1100px;
   border-color: #1A1B1C;
   border: 0.554px solid #B1B1B1;
   padding: 2px;
-  min-height: 100vh; /* Use min-height em vez de height */
+  min-height: 100vh;
 }
 
 .container h3 {
@@ -53,16 +52,18 @@
   flex-direction: column;
 }
 
-.ingredients {
+.ingredientsContainer span {
   color: #1A1B1C;
   font-family: Epilogue, sans-serif;
   font-size: 18px;
   font-style: normal;
   font-weight: 400;
   line-height: normal;
-  padding: 17px;
-  padding-top: 20px;
+/*   padding: 10px;
+  padding-top: 20px; */
+  margin-left: 10px;
 }
+
 
 .instructionsContainer {
   border-radius: 5.351px;
@@ -261,7 +262,7 @@
     margin-bottom: 20px;
   }
   
-  .ingredients {
+  .ingredientsContainer span {
     color: #1A1B1C;
     font-family: Epilogue, sans-serif;
     font-size: 14px;

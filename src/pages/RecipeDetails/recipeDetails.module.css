@@ -23,6 +23,7 @@
   border-color: #1A1B1C;
   border: 0.554px solid #B1B1B1;
   padding: 2px;
+  min-height: 100vh;
 }
 
 .container h3 {

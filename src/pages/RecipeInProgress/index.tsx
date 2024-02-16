@@ -143,7 +143,7 @@ function RecipeInProgress() {
       <div className={ styles.container }>
         <div className={ styles.iconMealOrDrink }>
           <img
-            src={ location.pathname === `/meals/${id}`
+            src={ location.pathname === `/meals/${id}/in-progress`
               ? mealIcon : drinkIcon }
             alt="Icon Drink or Meal"
           />
@@ -194,22 +194,19 @@ function RecipeInProgress() {
           </p>
           <h3>Ingredients</h3>
           <div className={ styles.ingredientsContainer }>
-            {/*             <div className={ styles.ingredients }> */}
-            {
-      ingredientsWithMeasures.map((ingredient, index) => (
-        <label
-          key={ index }
-          data-testid={ `${index}-ingredient-step` }
-        >
-          <input
-            className={ styles.checkboxCustom }
-            type="checkbox"
-            onChange={ () => handleCheckedIngredients(ingredient) }
-          />
-          {ingredient}
-        </label>
-      ))
-    }
+            {ingredientsWithMeasures.map((ingredient, index) => (
+              <label
+                key={ index }
+                data-testid={ `${index}-ingredient-step` }
+              >
+                <input
+                  className={ styles.checkboxCustom }
+                  type="checkbox"
+                  onChange={ () => handleCheckedIngredients(ingredient) }
+                />
+                <span>{ingredient}</span>
+              </label>
+            ))}
           </div>
           <h3>Instructions</h3>
           <div className={ styles.instructionsContainer }>
